@@ -1,0 +1,89 @@
+package com.release.mvp_kt.ext
+
+import com.orhanobut.logger.Logger
+import com.release.mvp_kt.App
+import com.release.mvp_kt.R
+import com.release.mvp_kt.base.IModel
+import com.release.mvp_kt.base.IView
+import com.release.mvp_kt.http.exception.ErrorStatus
+import com.release.mvp_kt.http.exception.ExceptionHandle
+import com.release.mvp_kt.http.function.RetryWithDelay
+import com.release.mvp_kt.mvp.model.bean.BaseBean
+import com.release.mvp_kt.rx.SchedulerUtils
+import com.release.mvp_kt.utils.NetWorkUtil
+import io.reactivex.Observable
+import io.reactivex.Observer
+import io.reactivex.disposables.Disposable
+
+/**
+ * @author Mr.release
+ * @create 2019/6/25
+ * @Describe
+ */
+fun <T : BaseBean> Observable<T>.ss(
+    model: IModel?,
+    view: IView?,
+    isShowLoading: Boolean = true,
+    onSuccess: (T) -> Unit  //T.()->Unit里的this代表的是自身实例，而()->Unit里，this代表的是外部类的实例
+) {
+    this.compose(SchedulerUtils.ioToMain())
+        .retryWhen(RetryWithDelay())
+        .subscribe(object : Observer<T> {
+
+            override fun onSubscribe(d: Disposable) {
+
+                if (isShowLoading) view?.showLoading()
+
+                model?.addDisposable(d)
+
+                if (!NetWorkUtil.isNetworkConnected(App.instance)) {
+                    view?.showDefaultMsg(App.instance.resources.getString(R.string.network_unavailable_tip))
+                    onComplete()
+                }
+            }
+
+            override fun onNext(t: T) {
+                when {
+                    t.errorCode == ErrorStatus.SUCCESS -> onSuccess.invoke(t)
+                    t.errorCode == ErrorStatus.TOKEN_INVALID -> {
+                        view?.showDefaultMsg("Token 过期，重新登录")
+                    }
+                    else -> view?.showDefaultMsg(t.errorMsg)
+                }
+            }
+
+            override fun onError(e: Throwable) {
+                Logger.i("onError: ${e.message}")
+                view?.hideLoading()
+                view?.showError(ExceptionHandle.handleException(e))
+            }
+
+            override fun onComplete() {
+                view?.hideLoading()
+            }
+
+        })
+}
+
+fun <T : BaseBean> Observable<T>.sss(
+    view: IView?,
+    isShowLoading: Boolean = true,
+    onSuccess: (T) -> Unit
+): Disposable {
+    if (isShowLoading) view?.showLoading()
+    return this.compose(SchedulerUtils.ioToMain())
+        .retryWhen(RetryWithDelay())
+        .subscribe({
+            when {
+                it.errorCode == ErrorStatus.SUCCESS -> onSuccess.invoke(it)
+                it.errorCode == ErrorStatus.TOKEN_INVALID -> {
+                    // Token 过期，重新登录
+                }
+                else -> view?.showDefaultMsg(it.errorMsg)
+            }
+            view?.hideLoading()
+        }, {
+            view?.hideLoading()
+            view?.showError(ExceptionHandle.handleException(it))
+        })
+}
