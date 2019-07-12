@@ -623,19 +623,19 @@ public class LazyViewPager extends ViewGroup {
         }
 
         mAdapter.startUpdate(this);
-     
+
         final int pageLimit = mOffscreenPageLimit;
         final int startPos = Math.max(0, mCurItem - pageLimit);
         final int N = mAdapter.getCount();
         final int endPos = Math.min(N-1, mCurItem + pageLimit);
        //
         /**
-         * 
+         *
          * startPos = 1
          * endPos = 1
          */
 //        startPos =1  endPos=1
-        
+
 
         if (DEBUG) Log.v(TAG, "populating: startPos=" + startPos + " endPos=" + endPos);
 

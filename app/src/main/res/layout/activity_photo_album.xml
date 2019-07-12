@@ -9,7 +9,7 @@
                              app:mode="drag"
 >
 
-    <com.release.base.widget.PhotoViewPager
+    <com.release.mvp_kt.widget.PhotoViewPager
         android:id="@+id/vp_photo"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -66,7 +66,7 @@
 
     </LinearLayout>
 
-    <com.release.base.widget.IToolBar
+    <com.release.mvp_kt.widget.IToolBar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

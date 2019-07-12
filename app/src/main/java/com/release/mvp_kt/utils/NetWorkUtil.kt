@@ -15,6 +15,7 @@ import java.net.URL
  * @create 2019/7/10
  * @Describe
  */
+@Suppress("DEPRECATION")
 class NetWorkUtil {
     companion object {
 
@@ -168,8 +169,9 @@ class NetWorkUtil {
                 //获取NetworkInfo对象
                 val networkInfo = manager.activeNetworkInfo
                 //判断NetworkInfo对象是否为空 并且类型是否为MOBILE
-                if (null != networkInfo && networkInfo.type == ConnectivityManager.TYPE_MOBILE)
+                if (null != networkInfo && networkInfo.type == ConnectivityManager.TYPE_MOBILE) {
                     return networkInfo.isAvailable
+                }
             }
             return false
         }

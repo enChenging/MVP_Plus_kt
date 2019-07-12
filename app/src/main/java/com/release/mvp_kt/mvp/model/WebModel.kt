@@ -1,5 +1,6 @@
 package com.release.mvp_kt.mvp.model
 
+import com.release.mvp_kt.base.BaseModel
 import com.release.mvp_kt.mvp.contract.WebContracnt
 
 /**
@@ -7,4 +8,4 @@ import com.release.mvp_kt.mvp.contract.WebContracnt
  * @create 2019/6/25
  * @Describe
  */
-class WebModel : CommonModel(),WebContracnt.Model
+class WebModel : BaseModel(), WebContracnt.Model

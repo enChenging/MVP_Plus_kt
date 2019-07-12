@@ -1,5 +1,9 @@
 package com.release.mvp_kt.mvp.contract
 
+import com.release.mvp_kt.base.IModel
+import com.release.mvp_kt.base.IPresenter
+import com.release.mvp_kt.base.IView
+
 /**
  * @author Mr.release
  * @create 2019/6/25
@@ -7,9 +11,9 @@ package com.release.mvp_kt.mvp.contract
  */
 interface WebContracnt {
 
-    interface View :CommonContract.View
+    interface View : IView
 
-    interface Presenter:CommonContract.Presenter<View>
+    interface Presenter : IPresenter<View>
 
-    interface Model:CommonContract.Model
+    interface Model : IModel
 }

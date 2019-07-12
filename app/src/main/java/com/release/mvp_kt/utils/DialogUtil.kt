@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.release.mvp_kt.utils
 
 import android.app.ProgressDialog

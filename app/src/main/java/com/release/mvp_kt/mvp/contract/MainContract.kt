@@ -3,8 +3,7 @@ package com.release.mvp_kt.mvp.contract
 import com.release.mvp_kt.base.IModel
 import com.release.mvp_kt.base.IPresenter
 import com.release.mvp_kt.base.IView
-import com.release.mvp_kt.mvp.model.bean.HttpResult
-import io.reactivex.Observable
+
 
 /**
  * @author Mr.release
@@ -13,7 +12,7 @@ import io.reactivex.Observable
  */
 interface MainContract {
 
-    interface View :IView
+    interface View : IView
 
     interface Presenter: IPresenter<View>
 

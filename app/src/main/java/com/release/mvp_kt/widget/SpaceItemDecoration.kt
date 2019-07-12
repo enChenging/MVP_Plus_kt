@@ -17,6 +17,7 @@ import android.view.View
  * @create 2019/7/10
  * @Describe
  */
+@Suppress("ReplaceJavaStaticMethodWithKotlinAnalog", "DEPRECATION")
 class SpaceItemDecoration(context: Context) : androidx.recyclerview.widget.RecyclerView.ItemDecoration() {
 
     private var mDivider: Drawable? = null

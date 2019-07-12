@@ -1,11 +1,8 @@
 package com.cxz.wanandroid.widget.behavior
 
-import android.content.Context
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.core.view.ViewCompat
 import androidx.core.view.ViewPropertyAnimatorListener
-import android.util.AttributeSet
 import android.view.View
 import com.release.mvp_kt.utils.AnimatorUtil
 
@@ -26,7 +23,7 @@ class ScrollAwareFABBehavior : FloatingActionButton.Behavior {
      */
     private var isShow = true
 
-    constructor(context: Context, attrs: AttributeSet) : super()
+    constructor() : super()
 
     override fun onStartNestedScroll(coordinatorLayout: androidx.coordinatorlayout.widget.CoordinatorLayout,
                                      child: FloatingActionButton,

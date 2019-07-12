@@ -1,22 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/page_news"
-        android:icon="@drawable/selector_home"
-        android:title="@string/title_news" />
+            android:id="@+id/page_news"
+            android:enabled="true"
+            android:icon="@drawable/selector_home"
+            android:title="@string/title_news"
+            app:showAsAction="ifRoom"
+    />
 
     <item
-        android:id="@+id/page_notice"
-        android:icon="@drawable/selector_video"
-        android:title="@string/title_video" />
+            android:id="@+id/page_notice"
+            android:enabled="true"
+            android:icon="@drawable/selector_video"
+            android:title="@string/title_video"
+            app:showAsAction="ifRoom"
+    />
 
     <item
-        android:id="@+id/page_recommend"
-        android:icon="@drawable/selector_find"
-        android:title="@string/title_recommend" />
+            android:id="@+id/page_recommend"
+            android:enabled="true"
+            android:icon="@drawable/selector_find"
+            android:title="@string/title_recommend"
+            app:showAsAction="ifRoom"
+    />
     <item
-        android:id="@+id/page_address"
-        android:icon="@drawable/selector_kinds"
-        android:title="@string/title_kinds" />
+            android:id="@+id/page_address"
+            android:enabled="true"
+            android:icon="@drawable/selector_kinds"
+            android:title="@string/title_kinds"
+            app:showAsAction="ifRoom"
+    />
 
 </menu>

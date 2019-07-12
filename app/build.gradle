@@ -57,9 +57,9 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    configurations {
-        all*.exclude group: 'com.android.support', module: 'support-v13'
-    }
+//    configurations {
+//        all*.exclude group: 'com.android.support', module: 'support-v13'
+//    }
     implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
@@ -83,26 +83,31 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.8'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.3.0'
-    implementation "org.jetbrains.anko:anko-commons:0.10.8"
-    implementation "com.github.tbruyelle:rxpermissions:0.10.2"
-
+    implementation 'org.jetbrains.anko:anko-commons:0.10.8'
+    implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
+    implementation 'com.uber.autodispose:autodispose:1.3.0'
+    implementation 'com.uber.autodispose:autodispose-android-archcomponents:1.3.0'
 
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46'
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-30'
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-30'
-    implementation 'cn.bingoogolapple:bga-banner:2.2.4@aar'
-    implementation 'com.github.clans:fab:1.6.4'
-    implementation 'com.hyman:flowlayout-lib:1.1.2'
     implementation 'com.github.ybq:Android-SpinKit:1.2.0'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    annotationProcessor 'com.github.bumptech.glide:okhttp3-integration:4.9.0'
+
+    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'   //tablayout
+    implementation 'com.flyco.labelview:FlycoLabelView_Lib:1.0.2@aar'   //标签
+    implementation 'com.github.clans:fab:1.6.4' //FloatingActionButton
+    implementation 'com.github.chrisbanes.photoview:library:1.2.4'
+    implementation 'com.zzhoujay.richtext:richtext:3.0.8'
     implementation 'com.classic.common:multiple-status-view:1.6'
     implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
     implementation 'com.github.Rukey7:TagLayout:1.0.6'
     implementation 'com.github.Rukey7:DragSlopLayout:1.0.5'
-    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
-    implementation 'com.flyco.labelview:FlycoLabelView_Lib:1.0.2@aar'
-    implementation 'com.zzhoujay.richtext:richtext:3.0.8'
-    implementation 'com.github.chrisbanes.photoview:library:1.2.4'
     implementation 'com.yanzhikai:TextPathView:0.2.1'
+    implementation 'q.rorbin:VerticalTabLayout:1.2.5'
+
 
     implementation 'cn.jzvd:jiaozivideoplayer:7.0_preview'
     implementation 'org.litepal.android:kotlin:3.0.0'
@@ -110,13 +115,8 @@ dependencies {
     implementation 'com.just.agentweb:agentweb:4.0.2'
     implementation 'com.cxz:swipeback:1.0.1'
     implementation 'com.orhanobut:logger:2.2.0'
-    implementation 'q.rorbin:VerticalTabLayout:1.2.5'
     implementation 'com.tencent.bugly:crashreport_upgrade:1.4.1'
     implementation 'com.tencent.bugly:nativecrashreport:3.7.1'
 
-
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
-    annotationProcessor 'com.github.bumptech.glide:okhttp3-integration:4.9.0'
 
 }

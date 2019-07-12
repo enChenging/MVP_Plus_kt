@@ -34,9 +34,11 @@ abstract class BaseFragment : androidx.fragment.app.Fragment() {
 
     abstract fun initLayoutID(): Int
 
+    open fun initData() {}
+
     open fun initView(view: View) {}
 
-    open fun initData() {}
+    open fun initListener(){}
 
     open fun lazyLoad() {}
 
@@ -51,7 +53,7 @@ abstract class BaseFragment : androidx.fragment.app.Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(initLayoutID(), null)
+        return inflater.inflate(initLayoutID(), null)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,6 +64,7 @@ abstract class BaseFragment : androidx.fragment.app.Fragment() {
         isViewPrepare = true
         initData()
         initView(view)
+        initListener()
         lazyLoadDataIfPrepared()
     }
 

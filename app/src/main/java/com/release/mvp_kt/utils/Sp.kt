@@ -12,6 +12,7 @@ import kotlin.reflect.KProperty
  * @create 2019/7/10
  * @Describe
  */
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class Sp<T>(val name: String, private val default: T) {
 
     companion object {

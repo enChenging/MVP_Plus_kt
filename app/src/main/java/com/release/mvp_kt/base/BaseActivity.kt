@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.*
+import androidx.core.content.ContextCompat
 import com.afollestad.materialdialogs.color.CircleView
 import com.classic.common.MultipleStatusView
 import com.cxz.wanandroid.receiver.NetworkChangeReceiver
@@ -138,7 +139,7 @@ abstract class BaseActivity : AppCompatActivity() {
         mThemeColor = if (!SettingUtil.getIsNightMode())
             SettingUtil.getColor()
         else
-            resources.getColor(R.color.colorPrimary)
+            ContextCompat.getColor(this,R.color.colorPrimary)
 
         StatusBarUtil.setColor(this, mThemeColor, 0)
 
@@ -227,7 +228,7 @@ abstract class BaseActivity : AppCompatActivity() {
         if (enableNetworkTip()) {
             if (isConnected) {
                 doReConnected()
-                if (mTipView != null && mTipView.parent != null) {
+                if (mTipView.parent != null) {
                     mWindowManager.removeView(mTipView)
                 }
             } else {

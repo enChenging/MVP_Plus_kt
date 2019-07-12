@@ -18,6 +18,15 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity android:name=".ui.page.news_page.NewsDetailActivity"
+                  android:launchMode="singleTask"/>
+        <activity android:name=".ui.page.news_page.NewsSpecialActivity"
+                  android:launchMode="singleTask"/>
+        <activity android:name=".ui.page.news_page.PhotoAlbumActivity"
+                  android:launchMode="singleTask"/>
+        <activity android:name=".ui.activity.WebActivity"
+                  android:launchMode="singleTask"/>
     </application>
 
 </manifest>

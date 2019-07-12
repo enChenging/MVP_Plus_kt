@@ -1,6 +1,10 @@
 package com.release.mvp_kt.rx
 
+import androidx.lifecycle.LifecycleOwner
 import com.cxz.wanandroid.rx.scheduler.*
+import com.uber.autodispose.AutoDispose
+import com.uber.autodispose.AutoDisposeConverter
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 
 /**
  * @author Mr.release
@@ -27,5 +31,11 @@ object SchedulerUtils {
 
     fun <T> trampolineToMain(): TrampolineMainScheduler<T> {
         return TrampolineMainScheduler()
+    }
+
+    fun <T> bindLifecycle(lifecycleOwner: LifecycleOwner): AutoDisposeConverter<T> {
+        return AutoDispose.autoDisposable(
+            AndroidLifecycleScopeProvider.from(lifecycleOwner)
+        )
     }
 }
