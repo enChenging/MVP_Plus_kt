@@ -81,15 +81,15 @@ object RetrofitHelper {
         val sslParams = HttpsUtils.sslSocketFactory
 
         builder.run {
-            cache(cache)  //添加缓存
             addInterceptor(httpLoggingInterceptor)
             addInterceptor(HeaderInterceptor2())
             addNetworkInterceptor(CacheInterceptor())
             sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
-            retryOnConnectionFailure(true) // 错误重连
+            cache(cache)  //添加缓存
             connectTimeout(HttpConstant.DEFAULT_TIMEOUT, TimeUnit.SECONDS)
             readTimeout(HttpConstant.DEFAULT_TIMEOUT, TimeUnit.SECONDS)
             writeTimeout(HttpConstant.DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+            retryOnConnectionFailure(true) // 错误重连
         }
         return builder.build()
     }
