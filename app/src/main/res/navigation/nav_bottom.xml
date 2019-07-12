@@ -10,7 +10,7 @@
         android:label="@string/title_news"
         tools:layout="@layout/page_news" />
     <fragment
-        android:id="@+id/page_notice"
+        android:id="@+id/page_video"
         android:name="com.release.mvp_kt.ui.page.video_page.VideoPage"
         android:label="@string/title_video"
         tools:layout="@layout/page_video" />
