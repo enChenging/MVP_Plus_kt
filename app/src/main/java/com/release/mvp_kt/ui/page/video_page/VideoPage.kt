@@ -15,7 +15,6 @@ import java.util.*
  * @create 2019/3/22
  * @Describe
  */
-@Suppress("PrivatePropertyName")
 class VideoPage : BaseMvpFragment<VideoPageContract.View, VideoPageContract.Presenter>(), VideoPageContract.View {
 
     companion object {
