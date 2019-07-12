@@ -1,4 +1,4 @@
-@file:Suppress("UNREACHABLE_CODE", "NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+@file:Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 
 package com.release.mvp_kt.http
 
@@ -10,9 +10,7 @@ import com.release.mvp_kt.constant.Constant
 import com.release.mvp_kt.constant.HttpConstant
 import com.release.mvp_kt.dao.VideoInfo
 import com.release.mvp_kt.http.interceptor.CacheInterceptor
-import com.release.mvp_kt.http.interceptor.HeaderInterceptor
 import com.release.mvp_kt.http.interceptor.HeaderInterceptor2
-import com.release.mvp_kt.http.interceptor.SaveCookieInterceptor
 import com.release.mvp_kt.mvp.model.bean.*
 import com.release.mvp_kt.rx.SchedulerUtils
 import com.release.mvp_kt.utils.StringUtils
@@ -37,63 +35,67 @@ import java.util.concurrent.TimeUnit
 object RetrofitHelper {
 
     private var retrofit: Retrofit? = null
+    private var builder: OkHttpClient.Builder? = null
 
-    private val newsService: NewsServiceApi by lazy {
-        getRetrofit(Constant.NEWS_HOST)!!.create(NewsServiceApi::class.java)
-    }
-
-    private val recommendService: RecommendServiceApi by lazy {
-        getRetrofit(Constant.RECOMMEND_HOST)!!.create(RecommendServiceApi::class.java)
-    }
-
-    private fun getRetrofit(baseUrl: String): Retrofit? {
-        if (retrofit == null) {
-            synchronized(RetrofitHelper::class.java) {
-                if (retrofit == null) {
-                    retrofit = Retrofit.Builder()
-                        .baseUrl(baseUrl)
-                        .client(getOkHttpClient())
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .addConverterFactory(ScalarsConverterFactory.create())
-                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//rx网络适配器
-                        .build()
-                }
-            }
-        }
-        return retrofit
+    init {
+        initOkHttpClient()
     }
 
     /**
      * 获取 OkHttpClient
      */
-    private fun getOkHttpClient(): OkHttpClient {
-        val builder = OkHttpClient().newBuilder()
-        val httpLoggingInterceptor = HttpLoggingInterceptor()
-        if (BuildConfig.DEBUG) {
-            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-        } else {
-            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.NONE
-        }
+    private fun initOkHttpClient() {
+        if (builder == null) {
+            synchronized(RetrofitHelper::class.java) {
+                if (builder == null) {
 
-        //设置 请求的缓存的大小跟位置
-        val cacheFile = File(App.context.cacheDir, "cache")
-        val cache = Cache(cacheFile, HttpConstant.MAX_CACHE_SIZE)
-        val sslParams = HttpsUtils.sslSocketFactory
+                    val sslParams = HttpsUtils.sslSocketFactory
+                    val httpLoggingInterceptor = HttpLoggingInterceptor()
+                    if (BuildConfig.DEBUG) {
+                        httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+                    } else {
+                        httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.NONE
+                    }
+                    val cacheFile = File(App.context.cacheDir, "cache")
+                    val cache = Cache(cacheFile, HttpConstant.MAX_CACHE_SIZE)
 
-        builder.run {
-            addInterceptor(httpLoggingInterceptor)
-            addInterceptor(HeaderInterceptor2())
-            addNetworkInterceptor(CacheInterceptor())
-            sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
-            cache(cache)  //添加缓存
-            connectTimeout(HttpConstant.DEFAULT_TIMEOUT, TimeUnit.SECONDS)
-            readTimeout(HttpConstant.DEFAULT_TIMEOUT, TimeUnit.SECONDS)
-            writeTimeout(HttpConstant.DEFAULT_TIMEOUT, TimeUnit.SECONDS)
-            retryOnConnectionFailure(true) // 错误重连
+                    builder = OkHttpClient.Builder().run {
+                        addInterceptor(httpLoggingInterceptor)
+                        addInterceptor(HeaderInterceptor2())
+                        addNetworkInterceptor(CacheInterceptor())
+                        sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
+                        cache(cache)  //添加缓存
+                        connectTimeout(HttpConstant.DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+                        readTimeout(HttpConstant.DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+                        writeTimeout(HttpConstant.DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+                        retryOnConnectionFailure(true) // 错误重连
+                    }
+
+                }
+            }
         }
-        return builder.build()
     }
 
+    private fun <T> createApi(baseUrl: String, cls: Class<T>): T {
+
+        retrofit = Retrofit.Builder()
+            .client(builder?.build())
+            .baseUrl(baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//rx网络适配器
+            .build()
+
+        return retrofit!!.create(cls)
+    }
+
+    private val newsService: NewsServiceApi by lazy {
+        createApi(Constant.NEWS_HOST, NewsServiceApi::class.java)
+    }
+
+    private val recommendService: RecommendServiceApi by lazy {
+        createApi(Constant.RECOMMEND_HOST, RecommendServiceApi::class.java)
+    }
 
     /************************************ API *******************************************/
 
