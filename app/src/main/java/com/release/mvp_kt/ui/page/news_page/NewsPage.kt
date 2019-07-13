@@ -3,6 +3,7 @@ package com.release.mvp_kt.ui.page.news_page
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.orhanobut.logger.Logger
 import com.release.mvp_kt.MainActivity
 import com.release.mvp_kt.R
 import com.release.mvp_kt.base.BaseMvpFragment
@@ -39,6 +40,8 @@ class NewsPage : BaseMvpFragment<NewsPageContract.View, NewsPageContract.Present
     }
 
     override fun loadData(NewsTypeIfs: List<NewsTypeInfo>?) {
+        Logger.i(NewsTypeIfs.toString())
+
         val fragments = ArrayList<Fragment>()
         val titles = ArrayList<String>()
 
