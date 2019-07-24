@@ -19,6 +19,10 @@ class NewsMultiItem(@param:NewsItemType private val mItemType: Int, val newsBean
         return mItemType
     }
 
+    override fun toString(): String {
+        return "NewsMultiItem(mItemType=$mItemType, newsBean=$newsBean)"
+    }
+
     @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
     @IntDef(ITEM_TYPE_NORMAL, ITEM_TYPE_PHOTO_SET)
     annotation class NewsItemType

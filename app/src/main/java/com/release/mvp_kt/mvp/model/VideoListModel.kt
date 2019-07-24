@@ -1,11 +1,13 @@
 package com.release.mvp_kt.mvp.model
 
 import com.release.mvp_kt.base.BaseModel
+import com.release.mvp_kt.constant.Constant
 import com.release.mvp_kt.dao.VideoInfo
 import com.release.mvp_kt.http.RetrofitHelper
 import com.release.mvp_kt.mvp.contract.VideoListContract
-import com.release.mvp_kt.mvp.model.bean.NewsDetailInfoBean
+import com.release.mvp_kt.rx.SchedulerUtils
 import io.reactivex.Flowable
+import io.reactivex.Observable
 
 /**
  * @author Mr.release
@@ -14,7 +16,10 @@ import io.reactivex.Flowable
  */
 class VideoListModel : BaseModel(), VideoListContract.Model {
 
-    override fun requestData(newsId: String,page: Int): Flowable<List<VideoInfo>> {
-        return RetrofitHelper.getVideoListAPI(newsId,page)
+
+    override fun requestData(videoId: String, page: Int): Observable<List<VideoInfo>> {
+        return RetrofitHelper.newsService.getVideoList(videoId, page * Constant.PAGE / 2)
+            .flatMap { stringListMap -> Observable.just<List<VideoInfo>>(stringListMap[videoId]) }
+            .compose(SchedulerUtils.ioToMain())
     }
 }

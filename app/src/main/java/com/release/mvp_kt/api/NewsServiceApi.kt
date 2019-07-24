@@ -6,7 +6,7 @@ import com.release.mvp_kt.mvp.model.bean.NewsDetailInfoBean
 import com.release.mvp_kt.mvp.model.bean.NewsInfoBean
 import com.release.mvp_kt.mvp.model.bean.PhotoSetInfoBean
 import com.release.mvp_kt.mvp.model.bean.SpecialInfoBean
-import io.reactivex.Flowable
+import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
@@ -40,7 +40,7 @@ interface NewsServiceApi {
         @Path("type") type: String,
         @Path("id") id: String,
         @Path("startPage") startPage: Int
-    ): Flowable<Map<String, List<NewsInfoBean>>>
+    ): Observable<Map<String, List<NewsInfoBean>>>
 
     /**
      * 新闻详情
@@ -50,7 +50,7 @@ interface NewsServiceApi {
      */
     @Headers(AVOID_HTTP403_FORBIDDEN)
     @GET("nc/article/{newsId}/full.html")
-    fun getNewsDetail(@Path("newsId") newsId: String): Flowable<Map<String, NewsDetailInfoBean>>
+    fun getNewsDetail(@Path("newsId") newsId: String): Observable<Map<String, NewsDetailInfoBean>>
 
     /**
      * 获取专题
@@ -60,7 +60,7 @@ interface NewsServiceApi {
      */
     @Headers(CACHE_CONTROL_NETWORK)
     @GET("nc/special/{specialId}.html")
-    fun getSpecial(@Path("specialId") specialIde: String): Flowable<Map<String, SpecialInfoBean>>
+    fun getSpecial(@Path("specialId") specialIde: String): Observable<Map<String, SpecialInfoBean>>
 
 
     /**
@@ -71,7 +71,7 @@ interface NewsServiceApi {
      */
     @Headers(CACHE_CONTROL_NETWORK)
     @GET("photo/api/set/{photoId}.json")
-    fun getPhotoAlbum(@Path("photoId") photoId: String): Flowable<PhotoSetInfoBean>
+    fun getPhotoAlbum(@Path("photoId") photoId: String): Observable<PhotoSetInfoBean>
 
     /**
      * 获取视频
@@ -85,7 +85,7 @@ interface NewsServiceApi {
     fun getVideoList(
         @Path("id") id: String,
         @Path("startPage") startPage: Int
-    ): Flowable<Map<String, List<VideoInfo>>>
+    ): Observable<Map<String, List<VideoInfo>>>
 
 
 }

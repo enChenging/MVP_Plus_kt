@@ -1,15 +1,13 @@
 package com.release.mvp_kt.mvp.presenter
 
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.LifecycleOwner
+import com.orhanobut.logger.Logger
 import com.release.mvp_kt.base.BasePresenter
 import com.release.mvp_kt.http.exception.ExceptionHandle
 import com.release.mvp_kt.mvp.contract.RecommendPageContract
 import com.release.mvp_kt.mvp.model.RecommendPageModel
 import com.release.mvp_kt.mvp.model.bean.RecommendPageBean
-import com.release.mvp_kt.rx.SchedulerUtils
-import org.reactivestreams.Subscriber
-import org.reactivestreams.Subscription
+import io.reactivex.Observer
+import io.reactivex.disposables.Disposable
 
 /**
  * @author Mr.release
@@ -23,28 +21,31 @@ class RecommendPagePresenter : BasePresenter<RecommendPageContract.Model, Recomm
 
     override fun requestData() {
         mModel?.requestData()
-            ?.`as` (SchedulerUtils.bindLifecycle(mView as LifecycleOwner))
-            ?.subscribe(object : Subscriber<RecommendPageBean> {
-                override fun onComplete() {
-                    mView?.hideLoading()
-                }
+//            ?.`as` (SchedulerUtils.bindLifecycle(mView as LifecycleOwner))
+//            ?.retryWhen(RetryWithDelay())
+            ?.subscribe(object : Observer<RecommendPageBean> {
 
-                override fun onSubscribe(s: Subscription) {
+                override fun onSubscribe(d: Disposable) {
                     mView?.showLoading()
                 }
 
                 override fun onNext(t: RecommendPageBean) {
+                    Logger.i("RecommendPage--onNext: $t")
                     mView?.loadData(t.newslist)
                 }
 
-                override fun onError(t: Throwable) {
+                override fun onError(e: Throwable) {
+                    Logger.e("RecommendPage--onError: ${e.message}")
                     mView?.hideLoading()
-                    mView?.showError(ExceptionHandle.handleException(t))
+                    mView?.showError(ExceptionHandle.handleException(e))
+
                 }
 
+                override fun onComplete() {
+                    mView?.hideLoading()
+                }
 
             })
-
     }
 }
 

@@ -1,13 +1,14 @@
 package com.release.mvp_kt.base
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.classic.common.MultipleStatusView
 import com.release.mvp_kt.constant.Constant
 import com.release.mvp_kt.utils.Sp
+import com.release.mvp_kt.widget.EmptyLayout
+import kotlinx.android.synthetic.main.layout_empty.*
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -38,9 +39,9 @@ abstract class BaseFragment : androidx.fragment.app.Fragment() {
 
     open fun initView(view: View) {}
 
-    open fun initListener(){}
+    open fun initListener() {}
 
-    open fun lazyLoad() {}
+    open fun startNet() {}
 
     /**
      * 是否使用 EventBus
@@ -48,7 +49,7 @@ abstract class BaseFragment : androidx.fragment.app.Fragment() {
     open fun useEventBus(): Boolean = false
 
     open fun doReConnected() {
-        lazyLoad()
+        startNet()
     }
 
 
@@ -58,7 +59,7 @@ abstract class BaseFragment : androidx.fragment.app.Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (useEventBus()){
+        if (useEventBus()) {
             EventBus.getDefault().register(this)
         }
         isViewPrepare = true
@@ -76,7 +77,7 @@ abstract class BaseFragment : androidx.fragment.app.Fragment() {
 
     private fun lazyLoadDataIfPrepared() {
         if (userVisibleHint && isViewPrepare && !hasLoadData) {
-            lazyLoad()
+            startNet()
             hasLoadData = true
         }
     }
@@ -87,4 +88,5 @@ abstract class BaseFragment : androidx.fragment.app.Fragment() {
             EventBus.getDefault().unregister(this)
         }
     }
+
 }

@@ -6,6 +6,7 @@ import com.release.mvp_kt.base.IView
 import com.release.mvp_kt.mvp.model.bean.NewsInfoBean
 import com.release.mvp_kt.ui.adpater.item.NewsMultiItem
 import io.reactivex.Flowable
+import io.reactivex.Observable
 
 
 /**
@@ -29,6 +30,6 @@ interface NewsListContract {
 
     interface Model : IModel {
 
-        fun requestData(newsId: String, page: Int): Flowable<NewsInfoBean>
+        fun requestData(newsId: String, page: Int): Observable<NewsInfoBean>
     }
 }

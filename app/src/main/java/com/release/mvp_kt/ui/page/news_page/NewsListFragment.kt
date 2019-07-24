@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.orhanobut.logger.Logger
 import com.release.mvp_kt.R
 import com.release.mvp_kt.base.BaseMvpFragment
 import com.release.mvp_kt.constant.Constant.NEWS_TYPE_KEY
@@ -23,8 +24,6 @@ import kotlinx.android.synthetic.main.fragment_news_list.*
  * @Describe
  */
 class NewsListFragment : BaseMvpFragment<NewsListContract.View, NewsListContract.Presenter>(), NewsListContract.View {
-
-
 
     companion object {
 
@@ -51,11 +50,10 @@ class NewsListFragment : BaseMvpFragment<NewsListContract.View, NewsListContract
 
     override fun initData() {
         newsId = arguments?.getString(NEWS_TYPE_KEY).toString()
-        mPresenter?.requestData(newsId, mPage)
     }
 
     override fun initView(view: View) {
-
+        super.initView(view)
         mAdapter.run {
             openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT)
             setOnLoadMoreListener(
@@ -88,6 +86,9 @@ class NewsListFragment : BaseMvpFragment<NewsListContract.View, NewsListContract
         }
     }
 
+    override fun startNet() {
+        mPresenter?.requestData(newsId, mPage)
+    }
 
     override fun loadAdData(data: NewsInfoBean) {
     }

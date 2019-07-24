@@ -5,7 +5,7 @@ import com.release.mvp_kt.base.IPresenter
 import com.release.mvp_kt.base.IView
 import com.release.mvp_kt.mvp.model.bean.NewslistBean
 import com.release.mvp_kt.mvp.model.bean.RecommendPageBean
-import io.reactivex.Flowable
+import io.reactivex.Observable
 
 /**
  * @author Mr.release
@@ -23,6 +23,6 @@ interface  RecommendPageContract {
     }
 
     interface Model : IModel {
-        fun requestData(): Flowable<RecommendPageBean>
+        fun requestData(): Observable<RecommendPageBean>
     }
 }

@@ -31,10 +31,10 @@ data class NewsInfoBean(
     val title: String,
     val votecount: Int,
     val imgextra: List<ImgextraBean>,
-    val ads: List<AdData>,
+    val ads: List<AdData>?,
     val skipID: String,
     val alias: String,
-    val skipType: String,
+    val skipType: String?,
     val tname: String,
     val specialID: String,
     val photosetID: String
@@ -242,7 +242,11 @@ data class RecommendPageBean(
     val code: Int,
     val msg: String,
     val newslist: List<NewslistBean>
-)
+) {
+    override fun toString(): String {
+        return "RecommendPageBean(code=$code, msg='$msg', newslist=$newslist)"
+    }
+}
 
 
 class NewslistBean(
@@ -251,4 +255,8 @@ class NewslistBean(
     val description: String,
     val picUrl: String,
     val url: String
-)
+) {
+    override fun toString(): String {
+        return "NewslistBean(ctime='$ctime', title='$title', description='$description', picUrl='$picUrl', url='$url')"
+    }
+}

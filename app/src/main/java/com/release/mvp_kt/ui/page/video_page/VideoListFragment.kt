@@ -49,12 +49,10 @@ class VideoListFragment : BaseMvpFragment<VideoListContract.View, VideoListContr
 
     override fun initData() {
         mVideoId = arguments?.getString(VIDEO_ID_KEY).toString()
-
-        mPresenter?.requestData(mVideoId, 0)
     }
 
     override fun initView(view: View) {
-
+        super.initView(view)
         refresh_layout.run {
             setOnRefreshListener {
                 isRefresh = true
@@ -92,6 +90,10 @@ class VideoListFragment : BaseMvpFragment<VideoListContract.View, VideoListContr
                 }
             })
         }
+    }
+
+    override fun startNet() {
+        mPresenter?.requestData(mVideoId, 0)
     }
 
     override fun loadData(data: List<VideoInfo>) {

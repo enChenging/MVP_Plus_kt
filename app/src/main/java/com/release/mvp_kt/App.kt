@@ -7,8 +7,10 @@ import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import com.orhanobut.logger.PrettyFormatStrategy
 import com.release.mvp_kt.constant.Constant
+import com.release.mvp_kt.dao.NewsTypeDao
 import com.release.mvp_kt.ext.showToast
 import com.release.mvp_kt.utils.CommonUtil
+import com.release.mvp_kt.utils.CrashHandler
 import com.release.mvp_kt.utils.DisplayManager
 import com.tencent.bugly.Bugly
 import com.tencent.bugly.beta.Beta
@@ -84,6 +86,7 @@ class App : MultiDexApplication() {
 
     private fun initLitePal() {
         LitePal.initialize(this)
+        NewsTypeDao.updateLocalData(this)
     }
 
 
@@ -94,7 +97,7 @@ class App : MultiDexApplication() {
         val formatStrategy = PrettyFormatStrategy.newBuilder()
             .showThreadInfo(false)  // 隐藏线程信息 默认：显示
             .methodCount(0)         // 决定打印多少行（每一行代表一个方法）默认：2
-            .methodOffset(7)        // (Optional) Hides internal method calls up to offset. Default 5
+            .methodOffset(10)        // (Optional) Hides internal method calls up to offset. Default 5
             .tag("cyc")   // (Optional) Global tag for every log. Default PRETTY_LOGGER
             .build()
         Logger.addLogAdapter(object : AndroidLogAdapter(formatStrategy) {
@@ -102,5 +105,7 @@ class App : MultiDexApplication() {
                 return BuildConfig.DEBUG
             }
         })
+
+        CrashHandler.instance.init(this)
     }
 }

@@ -38,6 +38,7 @@ class RecommendPage : BaseMvpFragment<RecommendPageContract.View, RecommendPageC
     }
 
     override fun initView(view: View) {
+        super.initView(view)
         rv_list.run {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity)
@@ -64,7 +65,9 @@ class RecommendPage : BaseMvpFragment<RecommendPageContract.View, RecommendPageC
 //                        WebDetailActivity.start(activity, bean.title, bean.ctime, bean.description, bean.url)
             }
         }
+    }
 
+    override fun startNet() {
         mPresenter?.requestData()
     }
 

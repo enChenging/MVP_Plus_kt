@@ -67,13 +67,14 @@ class NewsSpecialActivity : BaseMvpActivity<NewsSpacialContract.View, NewsSpacia
     private var mTagLayout: TagLayout? = null
     private var mLinearLayoutManager: LinearLayoutManager? = null
     private var mTopBarAnimator: Animator? = null
+    private var specialId: String? = null
 
     override fun initData() {
-        val specialId = intent.getStringExtra(SPECIAL_KEY)
-        mPresenter?.requestData(specialId)
+        specialId = intent.getStringExtra(SPECIAL_KEY)
     }
 
     override fun initView() {
+        super.initView()
         tool_bar.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
         mAdapter.run {
             openLoadAnimation(BaseQuickAdapter.SCALEIN)
@@ -84,6 +85,10 @@ class NewsSpecialActivity : BaseMvpActivity<NewsSpacialContract.View, NewsSpacia
             layoutManager = LinearLayoutManager(this@NewsSpecialActivity)
             adapter = mAdapter
         }
+    }
+
+    override fun startNet() {
+        mPresenter?.requestData(specialId!!)
     }
 
     override fun loadHead(data: SpecialInfoBean) {
@@ -153,8 +158,8 @@ class NewsSpecialActivity : BaseMvpActivity<NewsSpacialContract.View, NewsSpacia
         Observable.fromIterable(specialItems)
             .compose(SchedulerUtils.ioToMain())
             .filter(object : Predicate<SpecialItem> {
-                internal var i = 0
-                internal var index = mAdapter.getHeaderViewsCount()  // 存在一个 HeadView 所以从1算起
+                var i = 0
+                var index = mAdapter.getHeaderViewsCount()  // 存在一个 HeadView 所以从1算起
 
                 @Throws(Exception::class)
                 override fun test(specialItem: SpecialItem): Boolean {

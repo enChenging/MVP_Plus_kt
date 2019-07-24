@@ -12,7 +12,7 @@ import org.litepal.LitePal
  */
 class NewsPageModel : BaseModel(), NewsPageContract.Model {
 
-    override fun requestData(): List<NewsTypeInfo> {
+    override fun requestData(): MutableList<NewsTypeInfo> {
        return LitePal.findAll(NewsTypeInfo::class.java)
     }
 }

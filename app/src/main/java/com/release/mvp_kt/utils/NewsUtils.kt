@@ -30,7 +30,7 @@ object NewsUtils {
      * @return
      */
     fun isAbNews(@NonNull newsBean: NewsInfoBean): Boolean {
-        return newsBean.hasHead == HAS_HEAD && newsBean.ads.size > 1
+        return newsBean.hasHead == HAS_HEAD && newsBean.ads != null && newsBean.ads.size > 1
     }
 
     /**
@@ -57,11 +57,11 @@ object NewsUtils {
      * @param skipType
      * @return
      */
-    fun isNewsSpecial(skipType: String): Boolean {
+    fun isNewsSpecial(skipType: String?): Boolean {
         return NEWS_ITEM_SPECIAL == skipType
     }
 
-    fun isNewsPhotoSet(skipType: String): Boolean {
+    fun isNewsPhotoSet(skipType: String?): Boolean {
         return NEWS_ITEM_PHOTO_SET == skipType
     }
 

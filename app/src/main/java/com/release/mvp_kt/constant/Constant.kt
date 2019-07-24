@@ -10,11 +10,15 @@ object Constant {
 
     const val NEWS_HOST = "http://c.3g.163.com/"
 
+    const val BASE_URL = "https://www.wanandroid.com/"
+
     const val RECOMMEND_HOST = "http://api.tianapi.com/"
 
     const val COMMON_UA_STR = "OhMyBiliBili Android Client/2.1 (100332338@qq.com)"
 
     const val BUGLY_ID = "bd6527b403"
+
+    const val HEAD_LINE_NEWS = "T1348647909107"
 
     const val LOGIN_KEY = "login"
     const val USERNAME_KEY = "username"
@@ -68,7 +72,7 @@ object Constant {
     /**
      * 网络请求的状态码，用来更新界面
      */
-    const  val STATE_SUCCESS = 0
+    const val STATE_SUCCESS = 0
     const val STATE_ERROR = 1
     const val STATE_LOADING = 2
     const val STATE_EMPTY = 3
@@ -91,5 +95,5 @@ object Constant {
     const val RECOMMEND_TITLE = "recom_title"
     const val RECOMMEND_CTIME = "recom_cTime"
     const val RECOMMEND_DESC = "recom_desc"
-    const  val RECOMMEND_HTML = "recom_html"
+    const val RECOMMEND_HTML = "recom_html"
 }

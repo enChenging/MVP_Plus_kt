@@ -1,6 +1,9 @@
 package com.release.mvp_kt.mvp.presenter
 
 import androidx.lifecycle.LifecycleOwner
+import com.orhanobut.logger.Logger
+import com.release.mvp_kt.App
+import com.release.mvp_kt.R
 import com.release.mvp_kt.base.BasePresenter
 import com.release.mvp_kt.http.exception.ExceptionHandle
 import com.release.mvp_kt.mvp.contract.NewsDetailContract
@@ -12,9 +15,12 @@ import com.release.mvp_kt.mvp.model.bean.NewsInfoBean
 import com.release.mvp_kt.rx.SchedulerUtils
 import com.release.mvp_kt.ui.adpater.item.NewsMultiItem
 import com.release.mvp_kt.utils.ListUtils
+import com.release.mvp_kt.utils.NetWorkUtil
 import com.release.mvp_kt.utils.NewsUtils
 import io.reactivex.Flowable
 import io.reactivex.FlowableTransformer
+import io.reactivex.Observer
+import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Function
 import org.reactivestreams.Publisher
 import org.reactivestreams.Subscriber
@@ -36,27 +42,33 @@ class NewsDetailPresenter : BasePresenter<NewsDetailContract.Model, NewsDetailCo
 
         mModel?.requestData(newsId)
             ?.`as` (SchedulerUtils.bindLifecycle(mView as LifecycleOwner))
-            ?.subscribe(object : Subscriber<NewsDetailInfoBean> {
+            ?.subscribe(object : Observer<NewsDetailInfoBean> {
+
                 override fun onComplete() {
                     mView?.hideLoading()
                 }
 
-                override fun onSubscribe(s: Subscription) {
+                override fun onSubscribe(d: Disposable) {
                     mView?.showLoading()
+//                    mView?.addDisposable(d)
+                    if (!NetWorkUtil.isNetworkConnected(App.instance)) {
+                        mView?.showDefaultMsg(App.instance.resources.getString(R.string.network_unavailable_tip))
+                        onComplete()
+                    }
                 }
 
                 override fun onNext(t: NewsDetailInfoBean) {
-                    handleRichTextWithImg(t)
+                    Logger.i("NewsDetail--onNext:$t")
                     mView?.loadData(t)
                 }
 
                 override fun onError(t: Throwable) {
+                    Logger.e("NewsDetail--onError:$t")
                     mView?.hideLoading()
                     mView?.showError(ExceptionHandle.handleException(t))
                 }
-
-
             })
+
     }
     /**
      * 处理富文本包含图片的情况

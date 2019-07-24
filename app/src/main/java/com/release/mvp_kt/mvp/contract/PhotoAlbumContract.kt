@@ -3,11 +3,8 @@ package com.release.mvp_kt.mvp.contract
 import com.release.mvp_kt.base.IModel
 import com.release.mvp_kt.base.IPresenter
 import com.release.mvp_kt.base.IView
-import com.release.mvp_kt.mvp.model.bean.NewsDetailInfoBean
-import com.release.mvp_kt.mvp.model.bean.NewsInfoBean
 import com.release.mvp_kt.mvp.model.bean.PhotoSetInfoBean
-import com.release.mvp_kt.ui.adpater.item.NewsMultiItem
-import io.reactivex.Flowable
+import io.reactivex.Observable
 
 
 /**
@@ -29,6 +26,6 @@ interface PhotoAlbumContract {
 
     interface Model : IModel {
 
-        fun requestData(photoId: String): Flowable<PhotoSetInfoBean>
+        fun requestData(photoId: String): Observable<PhotoSetInfoBean>
     }
 }

@@ -10,18 +10,14 @@
             android:id="@+id/nav_setting"
             android:icon="@drawable/ic_menu_settings"
             android:title="设置"/>
-    </group>
-
-    <item android:title="图像">
-        <menu>
-            <item
+        <item
                 android:id="@+id/nav_camera"
                 android:icon="@drawable/ic_menu_camera"
                 android:title="照相机"/>
-            <item
+        <item
                 android:id="@+id/nav_gallery"
                 android:icon="@drawable/ic_menu_gallery"
                 android:title="相册"/>
-        </menu>
-    </item>
+    </group>
+
 </menu>

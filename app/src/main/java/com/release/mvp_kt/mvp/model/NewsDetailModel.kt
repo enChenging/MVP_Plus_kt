@@ -5,7 +5,12 @@ import com.release.mvp_kt.http.RetrofitHelper
 import com.release.mvp_kt.mvp.contract.NewsDetailContract
 import com.release.mvp_kt.mvp.model.bean.NewsDetailInfoBean
 import com.release.mvp_kt.mvp.model.bean.NewsInfoBean
+import com.release.mvp_kt.rx.SchedulerUtils
 import io.reactivex.Flowable
+import io.reactivex.Observable
+import io.reactivex.Observer
+import io.reactivex.functions.Function
+import org.reactivestreams.Publisher
 
 /**
  * @author Mr.release
@@ -14,7 +19,11 @@ import io.reactivex.Flowable
  */
 class NewsDetailModel : BaseModel(), NewsDetailContract.Model {
 
-    override fun requestData(newsId: String): Flowable<NewsDetailInfoBean> {
-        return RetrofitHelper.getNewsDetailAPI(newsId)
+    override fun requestData(newsId: String): Observable<NewsDetailInfoBean> {
+        return RetrofitHelper.newsService.getNewsDetail(newsId)
+            .flatMap { stringNewsDetailInfoBeanMap ->
+                Observable.just<NewsDetailInfoBean>(stringNewsDetailInfoBeanMap[newsId])//获取NewsDetailInfoBean
+            }
+            .compose(SchedulerUtils.ioToMain())
     }
 }

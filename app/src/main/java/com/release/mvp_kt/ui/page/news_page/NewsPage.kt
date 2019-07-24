@@ -22,14 +22,6 @@ import java.util.*
  */
 class NewsPage : BaseMvpFragment<NewsPageContract.View, NewsPageContract.Presenter>(), NewsPageContract.View {
 
-
-    companion object {
-
-        fun newInstance(): NewsPage {
-            return NewsPage()
-        }
-    }
-
     override fun createPresenter(): NewsPageContract.Presenter = NewsPagePresenter()
 
     override fun initLayoutID(): Int = R.layout.page_news
@@ -39,36 +31,43 @@ class NewsPage : BaseMvpFragment<NewsPageContract.View, NewsPageContract.Present
         ViewPagerAdapter(childFragmentManager)
     }
 
-    override fun loadData(NewsTypeIfs: List<NewsTypeInfo>?) {
-        Logger.i(NewsTypeIfs.toString())
+
+    override fun initView(view: View) {
+        super.initView(view)
+        view_pager.adapter = mAdapter
+    }
+
+    override fun startNet() {
+        mPresenter?.requestData()
+    }
+
+    override fun initListener() {
+        iv_setting.run {
+            setOnClickListener {
+                (activity as MainActivity).toggle()
+            }
+
+        }
+
+        iv_search.run {
+            setOnClickListener {
+                Toast.makeText(activity, "搜索", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    override fun loadData(NewsTypeIfs: MutableList<NewsTypeInfo>?) {
+        Logger.i("NewsPage---loadData:$NewsTypeIfs")
 
         val fragments = ArrayList<Fragment>()
         val titles = ArrayList<String>()
 
-        if (NewsTypeIfs != null) {
-            for (bean in NewsTypeIfs) {
-                titles.add(bean.name)
-                fragments.add(NewsListFragment.newInstance(bean.typeId))
-            }
+        for (bean in NewsTypeIfs!!) {
+            titles.add(bean.name)
+            fragments.add(NewsListFragment.newInstance(bean.typeId))
         }
 
         mAdapter.setItems(fragments, titles)
-    }
-
-    override fun initView(view: View) {
-
-        view_pager.adapter = mAdapter
         stl_tab_layout.setViewPager(view_pager)
-    }
-
-
-    override fun initListener() {
-        iv_setting.run {
-            (activity as MainActivity).toggle()
-        }
-
-        iv_search.run {
-            Toast.makeText(activity, "搜索", Toast.LENGTH_SHORT).show()
-        }
     }
 }

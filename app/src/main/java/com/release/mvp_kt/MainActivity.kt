@@ -32,12 +32,26 @@ open class MainActivity : BaseMvpActivity<MainContract.View, MainContract.Presen
 
 
     override fun initView() {
+        left_navigation.run {
+            val headImg = getHeaderView(0).findViewById<ImageView>(R.id.headImg)
+            Glide.with(this).load("https://b-ssl.duitang.com/uploads/item/201802/20/20180220170028_JcYMU.jpeg").circleCrop()
+                .into(headImg)
 
-        left_navigation.itemIconTintList = null
-
-        val headImg = left_navigation.getHeaderView(0).findViewById<ImageView>(R.id.headImg)
-        Glide.with(this).load("https://b-ssl.duitang.com/uploads/item/201802/20/20180220170028_JcYMU.jpeg").circleCrop()
-            .into(headImg)
+            setNavigationItemSelectedListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.nav_help_center ->
+                        Toast.makeText(this@MainActivity, "帮助中心", Toast.LENGTH_SHORT).show()
+                    R.id.nav_setting ->
+                        Toast.makeText(this@MainActivity, "设置", Toast.LENGTH_SHORT).show()
+                    R.id.nav_camera ->
+                        Toast.makeText(this@MainActivity, "照相机", Toast.LENGTH_SHORT).show()
+                    R.id.nav_gallery ->
+                        Toast.makeText(this@MainActivity, "相册", Toast.LENGTH_SHORT).show()
+                }
+                toggle()
+                false
+            }
+        }
 
         bottom_navigation.apply {
             labelVisibilityMode = LabelVisibilityMode.LABEL_VISIBILITY_LABELED
@@ -68,24 +82,6 @@ open class MainActivity : BaseMvpActivity<MainContract.View, MainContract.Presen
                 }
 
             })
-        }
-
-        left_navigation.run {
-
-            setNavigationItemSelectedListener { menuItem ->
-                when (menuItem.itemId) {
-                    R.id.nav_help_center ->
-                        Toast.makeText(this@MainActivity, "帮助中心", Toast.LENGTH_SHORT).show()
-                    R.id.nav_setting ->
-                        Toast.makeText(this@MainActivity, "设置", Toast.LENGTH_SHORT).show()
-                    R.id.nav_camera ->
-                        Toast.makeText(this@MainActivity, "照相机", Toast.LENGTH_SHORT).show()
-                    R.id.nav_gallery ->
-                        Toast.makeText(this@MainActivity, "相册", Toast.LENGTH_SHORT).show()
-                }
-                toggle()
-                false
-            }
         }
     }
 

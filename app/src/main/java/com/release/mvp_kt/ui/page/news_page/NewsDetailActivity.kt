@@ -56,27 +56,28 @@ class NewsDetailActivity : BaseMvpActivity<NewsDetailContract.View, NewsDetailCo
     private var mTopBarAnimator: Animator? = null
     private var mLastScrollY = 0
     private var mNextNewsId: String? = null
+    private var newsId: String? = null
 
     override fun initData() {
-        val newsId = intent.getStringExtra(NEWS_ID_KEY)
-
-        // 最小触摸滑动距离
-        mMinScrollSlop = ViewConfiguration.get(this).scaledTouchSlop
-
-        mPresenter?.requestData(newsId)
+        newsId = intent.getStringExtra(NEWS_ID_KEY)
     }
 
     override fun initView() {
+        super.initView()
         RichText.initCacheDir(this)
         RichText.debugMode = false
+        // 最小触摸滑动距离
+        mMinScrollSlop = ViewConfiguration.get(this).scaledTouchSlop
+    }
 
-
+    override fun startNet() {
+        mPresenter?.requestData(newsId!!)
     }
 
     override fun loadData(data: NewsDetailInfoBean) {
-        tv_title_content.text  = data.title
+        tv_title_content.text = data.title
         tv_source.text = data.source
-        tv_time.text =  data.ptime
+        tv_time.text = data.ptime
 
         RichText.from(data.body).into(tv_content)
         handleSpInfo(data.spinfo)
@@ -90,7 +91,6 @@ class NewsDetailActivity : BaseMvpActivity<NewsDetailContract.View, NewsDetailCo
         startActivity(intent)
         overridePendingTransition(R.anim.slide_bottom_entry, R.anim.hold)
     }
-
 
 
     override fun initListener() {
@@ -131,7 +131,7 @@ class NewsDetailActivity : BaseMvpActivity<NewsDetailContract.View, NewsDetailCo
             setFootView(ll_foot_view)
             setPullListener(object : PullScrollView.OnPullListener {
                 override fun isDoPull(): Boolean {
-                   return true
+                    return true
                 }
 
                 override fun handlePull(): Boolean {
@@ -152,7 +152,6 @@ class NewsDetailActivity : BaseMvpActivity<NewsDetailContract.View, NewsDetailCo
             }
         }
     }
-
 
 
     /**
@@ -191,15 +190,15 @@ class NewsDetailActivity : BaseMvpActivity<NewsDetailContract.View, NewsDetailCo
         }
     }
 
-     override fun onStop() {
+    override fun onStop() {
         super.onStop()
         finish()
     }
 
-     override fun onDestroy() {
-         super.onDestroy()
-         RichText.recycle()
-     }
+    override fun onDestroy() {
+        super.onDestroy()
+        RichText.recycle()
+    }
 
 
 }

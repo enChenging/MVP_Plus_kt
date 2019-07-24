@@ -38,21 +38,26 @@ class PhotoAlbumActivity : BaseMvpActivity<PhotoAlbumContract.View, PhotoAlbumCo
 
     private var mIsHideToolbar = false
     private var mPhotos: List<PhotosBean>? = null
+    private var photoSetId: String? = null
 
     override fun initData() {
-        val photoSetId = intent.getStringExtra(PHOTO_SET_KEY)
-        mPresenter?.requestData(photoSetId)
+        photoSetId = intent.getStringExtra(PHOTO_SET_KEY)
+
     }
 
     override fun initView() {
+        super.initView()
         tool_bar.setToolBarBackgroundColor(R.color.transparent)
             .setBackDrawable(R.drawable.toolbar_back_white)
             .setTitleColor(R.color.white)
     }
 
+    override fun startNet() {
+        mPresenter?.requestData(photoSetId!!)
+    }
+
     override fun loadData(data: PhotoSetInfoBean) {
         tool_bar.setTitleText(data.setname)
-
         val imgUrls = ArrayList<String>()
         mPhotos = data.photos
         for (photo in mPhotos!!) {

@@ -2,6 +2,8 @@ package com.release.mvp_kt.base
 
 import android.view.View
 import com.release.mvp_kt.ext.showToast
+import com.release.mvp_kt.widget.EmptyLayout
+import kotlinx.android.synthetic.main.layout_empty.*
 
 /**
  * @author Mr.release
@@ -30,10 +32,20 @@ abstract class BaseMvpFragment<in V : IView, P : IPresenter<V>> : BaseFragment()
         this.mPresenter = null
     }
 
+
     override fun showLoading() {
+        if (empty_layout != null)
+            empty_layout.emptyStatus = EmptyLayout.STATUS_LOADING
     }
 
     override fun hideLoading() {
+        if (empty_layout != null)
+            empty_layout.hide()
+    }
+
+    override fun showError() {
+        if (empty_layout != null)
+            empty_layout.emptyStatus = EmptyLayout.STATUS_NO_NET
     }
 
     override fun showError(errorMsg: String) {
@@ -47,4 +59,6 @@ abstract class BaseMvpFragment<in V : IView, P : IPresenter<V>> : BaseFragment()
     override fun showMsg(msg: String) {
         showToast(msg)
     }
+
+
 }

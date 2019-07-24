@@ -2,8 +2,8 @@ package com.release.mvp_kt.api
 
 
 import com.release.mvp_kt.mvp.model.bean.RecommendPageBean
-import io.reactivex.Flowable
-import retrofit2.http.POST
+import io.reactivex.Observable
+import retrofit2.http.GET
 import retrofit2.http.Query
 
 /**
@@ -13,6 +13,6 @@ import retrofit2.http.Query
  */
 interface RecommendServiceApi {
 
-    @POST("it")
-    fun getRecommendData(@Query("key") key: String, @Query("num") num: Int): Flowable<RecommendPageBean>
+    @GET("it")
+    fun getRecommendData(@Query("key") key: String, @Query("num") num: Int): Observable<RecommendPageBean>
 }

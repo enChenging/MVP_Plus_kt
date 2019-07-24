@@ -32,11 +32,11 @@ class HeaderInterceptor2 : Interceptor {
         if (requestBody != null)
             requestBody.writeTo(requestBuffer as BufferedSink?)
         else
-            Logger.d("request.body() == null")
+            Logger.d("HeaderInterceptor2--request.body() == null")
 
         //打印url信息
-        Logger.w(
-            request.url().toString() + if (requestBody != null) "?" + parseParams(
+        Logger.d(
+            "HeaderInterceptor2---"+request.url().toString() + if (requestBody != null) "?" + parseParams(
                 requestBody,
                 requestBuffer
             ) else ""

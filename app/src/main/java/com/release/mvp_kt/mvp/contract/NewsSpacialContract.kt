@@ -6,6 +6,7 @@ import com.release.mvp_kt.base.IView
 import com.release.mvp_kt.mvp.model.bean.SpecialInfoBean
 import com.release.mvp_kt.ui.adpater.item.SpecialItem
 import io.reactivex.Flowable
+import io.reactivex.Observable
 
 
 /**
@@ -29,6 +30,6 @@ interface NewsSpacialContract {
 
     interface Model : IModel {
 
-        fun requestData(newsId: String): Flowable<SpecialInfoBean>
+        fun requestData(specialId: String): Observable<SpecialInfoBean>
     }
 }

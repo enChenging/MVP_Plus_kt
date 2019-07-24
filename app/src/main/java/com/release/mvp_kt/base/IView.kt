@@ -30,6 +30,11 @@ interface IView {
     /**
      * 显示错误信息
      */
+    fun showError()
+
+    /**
+     * 显示错误信息
+     */
     fun showError(errorMsg: String)
 
 }

@@ -13,7 +13,7 @@ import com.release.mvp_kt.dao.NewsTypeInfo
 interface NewsPageContract {
 
     interface View : IView {
-        fun loadData(NewsTypeIfs: List<NewsTypeInfo>?)
+        fun loadData(NewsTypeIfs: MutableList<NewsTypeInfo>?)
     }
 
     interface Presenter : IPresenter<View> {
@@ -21,6 +21,6 @@ interface NewsPageContract {
     }
 
     interface Model : IModel {
-        fun requestData(): List<NewsTypeInfo>
+        fun requestData(): MutableList<NewsTypeInfo>
     }
 }
