@@ -1,5 +1,8 @@
+@file:Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+
 package com.release.mvp_kt.ext
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.service.autofill.TextValueSanitizer
@@ -68,6 +71,7 @@ fun String.getAgentWeb(
 /**
  * 格式化当前日期
  */
+@SuppressLint("SimpleDateFormat")
 fun formatCurrentDate(): String {
     val sdf = SimpleDateFormat("yyyy-MM-dd")
     return sdf.format(Date())
@@ -76,6 +80,7 @@ fun formatCurrentDate(): String {
 /**
  * String 转 Calendar
  */
+@SuppressLint("SimpleDateFormat")
 fun String.stringToCalendar(): Calendar {
     val sdf = SimpleDateFormat("yyyy-MM-dd")
     val date = sdf.parse(this)

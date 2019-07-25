@@ -11,6 +11,7 @@ import com.release.mvp_kt.mvp.model.PhotoAlbumModel
 import com.release.mvp_kt.mvp.model.bean.PhotoSetInfoBean
 import com.release.mvp_kt.rx.SchedulerUtils
 import com.release.mvp_kt.utils.NetWorkUtil
+import com.uber.autodispose.autoDisposable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 
@@ -28,7 +29,7 @@ class PhotoAlbumPresenter : BasePresenter<PhotoAlbumContract.Model, PhotoAlbumCo
 
         mModel?.requestData(newsId)
 
-            ?.`as`(SchedulerUtils.bindLifecycle(mView as LifecycleOwner))
+            ?.autoDisposable(scopeProvider!!)
             ?.subscribe(object : Observer<PhotoSetInfoBean> {
 
                 override fun onComplete() {

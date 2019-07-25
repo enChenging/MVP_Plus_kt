@@ -1,13 +1,19 @@
+@file:Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS",
+    "NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "NAME_SHADOWING"
+)
+
 package com.release.mvp_kt.utils
 
 import android.annotation.SuppressLint
 import android.text.TextUtils
 import com.orhanobut.logger.Logger
+import com.release.mvp_kt.utils.DateUtils.getDateFormat
 
 import java.text.DateFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.abs
 
 @SuppressLint("SimpleDateFormat")
 object DateUtils {
@@ -60,7 +66,7 @@ object DateUtils {
      * @return
      */
     val nowDate: Date?
-        get() = DateUtils.getDateFormat(dateFormat!!.format(Date()))
+        get() = getDateFormat(dateFormat!!.format(Date()))
 
     /**
      * 获取当前月的第一天
@@ -211,16 +217,41 @@ object DateUtils {
     }
 
     /**
+     * 获取时间差 格式：6天
+     *
+     * @param eTime
+     * @param sTime
+     * @return
+     */
+    fun getDateDifference2(eTime: String): Long {
+
+        var days: Long = 0
+
+        val currentTime = Date()
+        val df = SimpleDateFormat("yyyy-MM-dd")
+        try {
+            val d1 = df.parse(eTime)
+            val current = df.format(currentTime)
+            val d2 = df.parse(current)
+            val diff = d1.time - d2.time
+
+            days = diff / (1000 * 60 * 60 * 24)
+
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+
+        return days
+    }
+
+
+    /**
      * 时差秒
      *
      * @param time2
      * @return
      */
     fun getDateDifferenceSeconds(time2: String): Long {
-
-        val days: Long = 0
-        val hours: Long = 0
-        val minutes: Long = 0
         var seconds: Long = 0
         val currentTime = Date()
         val df = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -265,33 +296,6 @@ object DateUtils {
         return seconds
     }
 
-    /**
-     * 获取时间差 格式：6天
-     *
-     * @param eTime
-     * @param sTime
-     * @return
-     */
-    fun getDateDifference(eTime: String, sTime: String): Long {
-
-        var days: Long = 0
-
-        val currentTime = Date()
-        val df = SimpleDateFormat("yyyy-MM-dd")
-        try {
-            val d1 = df.parse(eTime)
-            val current = df.format(currentTime)
-            val d2 = df.parse(current)
-            val diff = d1.time - d2.time
-
-            days = diff / (1000 * 60 * 60 * 24)
-
-        } catch (e: ParseException) {
-            e.printStackTrace()
-        }
-
-        return days
-    }
 
     /**
      * 获取时间差1分
@@ -306,10 +310,7 @@ object DateUtils {
         val diff = eTime - sTime
         val seconds = (diff / (1000 * 60)).toDouble()
 
-        return if (seconds >= 1f)
-            false
-        else
-            true
+        return seconds < 1f
     }
 
     /**
@@ -429,7 +430,7 @@ object DateUtils {
 
         val result = aft.get(Calendar.MONTH) - bef.get(Calendar.MONTH)
         val month = (aft.get(Calendar.YEAR) - bef.get(Calendar.YEAR)) * 12
-        return Math.abs(month + result)
+        return abs(month + result)
     }
 
 
@@ -534,7 +535,7 @@ object DateUtils {
         Logger.v("info", datetime)
         val dateFormat = SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZZZ yyyy", Locale.ENGLISH)
         dateFormat.isLenient = false
-        var created: Date? = null
+        var created: Date?
         try {
             created = dateFormat.parse(datetime)
         } catch (e: Exception) {
@@ -844,8 +845,8 @@ object DateUtils {
             return null
         }
         // 格式化日期(yy-MM-dd)
-        startDate = DateUtils.getDateFormat(DateUtils.getDateFormat(startDate))
-        endDate = DateUtils.getDateFormat(DateUtils.getDateFormat(endDate))
+        startDate = getDateFormat(getDateFormat(startDate))
+        endDate = getDateFormat(getDateFormat(endDate))
         val dates = ArrayList<Date>()
         gregorianCalendar!!.time = startDate
         dates.add(gregorianCalendar!!.time)

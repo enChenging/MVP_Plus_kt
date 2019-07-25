@@ -38,4 +38,9 @@ object SchedulerUtils {
             AndroidLifecycleScopeProvider.from(lifecycleOwner)
         )
     }
+//    fun <T> bindLifecycle(lifecycleOwner: LifecycleOwner): AutoDisposeConverter<T> {
+//        return AutoDispose.autoDisposable(
+//            AndroidLifecycleScopeProvider.from(lifecycleOwner)
+//        )
+//    }
 }

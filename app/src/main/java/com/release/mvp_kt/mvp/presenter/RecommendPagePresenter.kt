@@ -3,9 +3,11 @@ package com.release.mvp_kt.mvp.presenter
 import com.orhanobut.logger.Logger
 import com.release.mvp_kt.base.BasePresenter
 import com.release.mvp_kt.http.exception.ExceptionHandle
+import com.release.mvp_kt.http.function.RetryWithDelay
 import com.release.mvp_kt.mvp.contract.RecommendPageContract
 import com.release.mvp_kt.mvp.model.RecommendPageModel
 import com.release.mvp_kt.mvp.model.bean.RecommendPageBean
+import com.uber.autodispose.autoDisposable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 
@@ -21,8 +23,8 @@ class RecommendPagePresenter : BasePresenter<RecommendPageContract.Model, Recomm
 
     override fun requestData() {
         mModel?.requestData()
-//            ?.`as` (SchedulerUtils.bindLifecycle(mView as LifecycleOwner))
-//            ?.retryWhen(RetryWithDelay())
+            ?.retryWhen(RetryWithDelay())
+            ?.autoDisposable(scopeProvider!!)
             ?.subscribe(object : Observer<RecommendPageBean> {
 
                 override fun onSubscribe(d: Disposable) {

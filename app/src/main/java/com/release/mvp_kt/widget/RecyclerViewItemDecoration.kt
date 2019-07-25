@@ -87,7 +87,7 @@ class RecyclerViewItemDecoration : androidx.recyclerview.widget.RecyclerView.Ite
                 it.draw(canvas)
             }
             mPaint?.let {
-                canvas.drawRect(left.toFloat(), top.toFloat(), right.toFloat(), bottom.toFloat(), mPaint)
+                canvas.drawRect(left.toFloat(), top.toFloat(), right.toFloat(), bottom.toFloat(), it)
             }
         }
     }
@@ -109,7 +109,7 @@ class RecyclerViewItemDecoration : androidx.recyclerview.widget.RecyclerView.Ite
                 it.draw(canvas)
             }
             mPaint?.let {
-                canvas.drawRect(left.toFloat(), top.toFloat(), right.toFloat(), bottom.toFloat(), mPaint)
+                canvas.drawRect(left.toFloat(), top.toFloat(), right.toFloat(), bottom.toFloat(), it)
             }
         }
     }

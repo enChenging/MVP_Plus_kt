@@ -23,6 +23,7 @@ import java.util.HashMap
  *
  * @author user
  */
+@Suppress("DEPRECATION", "RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class CrashHandler
 /**
  * 保证只有一个CrashHandler实例

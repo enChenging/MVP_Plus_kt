@@ -66,7 +66,7 @@ class PersistentCookieStore {
         }
         // 将Cookie持久化到本地
         val prefsWriter: SharedPreferences.Editor = cookiePrefs.edit()
-        prefsWriter.putString(url.host(), TextUtils.join(",", cookies[url.host()]?.entries))
+        prefsWriter.putString(url.host(), TextUtils.join(",", cookies[url.host()]!!.entries))
         prefsWriter.putString(name, encodeCookie(OkHttpCookies(cookie)))
         prefsWriter.apply()
     }
@@ -97,7 +97,7 @@ class PersistentCookieStore {
             if (cookiePrefs.contains(name)) {
                 prefsWriter.remove(name)
             }
-            prefsWriter.putString(url.host(), TextUtils.join(",", cookies[url.host()]?.keys))
+            prefsWriter.putString(url.host(), TextUtils.join(",", cookies[url.host()]!!.keys))
             prefsWriter.apply()
 
             true

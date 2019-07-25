@@ -19,8 +19,8 @@ class NewsSpacialModel : BaseModel(), NewsSpacialContract.Model {
         return RetrofitHelper.newsService.getSpecial(specialId)
             .flatMap {
                 stringSpecialInfoBeanMap ->
-                val list = stringSpecialInfoBeanMap[specialId]
-                val i = Gson().toJson(list)
+//                val list = stringSpecialInfoBeanMap[specialId]
+//                val i = Gson().toJson(list)
                 Observable.just(stringSpecialInfoBeanMap[specialId])
             }
             .compose(SchedulerUtils.ioToMain())

@@ -12,6 +12,7 @@ import com.release.mvp_kt.ext.showToast
 import com.release.mvp_kt.utils.CommonUtil
 import com.release.mvp_kt.utils.CrashHandler
 import com.release.mvp_kt.utils.DisplayManager
+import com.squareup.leakcanary.LeakCanary
 import com.tencent.bugly.Bugly
 import com.tencent.bugly.beta.Beta
 import com.tencent.bugly.beta.upgrade.UpgradeStateListener
@@ -40,6 +41,18 @@ class App : MultiDexApplication() {
         DisplayManager.init(this)
         initLitePal()
         initBugly()
+        initLeakCanary()
+    }
+
+    private fun initLeakCanary() {
+
+        if (BuildConfig.DEBUG) {
+            if (LeakCanary.isInAnalyzerProcess(this)) {
+                //此过程专用于LeakCanary进行堆分析。在此过程中不应初始化应用程序。
+                return
+            }
+            LeakCanary.install(this)
+        }
     }
 
     /**

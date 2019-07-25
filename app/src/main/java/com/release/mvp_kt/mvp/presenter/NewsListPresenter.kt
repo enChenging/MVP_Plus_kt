@@ -11,6 +11,7 @@ import com.release.mvp_kt.mvp.model.bean.NewsInfoBean
 import com.release.mvp_kt.ui.adpater.item.NewsMultiItem
 import com.release.mvp_kt.utils.NetWorkUtil
 import com.release.mvp_kt.utils.NewsUtils
+import com.uber.autodispose.autoDisposable
 import io.reactivex.ObservableTransformer
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
@@ -33,7 +34,7 @@ class NewsListPresenter : BasePresenter<NewsListContract.Model, NewsListContract
                 !NewsUtils.isAbNews(it)//决定了是否将结果返回给订阅者
             }
             ?.compose(observableTransformer)
-//            ?.`as`(SchedulerUtils.bindLifecycle(mView as LifecycleOwner))
+            ?.autoDisposable(scopeProvider!!)
             ?.subscribe(object : Observer<List<NewsMultiItem>> {
 
                 override fun onComplete() {

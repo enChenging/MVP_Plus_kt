@@ -28,6 +28,7 @@ import java.util.concurrent.TimeUnit
 object RetrofitHelper {
 
     private var retrofit: Retrofit? = null
+    private var retrofit2: Retrofit? = null
 
     /**
      * 获取 OkHttpClient
@@ -49,7 +50,8 @@ object RetrofitHelper {
             addInterceptor(httpLoggingInterceptor)
             addInterceptor(HeaderInterceptor2())
             addNetworkInterceptor(CacheInterceptor())
-            sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
+            sslParams.sSLSocketFactory?.let {
+                sslParams.trustManager?.let { it1 -> sslSocketFactory(it, it1) } }
             cache(cache)  //添加缓存
             connectTimeout(HttpConstant.DEFAULT_TIMEOUT, TimeUnit.SECONDS)
             readTimeout(HttpConstant.DEFAULT_TIMEOUT, TimeUnit.SECONDS)
@@ -65,7 +67,6 @@ object RetrofitHelper {
                 if (retrofit == null) {
                     retrofit = Retrofit.Builder()
                         .client(getOkHttpClient())
-//                        .baseUrl(Constant.RECOMMEND_HOST)
                         .baseUrl(Constant.NEWS_HOST)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create())
@@ -77,11 +78,29 @@ object RetrofitHelper {
         return retrofit
     }
 
-    val recommendService: RecommendServiceApi by lazy {
-        getRetrofit()!!.create(RecommendServiceApi::class.java)
+    private fun getRetrofit2(): Retrofit? {
+        if (retrofit2 == null) {
+            synchronized(RetrofitHelper::class.java) {
+                if (retrofit2 == null) {
+                    retrofit2 = Retrofit.Builder()
+                        .client(getOkHttpClient())
+                        .baseUrl(Constant.RECOMMEND_HOST)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//rx网络适配器
+                        .build()
+                }
+            }
+        }
+        return retrofit2
     }
 
     val newsService: NewsServiceApi by lazy {
         getRetrofit()!!.create(NewsServiceApi::class.java)
     }
+
+    val recommendService: RecommendServiceApi by lazy {
+        getRetrofit2()!!.create(RecommendServiceApi::class.java)
+    }
+
 }

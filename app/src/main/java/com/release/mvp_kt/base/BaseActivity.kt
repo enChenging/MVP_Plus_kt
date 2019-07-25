@@ -183,7 +183,7 @@ abstract class BaseActivity : AppCompatActivity() {
                 onBackPressed()
             }
         }
-        return super.onOptionsItemSelected(item)
+        return super.onOptionsItemSelected(item!!)
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

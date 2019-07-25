@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import com.classic.common.MultipleStatusView
 import com.release.mvp_kt.constant.Constant
 import com.release.mvp_kt.utils.Sp
-import com.release.mvp_kt.widget.EmptyLayout
-import kotlinx.android.synthetic.main.layout_empty.*
 import org.greenrobot.eventbus.EventBus
 
 /**

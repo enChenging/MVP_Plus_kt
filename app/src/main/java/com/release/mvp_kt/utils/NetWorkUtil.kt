@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.release.mvp_kt.utils
 
 import android.content.Context
@@ -15,7 +17,7 @@ import java.net.URL
  * @create 2019/7/10
  * @Describe
  */
-@Suppress("DEPRECATION")
+@Suppress("DEPRECATION", "RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class NetWorkUtil {
     companion object {
 

@@ -31,7 +31,20 @@ open class MainActivity : BaseMvpActivity<MainContract.View, MainContract.Presen
     override fun initLayoutID(): Int = R.layout.activity_main
 
 
+//    private val scopeProvider by lazy { AndroidLifecycleScopeProvider.from(this) }
     override fun initView() {
+
+//        Observable.interval(1, TimeUnit.SECONDS)
+//            .doOnDispose { Log.i("dd", "Disposing subscription from onResume()") }
+//            .autoDisposable(scopeProvider)
+//            .subscribe {
+//                Log.i(
+//                    "",
+//                    "Started in onCreate(), running until onDestroy(): $it"
+//                )
+//            }
+
+
         left_navigation.run {
             val headImg = getHeaderView(0).findViewById<ImageView>(R.id.headImg)
             Glide.with(this).load("https://b-ssl.duitang.com/uploads/item/201802/20/20180220170028_JcYMU.jpeg").circleCrop()

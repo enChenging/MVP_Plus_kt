@@ -10,12 +10,9 @@ import okhttp3.HttpUrl
  * @Describe
  */
 class CookieManager : CookieJar {
-
     private val COOKIE_STORE = PersistentCookieStore()
 
-    override fun saveFromResponse(url: HttpUrl?, cookies: MutableList<Cookie>?) {
-        cookies ?: return
-        url ?: return
+    override fun saveFromResponse(url: HttpUrl, cookies: MutableList<Cookie>) {
         if (cookies.size > 0) {
             for (cookie in cookies) {
                 COOKIE_STORE.add(url, cookie)

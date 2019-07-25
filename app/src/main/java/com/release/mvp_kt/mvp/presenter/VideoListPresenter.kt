@@ -9,6 +9,7 @@ import com.release.mvp_kt.http.exception.ExceptionHandle
 import com.release.mvp_kt.mvp.contract.VideoListContract
 import com.release.mvp_kt.mvp.model.VideoListModel
 import com.release.mvp_kt.utils.NetWorkUtil
+import com.uber.autodispose.autoDisposable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 
@@ -25,7 +26,7 @@ class VideoListPresenter : BasePresenter<VideoListContract.Model, VideoListContr
     override fun requestData(videoId: String, page: Int) {
 
         mModel?.requestData(videoId, page)
-//            ?.`as`(SchedulerUtils.bindLifecycle(mView as LifecycleOwner))
+            ?.autoDisposable(scopeProvider!!)
             ?.subscribe(object : Observer<List<VideoInfo>> {
 
                 override fun onComplete() {

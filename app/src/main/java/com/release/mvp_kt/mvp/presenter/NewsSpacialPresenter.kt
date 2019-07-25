@@ -11,6 +11,7 @@ import com.release.mvp_kt.mvp.model.bean.PhotoSetInfoBean
 import com.release.mvp_kt.mvp.model.bean.SpecialInfoBean
 import com.release.mvp_kt.ui.adpater.item.SpecialItem
 import com.release.mvp_kt.utils.NetWorkUtil
+import com.uber.autodispose.autoDisposable
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
@@ -36,6 +37,7 @@ class NewsSpacialPresenter : BasePresenter<NewsSpacialContract.Model, NewsSpacia
             }
             ?.toList()
             ?.toObservable()
+            ?.autoDisposable(scopeProvider!!)
             ?.subscribe(object : Observer<List<SpecialItem>> {
 
                 override fun onComplete() {

@@ -1,30 +1,18 @@
 package com.release.mvp_kt.mvp.presenter
 
-import androidx.lifecycle.LifecycleOwner
 import com.orhanobut.logger.Logger
 import com.release.mvp_kt.App
 import com.release.mvp_kt.R
 import com.release.mvp_kt.base.BasePresenter
 import com.release.mvp_kt.http.exception.ExceptionHandle
 import com.release.mvp_kt.mvp.contract.NewsDetailContract
-import com.release.mvp_kt.mvp.contract.NewsListContract
 import com.release.mvp_kt.mvp.model.NewsDetailModel
-import com.release.mvp_kt.mvp.model.NewsListModel
 import com.release.mvp_kt.mvp.model.bean.NewsDetailInfoBean
-import com.release.mvp_kt.mvp.model.bean.NewsInfoBean
-import com.release.mvp_kt.rx.SchedulerUtils
-import com.release.mvp_kt.ui.adpater.item.NewsMultiItem
 import com.release.mvp_kt.utils.ListUtils
 import com.release.mvp_kt.utils.NetWorkUtil
-import com.release.mvp_kt.utils.NewsUtils
-import io.reactivex.Flowable
-import io.reactivex.FlowableTransformer
+import com.uber.autodispose.autoDisposable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
-import io.reactivex.functions.Function
-import org.reactivestreams.Publisher
-import org.reactivestreams.Subscriber
-import org.reactivestreams.Subscription
 
 /**
  * @author Mr.release
@@ -32,7 +20,8 @@ import org.reactivestreams.Subscription
  * @Describe
  */
 @Suppress("PrivatePropertyName")
-class NewsDetailPresenter : BasePresenter<NewsDetailContract.Model, NewsDetailContract.View>(), NewsDetailContract.Presenter {
+class NewsDetailPresenter : BasePresenter<NewsDetailContract.Model, NewsDetailContract.View>(),
+    NewsDetailContract.Presenter {
 
     private val HTML_IMG_TEMPLATE = "<img src=\"http\" />"
 
@@ -41,7 +30,7 @@ class NewsDetailPresenter : BasePresenter<NewsDetailContract.Model, NewsDetailCo
     override fun requestData(newsId: String) {
 
         mModel?.requestData(newsId)
-            ?.`as` (SchedulerUtils.bindLifecycle(mView as LifecycleOwner))
+            ?.autoDisposable(scopeProvider!!)
             ?.subscribe(object : Observer<NewsDetailInfoBean> {
 
                 override fun onComplete() {
@@ -70,6 +59,7 @@ class NewsDetailPresenter : BasePresenter<NewsDetailContract.Model, NewsDetailCo
             })
 
     }
+
     /**
      * 处理富文本包含图片的情况
      *

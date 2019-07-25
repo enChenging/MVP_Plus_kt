@@ -1,8 +1,6 @@
 package com.release.mvp_kt.http.interceptor
 
 import com.orhanobut.logger.Logger
-import com.release.mvp_kt.constant.Constant
-import com.release.mvp_kt.utils.Sp
 import okhttp3.Interceptor
 import okhttp3.RequestBody
 import okhttp3.Response
@@ -24,13 +22,10 @@ class HeaderInterceptor2 : Interceptor {
         val request = chain.request()
         val requestBuffer = Buffer()
 
-        if (request == null)
-            throw RuntimeException("Request返回值不能为空")
-
         val requestBody = request.body()
 
         if (requestBody != null)
-            requestBody.writeTo(requestBuffer as BufferedSink?)
+            (requestBuffer as BufferedSink)?. let { requestBody.writeTo(it) }
         else
             Logger.d("HeaderInterceptor2--request.body() == null")
 

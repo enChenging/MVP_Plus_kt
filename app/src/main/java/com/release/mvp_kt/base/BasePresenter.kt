@@ -4,8 +4,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 
 /**
  * @author Mr.release
@@ -15,10 +14,9 @@ import io.reactivex.disposables.Disposable
 abstract class BasePresenter<M : IModel, V : IView> : IPresenter<V>, LifecycleObserver {
 
 
+    protected var scopeProvider: AndroidLifecycleScopeProvider? = null
     protected var mView: V? = null
     protected var mModel: M? = null
-
-    private var mCompositeDisposable: CompositeDisposable? = null
 
     open fun createModel(): M? = null
 
@@ -30,19 +28,14 @@ abstract class BasePresenter<M : IModel, V : IView> : IPresenter<V>, LifecycleOb
         this.mView = mView
         mModel = createModel()
         if (mView is LifecycleOwner) {
-            (mView as LifecycleOwner).lifecycle.addObserver(this)
-            if (mModel != null && mModel is LifecycleObserver) {
-                (mView as LifecycleOwner).lifecycle.addObserver(mModel as LifecycleObserver)
-            }
+            scopeProvider = AndroidLifecycleScopeProvider.from((mView as LifecycleOwner))
         }
     }
 
     override fun detachView() {
-        unDispose()
         mModel?.onDetach()
         this.mModel = null
         this.mView = null
-        this.mCompositeDisposable = null
     }
 
     open fun checkViewAttached() {
@@ -50,22 +43,8 @@ abstract class BasePresenter<M : IModel, V : IView> : IPresenter<V>, LifecycleOb
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    fun onDestroy(owner: LifecycleOwner){
+    fun onDestroy(owner: LifecycleOwner) {
         owner.lifecycle.removeObserver(this)
-    }
-
-    open fun addDisposable(disposable: Disposable?){
-        if (mCompositeDisposable == null){
-            mCompositeDisposable = CompositeDisposable()
-        }
-        disposable?.let {
-            mCompositeDisposable?.add(it)
-        }
-    }
-
-    private fun unDispose() {
-        mCompositeDisposable?.clear()  // 保证Activity结束时取消
-        mCompositeDisposable = null
     }
 
 }

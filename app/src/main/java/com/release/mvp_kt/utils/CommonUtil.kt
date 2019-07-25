@@ -130,7 +130,7 @@ object CommonUtil {
         var data: String? = null
         try {
             inStream = context.assets.open(fileName)     //打开assets目录中的文本文件
-            val bytes = ByteArray(inStream!!.available())  //inStream.available()为文件中的总byte数
+            val bytes = ByteArray(inStream.available())  //inStream.available()为文件中的总byte数
             inStream.read(bytes)
             inStream.close()
             data = String(bytes)        //将bytes转为utf-8字符串

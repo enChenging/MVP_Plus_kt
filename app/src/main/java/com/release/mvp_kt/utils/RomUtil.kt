@@ -64,7 +64,7 @@ object RomUtil {
         val miuiVersionCodeStr = getSystemProperty("ro.miui.ui.version.code")
         if (!TextUtils.isEmpty(miuiVersionCodeStr)) {
             try {
-                val miuiVersionCode = Integer.parseInt(miuiVersionCodeStr)
+                val miuiVersionCode = Integer.parseInt(miuiVersionCodeStr!!)
                 if (miuiVersionCode >= 4) {
                     return true
                 }
