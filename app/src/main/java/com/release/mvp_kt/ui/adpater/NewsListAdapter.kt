@@ -22,8 +22,11 @@ import kotlin.math.min
  * @create 2019/3/22
  * @Describe
  */
-class NewsListAdapter(data: List<NewsMultiItem>?) : BaseMultiItemQuickAdapter<NewsMultiItem, BaseViewHolder>(data) {
+class NewsListAdapter(data: List<NewsMultiItem>?, title: String) :
+    BaseMultiItemQuickAdapter<NewsMultiItem, BaseViewHolder>(data) {
 
+
+    private val mTitle: String = title
 
     init {
         addItemType(NewsMultiItem.ITEM_TYPE_NORMAL, R.layout.adapter_news_list)
@@ -32,8 +35,8 @@ class NewsListAdapter(data: List<NewsMultiItem>?) : BaseMultiItemQuickAdapter<Ne
 
     override fun convert(helper: BaseViewHolder, item: NewsMultiItem) {
         when (item.itemType) {
-            NewsMultiItem.ITEM_TYPE_NORMAL -> _handleNewsNormal(helper, item.newsBean)
-            NewsMultiItem.ITEM_TYPE_PHOTO_SET -> _handleNewsPhotoSet(helper, item.newsBean)
+            NewsMultiItem.ITEM_TYPE_NORMAL -> handleNewsNormal(helper, item.newsBean)
+            NewsMultiItem.ITEM_TYPE_PHOTO_SET -> handleNewsPhotoSet(helper, item.newsBean)
         }
     }
 
@@ -43,7 +46,8 @@ class NewsListAdapter(data: List<NewsMultiItem>?) : BaseMultiItemQuickAdapter<Ne
      * @param holder
      * @param item
      */
-    private fun _handleNewsNormal(holder: BaseViewHolder, item: NewsInfoBean) {
+    private fun handleNewsNormal(holder: BaseViewHolder, item: NewsInfoBean) {
+
         val newsIcon = holder.getView<ImageView>(R.id.iv_icon)
         ImageLoader.loadCenterCrop(mContext, item.imgsrc, newsIcon, DefIconFactory.provideIcon())
         holder.setText(R.id.tv_title, item.title)
@@ -61,9 +65,9 @@ class NewsListAdapter(data: List<NewsMultiItem>?) : BaseMultiItemQuickAdapter<Ne
         val rippleLayout = holder.getView<RippleView>(R.id.item_ripple)
         rippleLayout.setOnRippleCompleteListener {
             if (NewsUtils.isNewsSpecial(item.skipType))
-                NewsSpecialActivity.start(mContext, item.specialID)
+                NewsSpecialActivity.start(mContext, item.specialID,mTitle)
             else
-                NewsDetailActivity.start(mContext, item.postid)
+                NewsDetailActivity.start(mContext, item.postid, mTitle)
         }
     }
 
@@ -73,7 +77,7 @@ class NewsListAdapter(data: List<NewsMultiItem>?) : BaseMultiItemQuickAdapter<Ne
      * @param holder
      * @param item
      */
-    private fun _handleNewsPhotoSet(holder: BaseViewHolder, item: NewsInfoBean) {
+    private fun handleNewsPhotoSet(holder: BaseViewHolder, item: NewsInfoBean) {
         val newsPhoto = arrayOfNulls<ImageView>(3)
         newsPhoto[0] = holder.getView<ImageView>(R.id.iv_icon_1)
         newsPhoto[1] = holder.getView<ImageView>(R.id.iv_icon_2)

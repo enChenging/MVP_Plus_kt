@@ -51,11 +51,9 @@ class NewsSpecialAdapter(layoutResId: Int, sectionHeadResId: Int, data: List<Spe
 
         holder.getConvertView().setOnClickListener {
             if (NewsUtils.isNewsSpecial(item.t.skipType)) {
-                NewsSpecialActivity.start(mContext, item.t.specialID)
-            } else if (NewsUtils.isNewsPhotoSet(item.t.skipType)) {
-                //                    PhotoSetActivity.launch(mContext, item.t.getPhotosetID());
+                NewsSpecialActivity.start(mContext, item.t.specialID,item.t.title)
             } else {
-                NewsDetailActivity.start(mContext, item.t.postid)
+                NewsDetailActivity.start(mContext, item.t.postid,item.t.title)
             }
         }
     }

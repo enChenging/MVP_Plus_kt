@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.orhanobut.logger.Logger
 import com.release.mvp_kt.R
 import com.release.mvp_kt.base.BaseMvpFragment
 import com.release.mvp_kt.constant.Constant.NEWS_TYPE_KEY
+import com.release.mvp_kt.constant.Constant.NEWS_TYPE_TITLE
 import com.release.mvp_kt.mvp.contract.NewsListContract
 import com.release.mvp_kt.mvp.model.bean.NewsInfoBean
 import com.release.mvp_kt.mvp.presenter.NewsListPresenter
@@ -27,10 +27,11 @@ class NewsListFragment : BaseMvpFragment<NewsListContract.View, NewsListContract
 
     companion object {
 
-        fun newInstance(newsId: String): NewsListFragment {
+        fun newInstance(newsId: String, title: String): NewsListFragment {
             val fragment = NewsListFragment()
             val bundle = Bundle()
             bundle.putString(NEWS_TYPE_KEY, newsId)
+            bundle.putString(NEWS_TYPE_TITLE, title)
             fragment.arguments = bundle
             return fragment
         }
@@ -42,24 +43,22 @@ class NewsListFragment : BaseMvpFragment<NewsListContract.View, NewsListContract
 
     private var mPage: Int = 0
     private lateinit var newsId: String
+    private lateinit var newsTitle: String
     private var isRefresh = true
 
     private val mAdapter: NewsListAdapter by lazy {
-        NewsListAdapter(null)
+        NewsListAdapter(null,newsTitle)
     }
 
     override fun initData() {
         newsId = arguments?.getString(NEWS_TYPE_KEY).toString()
+        newsTitle = arguments?.getString(NEWS_TYPE_TITLE).toString()
     }
 
     override fun initView(view: View) {
         super.initView(view)
         mAdapter.run {
             openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT)
-            setOnLoadMoreListener(
-                { mPresenter?.requestData(newsId, mPage) },
-                rv_news_list
-            )
         }
 
         rv_news_list.run {
@@ -91,6 +90,7 @@ class NewsListFragment : BaseMvpFragment<NewsListContract.View, NewsListContract
     }
 
     override fun loadAdData(data: NewsInfoBean) {
+
     }
 
     override fun loadData(data: List<NewsMultiItem>) {

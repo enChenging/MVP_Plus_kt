@@ -7,11 +7,11 @@ import android.content.Intent
 import android.text.TextUtils
 import android.view.ViewConfiguration
 import android.widget.ScrollView
-import androidx.core.view.ViewCompat
 import androidx.core.widget.NestedScrollView
 import com.release.mvp_kt.R
 import com.release.mvp_kt.base.BaseMvpActivity
 import com.release.mvp_kt.constant.Constant.NEWS_ID_KEY
+import com.release.mvp_kt.constant.Constant.NEWS_TYPE_TITLE
 import com.release.mvp_kt.mvp.contract.NewsDetailContract
 import com.release.mvp_kt.mvp.model.bean.NewsDetailInfoBean
 import com.release.mvp_kt.mvp.model.bean.SpinfoBean
@@ -25,6 +25,7 @@ import kotlinx.android.synthetic.main.fragment_news_detail.*
 import kotlinx.android.synthetic.main.layout_news_content.*
 import kotlinx.android.synthetic.main.layout_pull_scrollview_foot.*
 import kotlinx.android.synthetic.main.layout_related_content.*
+import kotlinx.android.synthetic.main.tool_bar_back.*
 import kotlin.math.abs
 
 /**
@@ -38,9 +39,10 @@ class NewsDetailActivity : BaseMvpActivity<NewsDetailContract.View, NewsDetailCo
     NewsDetailContract.View {
 
     companion object {
-        fun start(context: Context, newsId: String) {
+        fun start(context: Context, newsId: String, title: String) {
             val intent = Intent(context, NewsDetailActivity::class.java)
             intent.putExtra(NEWS_ID_KEY, newsId)
+            intent.putExtra(NEWS_TYPE_TITLE, title)
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP)
             context.startActivity(intent)
             (context as Activity).overridePendingTransition(R.anim.slide_right_entry, R.anim.hold)
@@ -56,14 +58,25 @@ class NewsDetailActivity : BaseMvpActivity<NewsDetailContract.View, NewsDetailCo
     private var mTopBarAnimator: Animator? = null
     private var mLastScrollY = 0
     private var mNextNewsId: String? = null
-    private var newsId: String? = null
+    private var newsId: String? = ""
+    private var title: String? = ""
 
     override fun initData() {
         newsId = intent.getStringExtra(NEWS_ID_KEY)
+        title = intent.getStringExtra(NEWS_TYPE_TITLE)
+
     }
 
     override fun initView() {
         super.initView()
+
+        tool_bar.setTitleText(title)
+        if (title!!.length > 10) {
+            tool_bar.postDelayed({
+                tv_title.isSelected = true
+            }, 2000)
+        }
+
         RichText.initCacheDir(this)
         RichText.debugMode = false
         // 最小触摸滑动距离
@@ -94,9 +107,7 @@ class NewsDetailActivity : BaseMvpActivity<NewsDetailContract.View, NewsDetailCo
 
 
     override fun initListener() {
-        val topBarHeight = getResources().getDimensionPixelSize(R.dimen.default_toolbar_height)
-
-        back2.setOnClickListener { finish() }
+        val topBarHeight = resources.getDimensionPixelSize(R.dimen.default_toolbar_height)
 
         scroll_view.run {
             setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { _, _, _, _, _ ->
@@ -107,23 +118,11 @@ class NewsDetailActivity : BaseMvpActivity<NewsDetailContract.View, NewsDetailCo
                     if (abs(scrollY - mLastScrollY) > mMinScrollSlop) {
                         val isPullUp = scrollY > mLastScrollY
                         mLastScrollY = scrollY
-                        if (isPullUp && ll_top_bar2!!.translationY != (-topBarHeight).toFloat()) {
-                            mTopBarAnimator = AnimateHelper.doMoveVertical(
-                                ll_top_bar2, ll_top_bar2!!.translationY.toInt(),
-                                -topBarHeight, 300
-                            )
-                        } else if (!isPullUp && ll_top_bar2!!.translationY != 0f) {
-                            mTopBarAnimator = AnimateHelper.doMoveVertical(
-                                ll_top_bar2, ll_top_bar2!!.translationY.toInt(),
-                                0, 300
-                            )
+                        if (isPullUp && tool_bar!!.translationY != (-topBarHeight).toFloat()) {//往上滑
+                            mTopBarAnimator = AnimateHelper.doMoveVertical(tool_bar, tool_bar!!.translationY.toInt(), -topBarHeight, 300)
+                        } else if (!isPullUp && tool_bar!!.translationY != 0f) {//往下滑
+                            mTopBarAnimator = AnimateHelper.doMoveVertical(tool_bar, tool_bar!!.translationY.toInt(), 0, 300)
                         }
-                    }
-                } else {
-                    if (ll_top_bar2!!.translationY != (-topBarHeight).toFloat()) {
-                        AnimateHelper.stopAnimator(mTopBarAnimator)
-                        ViewCompat.setTranslationY(ll_top_bar2!!, (-topBarHeight).toFloat())
-                        mLastScrollY = 0
                     }
                 }
             })
@@ -185,7 +184,7 @@ class NewsDetailActivity : BaseMvpActivity<NewsDetailContract.View, NewsDetailCo
         if (ListUtils.isEmpty(newsDetailBean.relative_sys)) {
             tv_next_title.text = "没有相关文章了"
         } else {
-            mNextNewsId = newsDetailBean.relative_sys.get(0).id
+            mNextNewsId = newsDetailBean.relative_sys[0].id
             tv_next_title.text = newsDetailBean.relative_sys[0].title
         }
     }

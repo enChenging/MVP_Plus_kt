@@ -10,15 +10,15 @@ import android.view.LayoutInflater
 import android.view.ViewStub
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.dl7.tag.TagLayout
 import com.dl7.tag.TagView
+import com.orhanobut.logger.Logger
 import com.release.mvp_kt.R
 import com.release.mvp_kt.base.BaseMvpActivity
+import com.release.mvp_kt.constant.Constant
 import com.release.mvp_kt.constant.Constant.SPECIAL_KEY
 import com.release.mvp_kt.mvp.contract.NewsSpacialContract
 import com.release.mvp_kt.mvp.model.bean.SpecialInfoBean
@@ -47,9 +47,10 @@ class NewsSpecialActivity : BaseMvpActivity<NewsSpacialContract.View, NewsSpacia
 
 
     companion object {
-        fun start(context: Context, newsId: String) {
+        fun start(context: Context, newsId: String, title: String) {
             val intent = Intent(context, NewsSpecialActivity::class.java)
             intent.putExtra(SPECIAL_KEY, newsId)
+            intent.putExtra(Constant.NEWS_TYPE_TITLE, title)
             context.startActivity(intent)
             (context as Activity).overridePendingTransition(R.anim.slide_right_entry, R.anim.hold)
         }
@@ -65,24 +66,31 @@ class NewsSpecialActivity : BaseMvpActivity<NewsSpacialContract.View, NewsSpacia
 
     private val mSkipId = IntArray(20)
     private var mTagLayout: TagLayout? = null
-    private var mLinearLayoutManager: LinearLayoutManager? = null
+    private val mLinearLayoutManager: LinearLayoutManager by lazy {
+        LinearLayoutManager(this)
+    }
     private var mTopBarAnimator: Animator? = null
-    private var specialId: String? = null
+    private var specialId: String? = ""
+    private var title: String? = ""
 
     override fun initData() {
         specialId = intent.getStringExtra(SPECIAL_KEY)
+        title = intent.getStringExtra(Constant.NEWS_TYPE_TITLE)
     }
 
     override fun initView() {
         super.initView()
-        tool_bar.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+
+        Logger.i("title：$title")
+        tool_bar.setTitleText(title)
+
         mAdapter.run {
             openLoadAnimation(BaseQuickAdapter.SCALEIN)
         }
 
         rv_news_list.run {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(this@NewsSpecialActivity)
+            layoutManager = mLinearLayoutManager
             adapter = mAdapter
         }
     }
@@ -118,22 +126,20 @@ class NewsSpecialActivity : BaseMvpActivity<NewsSpacialContract.View, NewsSpacia
     override fun initListener() {
 
         val topBarHeight = resources.getDimensionPixelSize(R.dimen.default_toolbar_height)
-
-        mTopBarAnimator = AnimateHelper.doMoveVertical(tool_bar, tool_bar!!.translationY.toInt(), -topBarHeight, 0)
-
         rv_news_list!!.setOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                if (dy < 0 && !change) {
+                if (dy < 0 && !change) {//向下滑动
                     if (AnimateHelper.isRunning(mTopBarAnimator))
                         return
                     mTopBarAnimator = AnimateHelper.doMoveVertical(tool_bar, tool_bar!!.translationY.toInt(), 0, 300)
                     change = true
-                } else if (dy > 0 && change) {
-                    AnimateHelper.stopAnimator(mTopBarAnimator)
-                    ViewCompat.setTranslationY(tool_bar!!, (-topBarHeight).toFloat())
+                } else if (dy > 0 && change) {//向上滑动
+                    if (AnimateHelper.isRunning(mTopBarAnimator))
+                        return
+                    mTopBarAnimator = AnimateHelper.doMoveVertical(tool_bar, tool_bar!!.translationY.toInt(), -topBarHeight, 300)
                     change = false
                 }
             }
@@ -142,7 +148,8 @@ class NewsSpecialActivity : BaseMvpActivity<NewsSpacialContract.View, NewsSpacia
 
         fab_coping.run {
             setOnClickListener {
-                mLinearLayoutManager!!.scrollToPosition(0)
+                mLinearLayoutManager.scrollToPosition(0)
+                mTopBarAnimator = AnimateHelper.doMoveVertical(tool_bar, tool_bar!!.translationY.toInt(), 0, 300)
             }
         }
     }
@@ -179,7 +186,7 @@ class NewsSpecialActivity : BaseMvpActivity<NewsSpacialContract.View, NewsSpacia
         mTagLayout!!.tagClickListener = TagView.OnTagClickListener { position, _, _ ->
             // 跳转到对应positi
             // on,比scrollToPosition（）精确
-            mLinearLayoutManager!!.scrollToPositionWithOffset(mSkipId[position], 0)
+            mLinearLayoutManager.scrollToPositionWithOffset(mSkipId[position], 0)
         }
     }
 

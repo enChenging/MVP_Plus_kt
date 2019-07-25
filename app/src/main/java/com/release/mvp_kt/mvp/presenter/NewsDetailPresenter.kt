@@ -30,6 +30,10 @@ class NewsDetailPresenter : BasePresenter<NewsDetailContract.Model, NewsDetailCo
     override fun requestData(newsId: String) {
 
         mModel?.requestData(newsId)
+            ?.doOnNext {
+                newsDetailInfoBean->
+                handleRichTextWithImg(newsDetailInfoBean)
+            }
             ?.autoDisposable(scopeProvider!!)
             ?.subscribe(object : Observer<NewsDetailInfoBean> {
 
@@ -39,7 +43,6 @@ class NewsDetailPresenter : BasePresenter<NewsDetailContract.Model, NewsDetailCo
 
                 override fun onSubscribe(d: Disposable) {
                     mView?.showLoading()
-//                    mView?.addDisposable(d)
                     if (!NetWorkUtil.isNetworkConnected(App.instance)) {
                         mView?.showDefaultMsg(App.instance.resources.getString(R.string.network_unavailable_tip))
                         onComplete()

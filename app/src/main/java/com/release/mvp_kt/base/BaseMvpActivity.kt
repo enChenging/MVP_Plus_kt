@@ -3,6 +3,7 @@ package com.release.mvp_kt.base
 import com.release.mvp_kt.ext.showToast
 import com.release.mvp_kt.widget.EmptyLayout
 import kotlinx.android.synthetic.main.layout_empty.*
+import kotlinx.android.synthetic.main.layout_empty.view.*
 
 /**
  * @author Mr.release
@@ -38,8 +39,14 @@ abstract class BaseMvpActivity<in V : IView, P : IPresenter<V>> : BaseActivity()
     }
 
     override fun showError() {
-        if (empty_layout != null)
-            empty_layout.emptyStatus = EmptyLayout.STATUS_NO_NET
+        if (empty_layout != null){
+            empty_layout.run {
+                emptyStatus = EmptyLayout.STATUS_NO_NET
+                setRetryListener {
+                    doReConnected()
+                }
+            }
+        }
     }
 
     override fun showError(errorMsg: String) {

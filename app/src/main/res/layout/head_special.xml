@@ -5,11 +5,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-   <com.release.mvp_kt.widget.IToolBar
-       android:id="@+id/toolbar"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"/>
-
+    <View android:layout_width="match_parent"
+          android:layout_height="@dimen/default_toolbar_height"
+          android:background="@color/colorPrimary"
+    />
     <ImageView
         android:id="@+id/iv_banner"
         android:layout_width="match_parent"

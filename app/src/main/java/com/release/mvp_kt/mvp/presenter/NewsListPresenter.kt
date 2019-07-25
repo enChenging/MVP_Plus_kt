@@ -43,9 +43,6 @@ class NewsListPresenter : BasePresenter<NewsListContract.Model, NewsListContract
 
                 override fun onSubscribe(d: Disposable) {
                     mView?.showLoading()
-
-//                    mView?.addDisposable(d)
-
                     if (!NetWorkUtil.isNetworkConnected(App.instance)) {
                         mView?.showDefaultMsg(App.instance.resources.getString(R.string.network_unavailable_tip))
                         onComplete()
@@ -59,8 +56,7 @@ class NewsListPresenter : BasePresenter<NewsListContract.Model, NewsListContract
 
                 override fun onError(t: Throwable) {
                     Logger.e("NewsList--onError:$t")
-                    mView?.hideLoading()
-                    mView?.showError(ExceptionHandle.handleException(t))
+                    mView?.showError()
                 }
             })
     }

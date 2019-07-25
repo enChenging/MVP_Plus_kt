@@ -28,7 +28,7 @@ interface IView {
     fun showMsg(msg: String)
 
     /**
-     * 显示错误信息
+     * 显示网络异常，点击重试
      */
     fun showError()
 

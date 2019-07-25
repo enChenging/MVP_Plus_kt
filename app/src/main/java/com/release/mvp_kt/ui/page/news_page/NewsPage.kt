@@ -64,7 +64,7 @@ class NewsPage : BaseMvpFragment<NewsPageContract.View, NewsPageContract.Present
 
         for (bean in NewsTypeIfs!!) {
             titles.add(bean.name)
-            fragments.add(NewsListFragment.newInstance(bean.typeId))
+            fragments.add(NewsListFragment.newInstance(bean.typeId,bean.name))
         }
 
         mAdapter.setItems(fragments, titles)

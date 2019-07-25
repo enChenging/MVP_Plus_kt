@@ -1,5 +1,6 @@
 package com.release.mvp_kt.mvp.model
 
+import com.google.gson.Gson
 import com.release.mvp_kt.base.BaseModel
 import com.release.mvp_kt.http.RetrofitHelper
 import com.release.mvp_kt.mvp.contract.NewsDetailContract
@@ -22,6 +23,8 @@ class NewsDetailModel : BaseModel(), NewsDetailContract.Model {
     override fun requestData(newsId: String): Observable<NewsDetailInfoBean> {
         return RetrofitHelper.newsService.getNewsDetail(newsId)
             .flatMap { stringNewsDetailInfoBeanMap ->
+//                val list = stringNewsDetailInfoBeanMap[newsId]
+//                val i = Gson().toJson(list)
                 Observable.just<NewsDetailInfoBean>(stringNewsDetailInfoBeanMap[newsId])//获取NewsDetailInfoBean
             }
             .compose(SchedulerUtils.ioToMain())
