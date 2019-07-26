@@ -17,13 +17,6 @@ import java.util.*
  */
 class VideoPage : BaseMvpFragment<VideoPageContract.View, VideoPageContract.Presenter>(), VideoPageContract.View {
 
-    companion object {
-
-        fun newInstance(): VideoPage {
-            return VideoPage()
-        }
-    }
-
     override fun createPresenter(): VideoPageContract.Presenter = VideoPagePresenter()
 
     override fun initLayoutID(): Int = R.layout.page_video
@@ -40,7 +33,6 @@ class VideoPage : BaseMvpFragment<VideoPageContract.View, VideoPageContract.Pres
 
     override fun initData() {
 
-
         for (i in VIDEO_ID.indices) {
             fragments.add(VideoListFragment.newInstance(VIDEO_ID[i]))
         }
@@ -48,15 +40,7 @@ class VideoPage : BaseMvpFragment<VideoPageContract.View, VideoPageContract.Pres
     }
 
     override fun initView(view: View) {
-
-
         view_pager.adapter = mAdapter
         stl_tab_layout.setViewPager(view_pager)
-    }
-
-
-    override fun loadData() {
-
-
     }
 }

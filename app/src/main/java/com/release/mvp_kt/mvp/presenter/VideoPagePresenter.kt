@@ -8,7 +8,4 @@ import com.release.mvp_kt.mvp.contract.VideoPageContract
  * @create 2019/7/11
  * @Describe
  */
-class VideoPagePresenter :BasePresenter<VideoPageContract.Model,VideoPageContract.View>(),VideoPageContract.Presenter {
-    override fun requestData() {
-    }
-}
+class VideoPagePresenter : BasePresenter<VideoPageContract.View>(), VideoPageContract.Presenter

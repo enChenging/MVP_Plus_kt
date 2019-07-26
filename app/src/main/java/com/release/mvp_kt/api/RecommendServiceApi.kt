@@ -1,7 +1,7 @@
 package com.release.mvp_kt.api
 
 
-import com.release.mvp_kt.mvp.model.bean.RecommendPageBean
+import com.release.mvp_kt.mvp.model.RecommendPageBean
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query

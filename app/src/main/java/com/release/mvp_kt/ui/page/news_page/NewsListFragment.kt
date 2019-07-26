@@ -6,10 +6,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.release.mvp_kt.R
 import com.release.mvp_kt.base.BaseMvpFragment
+import com.release.mvp_kt.constant.Constant
 import com.release.mvp_kt.constant.Constant.NEWS_TYPE_KEY
 import com.release.mvp_kt.constant.Constant.NEWS_TYPE_TITLE
 import com.release.mvp_kt.mvp.contract.NewsListContract
-import com.release.mvp_kt.mvp.model.bean.NewsInfoBean
+import com.release.mvp_kt.mvp.model.NewsInfoBean
 import com.release.mvp_kt.mvp.presenter.NewsListPresenter
 import com.release.mvp_kt.ui.adpater.NewsListAdapter
 import com.release.mvp_kt.ui.adpater.item.NewsMultiItem
@@ -78,7 +79,7 @@ class NewsListFragment : BaseMvpFragment<NewsListContract.View, NewsListContract
 
             setOnLoadMoreListener {
                 isRefresh = false
-                val page = mAdapter.data.size / 20
+                val page = mAdapter.data.size / Constant.PAGE
                 mPresenter?.requestData(newsId, page)
                 finishLoadMore(1000)
             }
@@ -99,13 +100,6 @@ class NewsListFragment : BaseMvpFragment<NewsListContract.View, NewsListContract
                 replaceData(data)
             else
                 addData(data)
-
-            val size = data.size
-            if (size < data.size) {
-                loadMoreEnd(isRefresh)
-            } else {
-                loadMoreComplete()
-            }
         }
     }
 

@@ -1,7 +1,7 @@
 package com.release.mvp_kt.ui.adpater.item
 
 import com.chad.library.adapter.base.entity.SectionEntity
-import com.release.mvp_kt.mvp.model.bean.NewsItemInfoBean
+import com.release.mvp_kt.mvp.model.NewsItemInfoBean
 
 class SpecialItem : SectionEntity<NewsItemInfoBean> {
 

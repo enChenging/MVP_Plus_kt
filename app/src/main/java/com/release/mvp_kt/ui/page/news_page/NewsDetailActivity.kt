@@ -13,8 +13,8 @@ import com.release.mvp_kt.base.BaseMvpActivity
 import com.release.mvp_kt.constant.Constant.NEWS_ID_KEY
 import com.release.mvp_kt.constant.Constant.NEWS_TYPE_TITLE
 import com.release.mvp_kt.mvp.contract.NewsDetailContract
-import com.release.mvp_kt.mvp.model.bean.NewsDetailInfoBean
-import com.release.mvp_kt.mvp.model.bean.SpinfoBean
+import com.release.mvp_kt.mvp.model.NewsDetailInfoBean
+import com.release.mvp_kt.mvp.model.SpinfoBean
 import com.release.mvp_kt.mvp.presenter.NewsDetailPresenter
 import com.release.mvp_kt.utils.AnimateHelper
 import com.release.mvp_kt.utils.ListUtils

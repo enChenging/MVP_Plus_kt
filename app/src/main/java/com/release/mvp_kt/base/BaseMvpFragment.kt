@@ -24,6 +24,8 @@ abstract class BaseMvpFragment<in V : IView, P : IPresenter<V>> : BaseFragment()
         super.initView(view)
         mPresenter = createPresenter()
         mPresenter?.attachView(this as V)
+        if (empty_layout != null)
+            empty_layout.hide()
     }
 
     override fun onDestroyView() {

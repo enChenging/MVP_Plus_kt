@@ -1,6 +1,5 @@
 package com.release.mvp_kt.mvp.contract
 
-import com.release.mvp_kt.base.IModel
 import com.release.mvp_kt.base.IPresenter
 import com.release.mvp_kt.base.IView
 import com.release.mvp_kt.dao.VideoInfo
@@ -22,10 +21,5 @@ interface VideoListContract {
     interface Presenter : IPresenter<View> {
 
         fun requestData(videoId: String, page: Int)
-    }
-
-    interface Model : IModel {
-
-        fun requestData(videoId: String, page: Int): Observable<List<VideoInfo>>
     }
 }

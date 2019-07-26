@@ -18,6 +18,8 @@ object Constant {
 
     const val HEAD_LINE_NEWS = "T1348647909107"
 
+    const val RECOMMEND_ID = "4a0090627cf07a50def18da875165740"
+
     const val LOGIN_KEY = "login"
     const val TOKEN_KEY = "token"
     const val HAS_NETWORK_KEY = "has_network"
@@ -47,6 +49,7 @@ object Constant {
      */
     const val CURRENT_TIME = "currentTime"
     const val PAGE = 20
+    const val PAGE_TEN = 10
 
     const val NEWS_TYPE_KEY = "NewsTypeKey"
     const val NEWS_TYPE_TITLE = "NewsTypeTitle"

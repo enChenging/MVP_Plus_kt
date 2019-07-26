@@ -3,7 +3,7 @@ package com.release.mvp_kt.ui.adpater.item
 
 import androidx.annotation.IntDef
 import com.chad.library.adapter.base.entity.MultiItemEntity
-import com.release.mvp_kt.mvp.model.bean.NewsInfoBean
+import com.release.mvp_kt.mvp.model.NewsInfoBean
 
 class NewsMultiItem(@param:NewsItemType private val mItemType: Int, val newsBean: NewsInfoBean) : MultiItemEntity {
 

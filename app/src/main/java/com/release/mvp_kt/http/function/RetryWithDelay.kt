@@ -16,7 +16,7 @@ import java.util.concurrent.TimeoutException
  */
 class RetryWithDelay : Function<Observable<out Throwable>, Observable<*>> {
 
-    private var maxRetryCount = 3 // 可重试次数
+    private var maxRetryCount = 1 // 可重试次数
     private var retryDelayMillis: Long = 3000 // 重试等待时间
 
     constructor()

@@ -1,10 +1,8 @@
 package com.release.mvp_kt.mvp.contract
 
-import com.release.mvp_kt.base.IModel
 import com.release.mvp_kt.base.IPresenter
 import com.release.mvp_kt.base.IView
-import com.release.mvp_kt.mvp.model.bean.NewsDetailInfoBean
-import io.reactivex.Observable
+import com.release.mvp_kt.mvp.model.NewsDetailInfoBean
 
 
 /**
@@ -22,10 +20,5 @@ interface NewsDetailContract {
     interface Presenter : IPresenter<View> {
 
         fun requestData(newsId: String)
-    }
-
-    interface Model : IModel {
-
-        fun requestData(newsId: String): Observable<NewsDetailInfoBean>
     }
 }

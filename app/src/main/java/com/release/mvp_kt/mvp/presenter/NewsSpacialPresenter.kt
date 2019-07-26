@@ -1,71 +1,39 @@
 package com.release.mvp_kt.mvp.presenter
 
-import com.orhanobut.logger.Logger
-import com.release.mvp_kt.App
-import com.release.mvp_kt.R
 import com.release.mvp_kt.base.BasePresenter
-import com.release.mvp_kt.http.exception.ExceptionHandle
+import com.release.mvp_kt.ext.ext
+import com.release.mvp_kt.http.RetrofitHelper
 import com.release.mvp_kt.mvp.contract.NewsSpacialContract
-import com.release.mvp_kt.mvp.model.NewsSpacialModel
-import com.release.mvp_kt.mvp.model.bean.PhotoSetInfoBean
-import com.release.mvp_kt.mvp.model.bean.SpecialInfoBean
+import com.release.mvp_kt.mvp.model.SpecialInfoBean
 import com.release.mvp_kt.ui.adpater.item.SpecialItem
-import com.release.mvp_kt.utils.NetWorkUtil
-import com.uber.autodispose.autoDisposable
 import io.reactivex.Observable
-import io.reactivex.Observer
-import io.reactivex.disposables.Disposable
-import org.reactivestreams.Subscriber
-import org.reactivestreams.Subscription
 
 /**
  * @author Mr.release
  * @create 2019/6/26
  * @Describe
  */
-class NewsSpacialPresenter : BasePresenter<NewsSpacialContract.Model, NewsSpacialContract.View>(),
+class NewsSpacialPresenter : BasePresenter<NewsSpacialContract.View>(),
     NewsSpacialContract.Presenter {
 
-    override fun createModel(): NewsSpacialContract.Model? = NewsSpacialModel()
 
-    override fun requestData(newsId: String) {
+    override fun requestData(specialId: String) {
 
-        mModel?.requestData(newsId)
+        RetrofitHelper.newsService.getSpecial(specialId)
+            .flatMap { stringSpecialInfoBeanMap ->
+                //                val list = stringSpecialInfoBeanMap[specialId]
+//                val i = Gson().toJson(list)
+                Observable.just(stringSpecialInfoBeanMap[specialId])
+            }
             ?.flatMap { specialInfoBean ->
                 mView?.loadHead(specialInfoBean)
                 convertSpecialBeanToItem(specialInfoBean)
             }
             ?.toList()
             ?.toObservable()
-            ?.autoDisposable(scopeProvider!!)
-            ?.subscribe(object : Observer<List<SpecialItem>> {
-
-                override fun onComplete() {
-                    mView?.hideLoading()
-                }
-
-                override fun onSubscribe(d: Disposable) {
-                    mView?.showLoading()
-
-//                    mView?.addDisposable(d)
-
-                    if (!NetWorkUtil.isNetworkConnected(App.instance)) {
-                        mView?.showDefaultMsg(App.instance.resources.getString(R.string.network_unavailable_tip))
-                        onComplete()
-                    }
-                }
-
-                override fun onNext(t: List<SpecialItem>) {
-                    Logger.i("PhotoAlbum--onNext:$t")
-                    mView?.loadData(t)
-                }
-
-                override fun onError(t: Throwable) {
-                    Logger.e("PhotoAlbum--onError:$t")
-                    mView?.hideLoading()
-                    mView?.showError(ExceptionHandle.handleException(t))
-                }
-            })
+            ?.ext(mView, scopeProvider!!) {
+                mView?.loadData(it)
+            }
     }
 
     private fun convertSpecialBeanToItem(specialBean: SpecialInfoBean): Observable<SpecialItem> {

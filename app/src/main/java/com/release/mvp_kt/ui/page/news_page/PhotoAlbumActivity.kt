@@ -9,8 +9,8 @@ import com.release.mvp_kt.R
 import com.release.mvp_kt.base.BaseMvpActivity
 import com.release.mvp_kt.constant.Constant.PHOTO_SET_KEY
 import com.release.mvp_kt.mvp.contract.PhotoAlbumContract
-import com.release.mvp_kt.mvp.model.bean.PhotoSetInfoBean
-import com.release.mvp_kt.mvp.model.bean.PhotosBean
+import com.release.mvp_kt.mvp.model.PhotoSetInfoBean
+import com.release.mvp_kt.mvp.model.PhotosBean
 import com.release.mvp_kt.mvp.presenter.PhotoAlbumPresenter
 import com.release.mvp_kt.ui.adpater.PhotoSetAdapter
 import com.release.mvp_kt.utils.StatusBarUtil
@@ -79,7 +79,7 @@ class PhotoAlbumActivity : BaseMvpActivity<PhotoAlbumContract.View, PhotoAlbumCo
         val imgUrls = ArrayList<String>()
         mPhotos = data.photos as MutableList<PhotosBean>
 
-        for (photo in mPhotos!!) {
+        for (photo in mPhotos) {
             imgUrls.add(photo.imgurl)
         }
 

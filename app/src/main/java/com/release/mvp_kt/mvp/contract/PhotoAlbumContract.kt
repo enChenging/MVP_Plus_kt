@@ -1,9 +1,8 @@
 package com.release.mvp_kt.mvp.contract
 
-import com.release.mvp_kt.base.IModel
 import com.release.mvp_kt.base.IPresenter
 import com.release.mvp_kt.base.IView
-import com.release.mvp_kt.mvp.model.bean.PhotoSetInfoBean
+import com.release.mvp_kt.mvp.model.PhotoSetInfoBean
 import io.reactivex.Observable
 
 
@@ -21,11 +20,6 @@ interface PhotoAlbumContract {
 
     interface Presenter : IPresenter<View> {
 
-        fun requestData(newsId: String)
-    }
-
-    interface Model : IModel {
-
-        fun requestData(photoId: String): Observable<PhotoSetInfoBean>
+        fun requestData(photoId: String)
     }
 }

@@ -9,7 +9,7 @@ import com.release.mvp_kt.R
 import com.release.mvp_kt.base.BaseMvpFragment
 import com.release.mvp_kt.constant.Constant
 import com.release.mvp_kt.mvp.contract.RecommendPageContract
-import com.release.mvp_kt.mvp.model.bean.NewslistBean
+import com.release.mvp_kt.mvp.model.NewslistBean
 import com.release.mvp_kt.mvp.presenter.RecommendPagePresenter
 import com.release.mvp_kt.ui.activity.WebActivity
 import com.release.mvp_kt.ui.adpater.RecommendAdapter
@@ -23,12 +23,6 @@ import kotlinx.android.synthetic.main.page_recommend.*
 class RecommendPage : BaseMvpFragment<RecommendPageContract.View, RecommendPageContract.Presenter>(),
     RecommendPageContract.View {
 
-    companion object {
-        fun newInstance(): RecommendPage {
-            return RecommendPage()
-        }
-    }
-
     override fun createPresenter(): RecommendPageContract.Presenter = RecommendPagePresenter()
 
     override fun initLayoutID(): Int = R.layout.page_recommend
@@ -37,8 +31,21 @@ class RecommendPage : BaseMvpFragment<RecommendPageContract.View, RecommendPageC
         RecommendAdapter(R.layout.item_recommend, null)
     }
 
+    private var isRefresh = true
+
     override fun initView(view: View) {
         super.initView(view)
+
+
+        refresh_layout.run {
+            setOnRefreshListener {
+                isRefresh = true
+                mAdapter.setEnableLoadMore(false)
+                mPresenter?.requestData(Constant.RECOMMEND_ID, Constant.PAGE)
+                finishRefresh(1000)
+            }
+        }
+
         rv_list.run {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity)
@@ -62,13 +69,12 @@ class RecommendPage : BaseMvpFragment<RecommendPageContract.View, RecommendPageC
                     putExtra(Constant.CONTENT_TITLE_KEY, bean.title)
                     context?.startActivity(this, options.toBundle())
                 }
-//                        WebDetailActivity.start(activity, bean.title, bean.ctime, bean.description, bean.url)
             }
         }
     }
 
     override fun startNet() {
-        mPresenter?.requestData()
+        mPresenter?.requestData(Constant.RECOMMEND_ID, Constant.PAGE)
     }
 
     override fun loadData(data: List<NewslistBean>) {

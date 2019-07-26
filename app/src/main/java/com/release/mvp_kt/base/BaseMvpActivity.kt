@@ -20,6 +20,8 @@ abstract class BaseMvpActivity<in V : IView, P : IPresenter<V>> : BaseActivity()
     override fun initView() {
         mPresenter = createPresenter()
         mPresenter?.attachView(this as V)
+        if (empty_layout != null)
+            empty_layout.hide()
     }
 
     override fun onDestroy() {

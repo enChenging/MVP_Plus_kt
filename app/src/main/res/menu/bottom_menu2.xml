@@ -25,7 +25,7 @@
             app:showAsAction="ifRoom"
     />
     <item
-            android:id="@+id/page_address"
+            android:id="@+id/page_kinds"
             android:enabled="true"
             android:icon="@drawable/ic_kinds"
             android:title="@string/title_kinds"

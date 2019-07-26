@@ -21,7 +21,7 @@ import com.release.mvp_kt.base.BaseMvpActivity
 import com.release.mvp_kt.constant.Constant
 import com.release.mvp_kt.constant.Constant.SPECIAL_KEY
 import com.release.mvp_kt.mvp.contract.NewsSpacialContract
-import com.release.mvp_kt.mvp.model.bean.SpecialInfoBean
+import com.release.mvp_kt.mvp.model.SpecialInfoBean
 import com.release.mvp_kt.mvp.presenter.NewsSpacialPresenter
 import com.release.mvp_kt.rx.SchedulerUtils
 import com.release.mvp_kt.ui.adpater.NewsSpecialAdapter

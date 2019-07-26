@@ -4,7 +4,7 @@ import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.release.mvp_kt.R
-import com.release.mvp_kt.mvp.model.bean.NewslistBean
+import com.release.mvp_kt.mvp.model.NewslistBean
 import com.release.mvp_kt.utils.DefIconFactory
 import com.release.mvp_kt.utils.ImageLoader
 

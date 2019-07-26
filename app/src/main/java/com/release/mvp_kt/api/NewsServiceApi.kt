@@ -2,10 +2,10 @@ package com.release.mvp_kt.api
 
 
 import com.release.mvp_kt.dao.VideoInfo
-import com.release.mvp_kt.mvp.model.bean.NewsDetailInfoBean
-import com.release.mvp_kt.mvp.model.bean.NewsInfoBean
-import com.release.mvp_kt.mvp.model.bean.PhotoSetInfoBean
-import com.release.mvp_kt.mvp.model.bean.SpecialInfoBean
+import com.release.mvp_kt.mvp.model.NewsDetailInfoBean
+import com.release.mvp_kt.mvp.model.NewsInfoBean
+import com.release.mvp_kt.mvp.model.PhotoSetInfoBean
+import com.release.mvp_kt.mvp.model.SpecialInfoBean
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -31,15 +31,17 @@ interface NewsServiceApi {
      *
      * @param type
      * @param id
-     * @param startPage
+     * @param pageNumber
+     * @param page
      * @return
      */
     @Headers(CACHE_CONTROL_NETWORK)
-    @GET("nc/article/{type}/{id}/{startPage}-20.html")
+    @GET("nc/article/{type}/{id}/{pageNumber}-{page}.html")
     fun getImportantNews(
         @Path("type") type: String,
         @Path("id") id: String,
-        @Path("startPage") startPage: Int
+        @Path("pageNumber") pageNumber: Int,
+        @Path("page") page: Int
     ): Observable<Map<String, List<NewsInfoBean>>>
 
     /**
@@ -77,14 +79,16 @@ interface NewsServiceApi {
      * 获取视频
      *
      * @param id
-     * @param startPage
+     * @param pageNumber
+     * @param page
      * @return
      */
     @Headers(AVOID_HTTP403_FORBIDDEN)
-    @GET("nc/video/list/{id}/n/{startPage}-10.html")
+    @GET("nc/video/list/{id}/n/{pageNumber}-{page}.html")
     fun getVideoList(
         @Path("id") id: String,
-        @Path("startPage") startPage: Int
+        @Path("pageNumber") pageNumber: Int,
+        @Path("page") page: Int
     ): Observable<Map<String, List<VideoInfo>>>
 
 

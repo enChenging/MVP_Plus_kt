@@ -1,53 +1,23 @@
 package com.release.mvp_kt.mvp.presenter
 
-import com.orhanobut.logger.Logger
 import com.release.mvp_kt.base.BasePresenter
-import com.release.mvp_kt.http.exception.ExceptionHandle
-import com.release.mvp_kt.http.function.RetryWithDelay
+import com.release.mvp_kt.ext.ext
+import com.release.mvp_kt.http.RetrofitHelper
 import com.release.mvp_kt.mvp.contract.RecommendPageContract
-import com.release.mvp_kt.mvp.model.RecommendPageModel
-import com.release.mvp_kt.mvp.model.bean.RecommendPageBean
-import com.uber.autodispose.autoDisposable
-import io.reactivex.Observer
-import io.reactivex.disposables.Disposable
 
 /**
  * @author Mr.release
  * @create 2019/7/11
  * @Describe
  */
-class RecommendPagePresenter : BasePresenter<RecommendPageContract.Model, RecommendPageContract.View>(),
+class RecommendPagePresenter : BasePresenter<RecommendPageContract.View>(),
     RecommendPageContract.Presenter {
-
-    override fun createModel(): RecommendPageContract.Model? = RecommendPageModel()
-
-    override fun requestData() {
-        mModel?.requestData()
-            ?.retryWhen(RetryWithDelay())
-            ?.autoDisposable(scopeProvider!!)
-            ?.subscribe(object : Observer<RecommendPageBean> {
-
-                override fun onSubscribe(d: Disposable) {
-                    mView?.showLoading()
-                }
-
-                override fun onNext(t: RecommendPageBean) {
-                    Logger.i("RecommendPage--onNext: $t")
-                    mView?.loadData(t.newslist)
-                }
-
-                override fun onError(e: Throwable) {
-                    Logger.e("RecommendPage--onError: ${e.message}")
-                    mView?.hideLoading()
-                    mView?.showError(ExceptionHandle.handleException(e))
-
-                }
-
-                override fun onComplete() {
-                    mView?.hideLoading()
-                }
-
-            })
+    override fun requestData(recommendId: String, number: Int) {
+        RetrofitHelper.recommendService
+            .getRecommendData(recommendId, number)
+            .ext(mView, scopeProvider!!) {
+                mView?.loadData(it.newslist)
+            }
     }
 }
 

@@ -6,7 +6,7 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.flyco.labelview.LabelView
 import com.release.mvp_kt.R
-import com.release.mvp_kt.mvp.model.bean.NewsInfoBean
+import com.release.mvp_kt.mvp.model.NewsInfoBean
 import com.release.mvp_kt.ui.adpater.item.NewsMultiItem
 import com.release.mvp_kt.ui.page.news_page.NewsDetailActivity
 import com.release.mvp_kt.ui.page.news_page.NewsSpecialActivity

@@ -20,7 +20,7 @@
         android:label="@string/title_recommend"
         tools:layout="@layout/page_recommend" />
     <fragment
-        android:id="@+id/page_address"
+        android:id="@+id/page_kinds"
         android:name="com.release.mvp_kt.ui.page.kinds_page.KindsPage"
         android:label="@string/title_kinds"
         tools:layout="@layout/page_kinds" />

@@ -11,14 +11,11 @@ import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
  * @create 2019/6/25
  * @Describe
  */
-abstract class BasePresenter<M : IModel, V : IView> : IPresenter<V>, LifecycleObserver {
+abstract class BasePresenter<V : IView> : IPresenter<V>, LifecycleObserver {
 
 
     protected var scopeProvider: AndroidLifecycleScopeProvider? = null
     protected var mView: V? = null
-    protected var mModel: M? = null
-
-    open fun createModel(): M? = null
 
     private val isViewAttached: Boolean
         get() = mView != null
@@ -26,15 +23,12 @@ abstract class BasePresenter<M : IModel, V : IView> : IPresenter<V>, LifecycleOb
 
     override fun attachView(mView: V) {
         this.mView = mView
-        mModel = createModel()
         if (mView is LifecycleOwner) {
             scopeProvider = AndroidLifecycleScopeProvider.from((mView as LifecycleOwner))
         }
     }
 
     override fun detachView() {
-        mModel?.onDetach()
-        this.mModel = null
         this.mView = null
     }
 

@@ -1,4 +1,4 @@
-package com.release.mvp_kt.mvp.model.bean
+package com.release.mvp_kt.mvp.model
 
 /**
  * @author Mr.release

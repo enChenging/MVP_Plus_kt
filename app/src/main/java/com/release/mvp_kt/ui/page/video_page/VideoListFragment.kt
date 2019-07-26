@@ -5,13 +5,12 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.jzvd.Jzvd
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.release.mvp_kt.R
 import com.release.mvp_kt.base.BaseMvpFragment
+import com.release.mvp_kt.constant.Constant
 import com.release.mvp_kt.constant.Constant.VIDEO_ID_KEY
 import com.release.mvp_kt.dao.VideoInfo
 import com.release.mvp_kt.mvp.contract.VideoListContract
-import com.release.mvp_kt.mvp.model.bean.NewsDetailInfoBean
 import com.release.mvp_kt.mvp.presenter.VideoListPresenter
 import com.release.mvp_kt.ui.adpater.VideoListAdapter
 import kotlinx.android.synthetic.main.fragment_video_list.*
@@ -63,7 +62,7 @@ class VideoListFragment : BaseMvpFragment<VideoListContract.View, VideoListContr
 
             setOnLoadMoreListener {
                 isRefresh = false
-                val page = mAdapter.data.size / 20
+                val page = mAdapter.data.size / Constant.PAGE_TEN
                 mPresenter?.requestData(mVideoId,page)
                 finishLoadMore(1000)
             }
@@ -102,12 +101,6 @@ class VideoListFragment : BaseMvpFragment<VideoListContract.View, VideoListContr
                 replaceData(data)
             } else {
                 addData(data)
-            }
-            val size = data.size
-            if (size < data.size) {
-                loadMoreEnd(isRefresh)
-            } else {
-                loadMoreComplete()
             }
         }
     }

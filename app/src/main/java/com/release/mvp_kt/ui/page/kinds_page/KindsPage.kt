@@ -13,13 +13,6 @@ import com.release.mvp_kt.mvp.presenter.KindsPresenter
  */
 class KindsPage : BaseMvpFragment<KindsPageContract.View, KindsPageContract.Presenter>(), KindsPageContract.View {
 
-    companion object {
-
-        fun newInstance(): KindsPage {
-            return KindsPage()
-        }
-    }
-
     override fun createPresenter(): KindsPageContract.Presenter = KindsPresenter()
 
     override fun initLayoutID(): Int = R.layout.page_kinds

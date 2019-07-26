@@ -1,6 +1,5 @@
 package com.release.mvp_kt.mvp.contract
 
-import com.release.mvp_kt.base.IModel
 import com.release.mvp_kt.base.IPresenter
 import com.release.mvp_kt.base.IView
 
@@ -14,6 +13,4 @@ interface WebContracnt {
     interface View : IView
 
     interface Presenter : IPresenter<View>
-
-    interface Model : IModel
 }

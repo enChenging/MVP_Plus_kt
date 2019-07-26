@@ -215,6 +215,11 @@ abstract class BaseActivity : AppCompatActivity() {
         CommonUtil.fixInputMethodManagerLeak(this)
     }
 
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.hold, R.anim.slide_right_exit)
+    }
+
     /**
      * Network Change
      */

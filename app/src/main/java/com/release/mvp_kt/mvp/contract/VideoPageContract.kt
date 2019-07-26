@@ -1,6 +1,5 @@
 package com.release.mvp_kt.mvp.contract
 
-import com.release.mvp_kt.base.IModel
 import com.release.mvp_kt.base.IPresenter
 import com.release.mvp_kt.base.IView
 
@@ -11,15 +10,7 @@ import com.release.mvp_kt.base.IView
  */
 interface VideoPageContract {
 
-    interface View:IView{
-        fun loadData()
-    }
+    interface View:IView
 
-    interface Presenter:IPresenter<View>{
-        fun requestData()
-    }
-
-    interface Model:IModel{
-        fun requestData()
-    }
+    interface Presenter:IPresenter<View>
 }

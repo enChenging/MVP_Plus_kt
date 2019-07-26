@@ -1,12 +1,9 @@
 package com.release.mvp_kt.mvp.contract
 
-import com.release.mvp_kt.base.IModel
 import com.release.mvp_kt.base.IPresenter
 import com.release.mvp_kt.base.IView
-import com.release.mvp_kt.mvp.model.bean.SpecialInfoBean
+import com.release.mvp_kt.mvp.model.SpecialInfoBean
 import com.release.mvp_kt.ui.adpater.item.SpecialItem
-import io.reactivex.Flowable
-import io.reactivex.Observable
 
 
 /**
@@ -25,11 +22,6 @@ interface NewsSpacialContract {
 
     interface Presenter : IPresenter<View> {
 
-        fun requestData(newsId: String)
-    }
-
-    interface Model : IModel {
-
-        fun requestData(specialId: String): Observable<SpecialInfoBean>
+        fun requestData(specialId: String)
     }
 }

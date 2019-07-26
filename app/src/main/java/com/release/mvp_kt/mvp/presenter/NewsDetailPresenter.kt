@@ -1,18 +1,12 @@
 package com.release.mvp_kt.mvp.presenter
 
-import com.orhanobut.logger.Logger
-import com.release.mvp_kt.App
-import com.release.mvp_kt.R
 import com.release.mvp_kt.base.BasePresenter
-import com.release.mvp_kt.http.exception.ExceptionHandle
+import com.release.mvp_kt.ext.ext
+import com.release.mvp_kt.http.RetrofitHelper
 import com.release.mvp_kt.mvp.contract.NewsDetailContract
-import com.release.mvp_kt.mvp.model.NewsDetailModel
-import com.release.mvp_kt.mvp.model.bean.NewsDetailInfoBean
+import com.release.mvp_kt.mvp.model.NewsDetailInfoBean
 import com.release.mvp_kt.utils.ListUtils
-import com.release.mvp_kt.utils.NetWorkUtil
-import com.uber.autodispose.autoDisposable
-import io.reactivex.Observer
-import io.reactivex.disposables.Disposable
+import io.reactivex.Observable
 
 /**
  * @author Mr.release
@@ -20,47 +14,25 @@ import io.reactivex.disposables.Disposable
  * @Describe
  */
 @Suppress("PrivatePropertyName")
-class NewsDetailPresenter : BasePresenter<NewsDetailContract.Model, NewsDetailContract.View>(),
+class NewsDetailPresenter : BasePresenter<NewsDetailContract.View>(),
     NewsDetailContract.Presenter {
 
     private val HTML_IMG_TEMPLATE = "<img src=\"http\" />"
 
-    override fun createModel(): NewsDetailContract.Model? = NewsDetailModel()
-
     override fun requestData(newsId: String) {
 
-        mModel?.requestData(newsId)
-            ?.doOnNext {
-                newsDetailInfoBean->
+        RetrofitHelper.newsService.getNewsDetail(newsId)
+            .flatMap { stringNewsDetailInfoBeanMap ->
+                //                val list = stringNewsDetailInfoBeanMap[newsId]
+//                val i = Gson().toJson(list)
+                Observable.just<NewsDetailInfoBean>(stringNewsDetailInfoBeanMap[newsId])//获取NewsDetailInfoBean
+            }
+            ?.doOnNext { newsDetailInfoBean ->
                 handleRichTextWithImg(newsDetailInfoBean)
             }
-            ?.autoDisposable(scopeProvider!!)
-            ?.subscribe(object : Observer<NewsDetailInfoBean> {
-
-                override fun onComplete() {
-                    mView?.hideLoading()
-                }
-
-                override fun onSubscribe(d: Disposable) {
-                    mView?.showLoading()
-                    if (!NetWorkUtil.isNetworkConnected(App.instance)) {
-                        mView?.showDefaultMsg(App.instance.resources.getString(R.string.network_unavailable_tip))
-                        onComplete()
-                    }
-                }
-
-                override fun onNext(t: NewsDetailInfoBean) {
-                    Logger.i("NewsDetail--onNext:$t")
-                    mView?.loadData(t)
-                }
-
-                override fun onError(t: Throwable) {
-                    Logger.e("NewsDetail--onError:$t")
-                    mView?.hideLoading()
-                    mView?.showError(ExceptionHandle.handleException(t))
-                }
-            })
-
+            ?.ext(mView, scopeProvider!!) {
+                mView?.loadData(it)
+            }
     }
 
     /**

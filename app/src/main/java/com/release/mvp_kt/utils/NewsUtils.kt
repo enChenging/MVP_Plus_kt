@@ -1,6 +1,6 @@
 package com.release.mvp_kt.utils
 
-import com.release.mvp_kt.mvp.model.bean.NewsInfoBean
+import com.release.mvp_kt.mvp.model.NewsInfoBean
 import io.reactivex.annotations.NonNull
 
 /**

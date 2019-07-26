@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.classic.common.MultipleStatusView
+<FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/multiple_status_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:emptyView="@layout/layout_empty_view"
-        app:errorView="@layout/layout_error_view"
-        app:loadingView="@layout/layout_loading_view"
-        app:noNetworkView="@layout/layout_network_view">
+        android:layout_height="match_parent">
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/refresh_layout"
@@ -28,4 +22,6 @@
 
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-</com.classic.common.MultipleStatusView>
+    <include layout="@layout/layout_empty"/>
+
+</FrameLayout>
