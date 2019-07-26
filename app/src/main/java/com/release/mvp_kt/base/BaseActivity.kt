@@ -139,7 +139,7 @@ abstract class BaseActivity : AppCompatActivity() {
         mThemeColor = if (!SettingUtil.getIsNightMode())
             SettingUtil.getColor()
         else
-            ContextCompat.getColor(this,R.color.colorPrimary)
+            ContextCompat.getColor(this, R.color.colorPrimary)
 
         StatusBarUtil.setColor(this, mThemeColor, 0)
 

@@ -113,22 +113,6 @@ public class EmptyLayout extends FrameLayout {
         mTvEmptyMessage.setCompoundDrawables(null, null, null, null);
     }
 
-//    /**
-//     * 设置图标
-//     * @param resId 资源ID
-//     */
-//    public void setEmptyIcon(int resId) {
-//        mIvEmptyIcon.setImageResource(resId);
-//    }
-//
-//    /**
-//     * 设置图标
-//     * @param drawable drawable
-//     */
-//    public void setEmptyIcon(Drawable drawable) {
-//        mIvEmptyIcon.setImageDrawable(drawable);
-//    }
-
     public void setLoadingIcon(Sprite d) {
         mEmptyLoading.setIndeterminateDrawable(d);
     }

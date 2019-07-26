@@ -5,6 +5,7 @@ import com.release.mvp_kt.ext.ext
 import com.release.mvp_kt.http.RetrofitHelper
 import com.release.mvp_kt.mvp.contract.NewsSpacialContract
 import com.release.mvp_kt.mvp.model.SpecialInfoBean
+import com.release.mvp_kt.rx.SchedulerUtils
 import com.release.mvp_kt.ui.adpater.item.SpecialItem
 import io.reactivex.Observable
 
@@ -20,6 +21,7 @@ class NewsSpacialPresenter : BasePresenter<NewsSpacialContract.View>(),
     override fun requestData(specialId: String) {
 
         RetrofitHelper.newsService.getSpecial(specialId)
+            .compose(SchedulerUtils.ioToMain())
             .flatMap { stringSpecialInfoBeanMap ->
                 //                val list = stringSpecialInfoBeanMap[specialId]
 //                val i = Gson().toJson(list)

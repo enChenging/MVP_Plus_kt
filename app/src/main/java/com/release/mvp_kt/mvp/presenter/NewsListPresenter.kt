@@ -1,12 +1,14 @@
 package com.release.mvp_kt.mvp.presenter
 
 import com.orhanobut.logger.Logger
+import com.release.mvp_kt.api.BaseURL
 import com.release.mvp_kt.base.BasePresenter
 import com.release.mvp_kt.constant.Constant
 import com.release.mvp_kt.ext.ext
 import com.release.mvp_kt.http.RetrofitHelper
 import com.release.mvp_kt.mvp.contract.NewsListContract
 import com.release.mvp_kt.mvp.model.NewsInfoBean
+import com.release.mvp_kt.rx.SchedulerUtils
 import com.release.mvp_kt.ui.adpater.item.NewsMultiItem
 import com.release.mvp_kt.utils.NewsUtils
 import io.reactivex.Observable
@@ -22,12 +24,13 @@ class NewsListPresenter : BasePresenter<NewsListContract.View>(), NewsListContra
     override fun requestData(newsId: String, page: Int) {
 
         Logger.i("NewsList---newsId:$newsId  page:$page")
-        val type: String = if (newsId == Constant.HEAD_LINE_NEWS)
+        val type: String = if (newsId == BaseURL.HEAD_LINE_NEWS)
             "headline"
         else
             "list"
 
         RetrofitHelper.newsService.getImportantNews(type, newsId, page * Constant.PAGE, Constant.PAGE)
+            .compose(SchedulerUtils.ioToMain())
             .flatMap { stringListMap ->
                 //                val list = stringListMap[newsId]
 //                val i = Gson().toJson(list)

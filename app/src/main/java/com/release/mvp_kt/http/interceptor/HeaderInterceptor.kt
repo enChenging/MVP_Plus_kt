@@ -1,8 +1,8 @@
 package com.release.mvp_kt.http.interceptor
 
 import com.orhanobut.logger.Logger
+import com.release.base.http.HttpConstant
 import com.release.mvp_kt.constant.Constant
-import com.release.mvp_kt.constant.HttpConstant
 import com.release.mvp_kt.utils.Sp
 import okhttp3.Interceptor
 import okhttp3.Response

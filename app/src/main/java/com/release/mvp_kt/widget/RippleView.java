@@ -41,7 +41,6 @@ import androidx.annotation.ColorRes;
 import androidx.core.content.ContextCompat;
 import com.release.mvp_kt.R;
 
-
 /**
  * RippleView custom layout
  * <p>

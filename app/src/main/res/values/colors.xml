@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--theme-->
     <color name="colorPrimary">#1775ef</color>
     <color name="colorPrimaryDark">#054592</color>
     <color name="colorAccent">@color/Cyan</color>
@@ -9,31 +11,6 @@
     <color name="viewBackground">@color/White</color>
     <color name="windowBackground">@color/Grey100</color>
     <color name="common_color">#19191B</color>
-
-    <!-- item -->
-    <color name="item_tag_tv">#ffFFFFFF</color>
-    <color name="item_flow_layout_bg">@color/Grey200</color>
-    <color name="item_author">@color/Grey700</color>
-    <color name="item_desc">@color/Grey600</color>
-    <color name="item_time">@color/Grey600</color>
-    <color name="item_date">@color/Grey600</color>
-    <color name="item_chapter">@color/Grey600</color>
-    <color name="item_title">#19191B</color>
-    <color name="item_nav_color_tv">#19191B</color>
-
-
-    <color name="color_title_bg">#CCFFFFFF</color>
-    <color name="vertical_tab_layout_bg">@color/Grey100</color>
-    <color name="vertical_tab_layout_indicator_color">@color/White</color>
-    <color name="sticky_header_bg">@color/Grey100</color>
-    <color name="gray_light">#999999</color>
-    <color name="text_gray_light">#999999</color>
-    <color name="color_about_tv">@color/Grey600</color>
-    <color name="arrow_color">@color/Grey700</color>
-    <color name="text_black">#333333</color>
-    <color name="transparent_75">#ba000000</color>
-
-
 
     <color name="White">#FFFFFF</color>
     <color name="Black">#000000</color>
@@ -71,6 +48,29 @@
     <color name="Grey900">#212121</color>
 
 
+    <!-- item -->
+    <color name="item_tag_tv">#ffFFFFFF</color>
+    <color name="item_flow_layout_bg">@color/Grey200</color>
+    <color name="item_author">@color/Grey700</color>
+    <color name="item_desc">@color/Grey600</color>
+    <color name="item_time">@color/Grey600</color>
+    <color name="item_date">@color/Grey600</color>
+    <color name="item_chapter">@color/Grey600</color>
+    <color name="item_title">#19191B</color>
+    <color name="item_nav_color_tv">#19191B</color>
+
+
+    <color name="color_title_bg">#CCFFFFFF</color>
+    <color name="vertical_tab_layout_bg">@color/Grey100</color>
+    <color name="vertical_tab_layout_indicator_color">@color/White</color>
+    <color name="sticky_header_bg">@color/Grey100</color>
+    <color name="gray_light">#999999</color>
+    <color name="text_gray_light">#999999</color>
+    <color name="color_about_tv">@color/Grey600</color>
+    <color name="arrow_color">@color/Grey700</color>
+    <color name="text_black">#333333</color>
+
+
 
     <color name="holo_blue_bright">#ff00ddff</color>
     <color name="holo_green_light">#ff99cc00</color>
@@ -103,6 +103,7 @@
     <color name="item_photo_set_bg">#5677fc</color>
 
     <color name="photo_set_bg">#44000000</color>
+    <color name="transparent_75">#ba000000</color>
 
     <color name="theme_color">#1775ef</color>
     <item name="black" type="drawable">#00000000</item>
@@ -121,5 +122,7 @@
     <!--toast-->
     <color name="toast_white">#ffffff</color>
     <color name="toast_stroke_gray">#9faab8</color>
+
+
 
 </resources>

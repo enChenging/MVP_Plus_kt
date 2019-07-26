@@ -8,17 +8,9 @@ package com.release.mvp_kt.constant
 
 object Constant {
 
-    const val NEWS_HOST = "http://c.3g.163.com/"
-
-    const val RECOMMEND_HOST = "http://api.tianapi.com/"
-
-    const val COMMON_UA_STR = "OhMyBiliBili Android Client/2.1 (100332338@qq.com)"
-
     const val BUGLY_ID = "bd6527b403"
-
-    const val HEAD_LINE_NEWS = "T1348647909107"
-
-    const val RECOMMEND_ID = "4a0090627cf07a50def18da875165740"
+    const val PAGE = 20
+    const val PAGE_TEN = 10
 
     const val LOGIN_KEY = "login"
     const val TOKEN_KEY = "token"
@@ -32,10 +24,7 @@ object Constant {
      * title key
      */
     const val CONTENT_TITLE_KEY = "title"
-    /**
-     * share key
-     */
-    const val CONTENT_SHARE_TYPE = "text/plain"
+
     /**
      * 网络请求的状态码，用来更新界面
      */
@@ -47,10 +36,6 @@ object Constant {
     /**
      * config
      */
-    const val CURRENT_TIME = "currentTime"
-    const val PAGE = 20
-    const val PAGE_TEN = 10
-
     const val NEWS_TYPE_KEY = "NewsTypeKey"
     const val NEWS_TYPE_TITLE = "NewsTypeTitle"
     const val NEWS_ID_KEY = "NewsIdKey"

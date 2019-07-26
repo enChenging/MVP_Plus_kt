@@ -61,7 +61,7 @@ class PhotoAlbumActivity : BaseMvpActivity<PhotoAlbumContract.View, PhotoAlbumCo
 
         tool_bar.apply {
             setToolBarBackgroundColor(R.color.transparent)
-            setBackDrawable(R.drawable.toolbar_back_white)
+            setBackDrawable(R.mipmap.toolbar_back_white)
             setTitleColor(R.color.white)
             setTitleText(getString(R.string.loading))
             postDelayed({

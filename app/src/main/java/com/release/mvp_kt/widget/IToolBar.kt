@@ -17,6 +17,7 @@ import com.release.mvp_kt.R
  * @create 2019/4/25
  * @Describe
  */
+@Suppress("DEPRECATION")
 class IToolBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     Toolbar(context, attrs, defStyleAttr) {
 

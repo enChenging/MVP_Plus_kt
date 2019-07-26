@@ -6,6 +6,7 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.release.mvp_kt.R
+import com.release.mvp_kt.api.BaseURL
 import com.release.mvp_kt.base.BaseMvpFragment
 import com.release.mvp_kt.constant.Constant
 import com.release.mvp_kt.mvp.contract.RecommendPageContract
@@ -41,7 +42,7 @@ class RecommendPage : BaseMvpFragment<RecommendPageContract.View, RecommendPageC
             setOnRefreshListener {
                 isRefresh = true
                 mAdapter.setEnableLoadMore(false)
-                mPresenter?.requestData(Constant.RECOMMEND_ID, Constant.PAGE)
+                mPresenter?.requestData(BaseURL.RECOMMEND_ID, Constant.PAGE)
                 finishRefresh(1000)
             }
         }
@@ -74,7 +75,7 @@ class RecommendPage : BaseMvpFragment<RecommendPageContract.View, RecommendPageC
     }
 
     override fun startNet() {
-        mPresenter?.requestData(Constant.RECOMMEND_ID, Constant.PAGE)
+        mPresenter?.requestData(BaseURL.RECOMMEND_ID, Constant.PAGE)
     }
 
     override fun loadData(data: List<NewslistBean>) {

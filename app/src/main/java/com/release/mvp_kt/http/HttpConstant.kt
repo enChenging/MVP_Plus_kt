@@ -1,6 +1,6 @@
 @file:Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
 
-package com.release.mvp_kt.constant
+package com.release.base.http
 
 import com.release.mvp_kt.utils.Sp
 

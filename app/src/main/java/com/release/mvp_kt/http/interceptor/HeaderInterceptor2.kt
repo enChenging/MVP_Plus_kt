@@ -25,7 +25,7 @@ class HeaderInterceptor2 : Interceptor {
         val requestBody = request.body()
 
         if (requestBody != null)
-            (requestBuffer as BufferedSink)?. let { requestBody.writeTo(it) }
+            (requestBuffer as BufferedSink).let { requestBody.writeTo(it) }
         else
             Logger.d("HeaderInterceptor2--request.body() == null")
 
@@ -37,7 +37,7 @@ class HeaderInterceptor2 : Interceptor {
             ) else ""
         )
 
-        return chain.proceed(request) ?: throw RuntimeException("Response返回值不能为空")
+        return chain.proceed(request)
     }
 
     @Throws(UnsupportedEncodingException::class)

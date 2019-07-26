@@ -11,7 +11,8 @@ object BaseURL {
 
     const val RECOMMEND_HOST = "http://api.tianapi.com/"
 
-    const val COMMON_UA_STR = "OhMyBiliBili Android Client/2.1 (100332338@qq.com)"
 
+    const val HEAD_LINE_NEWS = "T1348647909107"
 
+    const val RECOMMEND_ID = "4a0090627cf07a50def18da875165740"
 }

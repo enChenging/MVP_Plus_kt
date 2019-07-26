@@ -2,12 +2,12 @@
 
 package com.release.mvp_kt.http
 
+import com.release.base.http.HttpConstant
 import com.release.mvp_kt.App
 import com.release.mvp_kt.BuildConfig
+import com.release.mvp_kt.api.BaseURL
 import com.release.mvp_kt.api.NewsServiceApi
 import com.release.mvp_kt.api.RecommendServiceApi
-import com.release.mvp_kt.constant.Constant
-import com.release.mvp_kt.constant.HttpConstant
 import com.release.mvp_kt.http.interceptor.CacheInterceptor
 import com.release.mvp_kt.http.interceptor.HeaderInterceptor2
 import okhttp3.Cache
@@ -67,7 +67,7 @@ object RetrofitHelper {
                 if (retrofit == null) {
                     retrofit = Retrofit.Builder()
                         .client(getOkHttpClient())
-                        .baseUrl(Constant.NEWS_HOST)
+                        .baseUrl(BaseURL.NEWS_HOST)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create())
                         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//rx网络适配器
@@ -84,7 +84,7 @@ object RetrofitHelper {
                 if (retrofit2 == null) {
                     retrofit2 = Retrofit.Builder()
                         .client(getOkHttpClient())
-                        .baseUrl(Constant.RECOMMEND_HOST)
+                        .baseUrl(BaseURL.RECOMMEND_HOST)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create())
                         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//rx网络适配器

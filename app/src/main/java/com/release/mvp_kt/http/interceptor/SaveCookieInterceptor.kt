@@ -1,6 +1,6 @@
 package com.release.mvp_kt.http.interceptor
 
-import com.release.mvp_kt.constant.HttpConstant
+import com.release.base.http.HttpConstant
 import okhttp3.Interceptor
 import okhttp3.Response
 
