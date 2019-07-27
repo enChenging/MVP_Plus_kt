@@ -29,7 +29,7 @@ object StatusBarUtil {
     private val TAG_KEY_HAVE_SET_OFFSET = -123
 
     /**
-     * 设置状态栏颜色
+     * 设置状态栏颜色---默认色（半透明）
      *
      * @param activity 需要设置的 activity
      * @param color    状态栏颜色值
@@ -39,7 +39,17 @@ object StatusBarUtil {
     }
 
     /**
-     * 设置状态栏颜色
+     * 设置状态栏颜色---纯色
+     *
+     * @param activity 需要设置的 activity
+     * @param color    状态栏颜色值
+     */
+    fun setColorNoTranslucent(activity: Activity, @ColorInt color: Int) {
+        setColor(activity, color, 0)
+    }
+
+    /**
+     * 设置状态栏颜色---颜色可变
      *
      * @param activity       需要设置的activity
      * @param color          状态栏颜色值
@@ -68,7 +78,7 @@ object StatusBarUtil {
     }
 
     /**
-     * 为滑动返回界面设置状态栏颜色
+     * 为滑动返回界面设置状态栏颜色---默认色（半透明）
      *
      * @param activity 需要设置的activity
      * @param color    状态栏颜色值
@@ -78,7 +88,7 @@ object StatusBarUtil {
     }
 
     /**
-     * 为滑动返回界面设置状态栏颜色
+     * 为滑动返回界面设置状态栏颜色---颜色可变
      *
      * @param activity       需要设置的activity
      * @param color          状态栏颜色值
@@ -110,19 +120,9 @@ object StatusBarUtil {
         }
     }
 
-    /**
-     * 设置状态栏纯色 不加半透明效果
-     *
-     * @param activity 需要设置的 activity
-     * @param color    状态栏颜色值
-     */
-    fun setColorNoTranslucent(activity: Activity, @ColorInt color: Int) {
-        setColor(activity, color, 0)
-    }
-
 
     /**
-     * 使状态栏半透明
+     * 使状态栏颜色---默认色（半透明）
      *
      *
      * 适用于图片作为背景的界面,此时需要图片填充到状态栏
@@ -135,7 +135,7 @@ object StatusBarUtil {
 
     /**
      *
-     *  设置状态栏透明
+     *  设置状态栏颜色---颜色可变
      *
      * 适用于图片作为背景的界面,此时需要图片填充到状态栏
      *
@@ -151,7 +151,7 @@ object StatusBarUtil {
     }
 
     /**
-     * 使状态栏半透明
+     * 式状态栏颜色---默认色（半透明）
      *
      * @param activity 需要设置的activity
      */
@@ -164,7 +164,7 @@ object StatusBarUtil {
     }
 
     /**
-     * 针对根布局是 CoordinatorLayout, 使状态栏透明
+     * 针对根布局是 CoordinatorLayout, 使状态栏颜色---透明
      *
      *
      * 适用于图片作为背景的界面,此时需要图片填充到状态栏
@@ -185,7 +185,7 @@ object StatusBarUtil {
 
 
     /**
-     * 为DrawerLayout 布局设置状态栏变色
+     * 为DrawerLayout 布局设置状态栏颜色---默认色（半透明）
      *
      * @param activity     需要设置的activity
      * @param drawerLayout DrawerLayout
@@ -199,7 +199,7 @@ object StatusBarUtil {
     }
 
     /**
-     * 为DrawerLayout 布局设置状态栏颜色,纯色
+     * 为DrawerLayout 布局设置状态栏颜色----纯色
      *
      * @param activity     需要设置的activity
      * @param drawerLayout DrawerLayout
@@ -213,7 +213,7 @@ object StatusBarUtil {
     }
 
     /**
-     * 为DrawerLayout 布局设置状态栏变色
+     * 为DrawerLayout 布局设置状态栏颜色---颜色可变
      *
      * @param activity       需要设置的activity
      * @param drawerLayout   DrawerLayout
@@ -260,25 +260,7 @@ object StatusBarUtil {
     }
 
     /**
-     * 设置 DrawerLayout 属性
-     *
-     * @param drawerLayout              DrawerLayout
-     * @param drawerLayoutContentLayout DrawerLayout 的内容布局
-     */
-    private fun setDrawerLayoutProperty(
-        drawerLayout: androidx.drawerlayout.widget.DrawerLayout,
-        drawerLayoutContentLayout: ViewGroup
-    ) {
-        val drawer = drawerLayout.getChildAt(1) as ViewGroup
-        drawerLayout.fitsSystemWindows = false
-        drawerLayoutContentLayout.fitsSystemWindows = false
-        drawerLayoutContentLayout.clipToPadding = true
-        drawer.fitsSystemWindows = false
-    }
-
-
-    /**
-     * 为 DrawerLayout 布局设置状态栏透明
+     * 为 DrawerLayout 布局设置状态栏颜色---默认色（半透明）
      *
      * @param activity     需要设置的activity
      * @param drawerLayout DrawerLayout
@@ -287,8 +269,9 @@ object StatusBarUtil {
         setTranslucentForDrawerLayout(activity, drawerLayout, DEFAULT_STATUS_BAR_ALPHA)
     }
 
+
     /**
-     * 为 DrawerLayout 布局设置状态栏透明
+     * 为 DrawerLayout 布局设置状态栏颜色---颜色可变
      *
      * @param activity     需要设置的activity
      * @param drawerLayout DrawerLayout
@@ -306,7 +289,7 @@ object StatusBarUtil {
     }
 
     /**
-     * 为 DrawerLayout 布局设置状态栏透明
+     * 为 DrawerLayout 布局设置状态栏颜色---默认色（半透明）
      *
      * @param activity     需要设置的activity
      * @param drawerLayout DrawerLayout
@@ -335,7 +318,7 @@ object StatusBarUtil {
 
 
     /**
-     * 为头部是 ImageView 的界面设置状态栏全透明
+     * 为头部是 ImageView 的界面设置状态栏----纯色
      *
      * @param activity       需要设置的activity
      * @param needOffsetView 需要向下偏移的 View
@@ -345,7 +328,7 @@ object StatusBarUtil {
     }
 
     /**
-     * 为头部是 ImageView 的界面设置状态栏透明(使用默认透明度)
+     * 为头部是 ImageView 的界面设置状态栏颜色---默认色（半透明）
      *
      * @param activity       需要设置的activity
      * @param needOffsetView 需要向下偏移的 View
@@ -355,7 +338,7 @@ object StatusBarUtil {
     }
 
     /**
-     * 为头部是 ImageView 的界面设置状态栏透明
+     * 为头部是 ImageView 的界面设置状态栏颜色---颜色可变
      *
      * @param activity       需要设置的activity
      * @param statusBarAlpha 状态栏透明度
@@ -385,7 +368,7 @@ object StatusBarUtil {
     }
 
     /**
-     * 为 fragment 头部是 ImageView 的设置状态栏透明
+     * 为 fragment 头部是 ImageView 的设置状态栏颜色---默认色（半透明）
      *
      * @param activity       fragment 对应的 activity
      * @param needOffsetView 需要向下偏移的 View
@@ -395,7 +378,7 @@ object StatusBarUtil {
     }
 
     /**
-     * 为 fragment 头部是 ImageView 的设置状态栏透明
+     * 为 fragment 头部是 ImageView 的设置状态栏颜色---纯色
      *
      * @param activity       fragment 对应的 activity
      * @param needOffsetView 需要向下偏移的 View
@@ -405,7 +388,7 @@ object StatusBarUtil {
     }
 
     /**
-     * 为 fragment 头部是 ImageView 的设置状态栏透明
+     * 为 fragment 头部是 ImageView 的设置状态栏颜色---颜色可变
      *
      * @param activity       fragment 对应的 activity
      * @param statusBarAlpha 状态栏透明度
@@ -457,6 +440,10 @@ object StatusBarUtil {
         }
     }
 
+
+    ///////////////////////////////////////////////////////////////////////////////////
+
+
     /**
      * 修改 MIUI V6  以上状态栏颜色
      */
@@ -500,7 +487,23 @@ object StatusBarUtil {
 
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////
+    /**
+     * 设置 DrawerLayout 属性
+     *
+     * @param drawerLayout              DrawerLayout
+     * @param drawerLayoutContentLayout DrawerLayout 的内容布局
+     */
+    private fun setDrawerLayoutProperty(
+        drawerLayout: androidx.drawerlayout.widget.DrawerLayout,
+        drawerLayoutContentLayout: ViewGroup
+    ) {
+        val drawer = drawerLayout.getChildAt(1) as ViewGroup
+        drawerLayout.fitsSystemWindows = false
+        drawerLayoutContentLayout.fitsSystemWindows = false
+        drawerLayoutContentLayout.clipToPadding = true
+        drawer.fitsSystemWindows = false
+    }
+
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private fun clearPreviousSetting(activity: Activity) {

@@ -16,6 +16,7 @@ import com.release.mvp_kt.base.BaseMvpActivity
 import com.release.mvp_kt.ext.showToast
 import com.release.mvp_kt.mvp.contract.MainContract
 import com.release.mvp_kt.mvp.presenter.MainPresenter
+import com.release.mvp_kt.utils.StatusBarUtil
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -31,7 +32,7 @@ open class MainActivity : BaseMvpActivity<MainContract.View, MainContract.Presen
     override fun initLayoutID(): Int = R.layout.activity_main
 
 
-//    private val scopeProvider by lazy { AndroidLifecycleScopeProvider.from(this) }
+    //    private val scopeProvider by lazy { AndroidLifecycleScopeProvider.from(this) }
     override fun initView() {
 
 //        Observable.interval(1, TimeUnit.SECONDS)
@@ -45,9 +46,11 @@ open class MainActivity : BaseMvpActivity<MainContract.View, MainContract.Presen
 //            }
 
 
+        StatusBarUtil.setTranslucentForDrawerLayout(this@MainActivity, dl_drawer, 0)
         left_navigation.run {
             val headImg = getHeaderView(0).findViewById<ImageView>(R.id.headImg)
-            Glide.with(this).load("https://b-ssl.duitang.com/uploads/item/201802/20/20180220170028_JcYMU.jpeg").circleCrop()
+            Glide.with(this).load("https://b-ssl.duitang.com/uploads/item/201802/20/20180220170028_JcYMU.jpeg")
+                .circleCrop()
                 .into(headImg)
 
             setNavigationItemSelectedListener { menuItem ->
@@ -111,10 +114,10 @@ open class MainActivity : BaseMvpActivity<MainContract.View, MainContract.Presen
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if(!closeDrawableLayout()){
+            if (!closeDrawableLayout()) {
                 if (System.currentTimeMillis().minus(mExitTime) <= 2000) {
                     finish()
-                }else{
+                } else {
                     mExitTime = System.currentTimeMillis()
                     showToast(getString(R.string.exit_tip))
                 }
