@@ -78,6 +78,9 @@ open class MainActivity : BaseMvpActivity<MainContract.View, MainContract.Presen
         NavigationUI.setupWithNavController(bottom_navigation, navController)
     }
 
+    override fun initThemeColor() {
+        StatusBarUtil.setColorNoTranslucentForDrawerLayout(this@MainActivity, dl_drawer, mThemeColor)
+    }
     override fun initListener() {
 
         dl_drawer.run {
