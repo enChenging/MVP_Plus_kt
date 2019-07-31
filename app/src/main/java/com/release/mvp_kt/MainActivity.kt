@@ -50,6 +50,7 @@ open class MainActivity : BaseMvpActivity<MainContract.View, MainContract.Presen
         left_navigation.run {
             val headImg = getHeaderView(0).findViewById<ImageView>(R.id.headImg)
             Glide.with(this).load("https://b-ssl.duitang.com/uploads/item/201802/20/20180220170028_JcYMU.jpeg")
+                .centerCrop()
                 .circleCrop()
                 .into(headImg)
 

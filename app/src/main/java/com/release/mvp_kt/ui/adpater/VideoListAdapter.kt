@@ -5,7 +5,7 @@ import cn.jzvd.JzvdStd
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.release.mvp_kt.R
-import com.release.mvp_kt.dao.VideoInfo
+import com.release.mvp_kt.mvp.model.VideoInfoBean
 import com.release.mvp_kt.utils.DefIconFactory
 import com.release.mvp_kt.utils.ImageLoader
 
@@ -14,10 +14,10 @@ import com.release.mvp_kt.utils.ImageLoader
  * @create 2019/4/16
  * @Describe
  */
-class VideoListAdapter(layoutResId: Int, data: List<VideoInfo>?) :
-    BaseQuickAdapter<VideoInfo, BaseViewHolder>(layoutResId, data) {
+class VideoListAdapter(layoutResId: Int, data: List<VideoInfoBean>?) :
+    BaseQuickAdapter<VideoInfoBean, BaseViewHolder>(layoutResId, data) {
 
-    override fun convert(holder: BaseViewHolder, item: VideoInfo) {
+    override fun convert(holder: BaseViewHolder, item: VideoInfoBean) {
 
         val videoplayer = holder.getView<JzvdStd>(R.id.videoplayer)
 

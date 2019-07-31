@@ -2,8 +2,7 @@ package com.release.mvp_kt.mvp.contract
 
 import com.release.mvp_kt.base.IPresenter
 import com.release.mvp_kt.base.IView
-import com.release.mvp_kt.dao.VideoInfo
-import io.reactivex.Observable
+import com.release.mvp_kt.mvp.model.VideoInfoBean
 
 
 /**
@@ -15,7 +14,7 @@ interface VideoListContract {
 
     interface View : IView {
 
-        fun loadData(data: List<VideoInfo>)
+        fun loadData(data: List<VideoInfoBean>)
     }
 
     interface Presenter : IPresenter<View> {

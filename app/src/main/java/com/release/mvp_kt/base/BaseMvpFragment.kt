@@ -46,12 +46,14 @@ abstract class BaseMvpFragment<in V : IView, P : IPresenter<V>> : BaseFragment()
     }
 
     override fun showError() {
-        if (empty_layout != null){
+        if (empty_layout != null) {
             empty_layout.run {
                 emptyStatus = EmptyLayout.STATUS_NO_NET
-                setRetryListener {
-                    doReConnected()
-                }
+                setRetryListener(object : EmptyLayout.OnRetryListener {
+                    override fun onRetry() {
+                        doReConnected()
+                    }
+                })
             }
         }
     }

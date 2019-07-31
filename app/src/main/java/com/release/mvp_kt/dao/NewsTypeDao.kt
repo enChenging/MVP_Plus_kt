@@ -17,7 +17,7 @@ object NewsTypeDao {
      * 更新本地数据，如果数据库新闻列表栏目为 0 则添加头 3 个栏目
      *
      * @param context
-     * @param daoSession
+     *
      */
     fun updateLocalData(context: Context) {
 

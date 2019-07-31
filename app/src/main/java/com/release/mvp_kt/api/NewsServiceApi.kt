@@ -1,11 +1,7 @@
 package com.release.mvp_kt.api
 
 
-import com.release.mvp_kt.dao.VideoInfo
-import com.release.mvp_kt.mvp.model.NewsDetailInfoBean
-import com.release.mvp_kt.mvp.model.NewsInfoBean
-import com.release.mvp_kt.mvp.model.PhotoSetInfoBean
-import com.release.mvp_kt.mvp.model.SpecialInfoBean
+import com.release.mvp_kt.mvp.model.*
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -89,7 +85,7 @@ interface NewsServiceApi {
         @Path("id") id: String,
         @Path("pageNumber") pageNumber: Int,
         @Path("page") page: Int
-    ): Observable<Map<String, List<VideoInfo>>>
+    ): Observable<Map<String, List<VideoInfoBean>>>
 
 
 }

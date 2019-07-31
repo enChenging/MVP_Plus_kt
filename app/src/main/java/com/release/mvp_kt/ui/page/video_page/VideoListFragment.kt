@@ -9,8 +9,8 @@ import com.release.mvp_kt.R
 import com.release.mvp_kt.base.BaseMvpFragment
 import com.release.mvp_kt.constant.Constant
 import com.release.mvp_kt.constant.Constant.VIDEO_ID_KEY
-import com.release.mvp_kt.dao.VideoInfo
 import com.release.mvp_kt.mvp.contract.VideoListContract
+import com.release.mvp_kt.mvp.model.VideoInfoBean
 import com.release.mvp_kt.mvp.presenter.VideoListPresenter
 import com.release.mvp_kt.ui.adpater.VideoListAdapter
 import kotlinx.android.synthetic.main.fragment_video_list.*
@@ -95,7 +95,7 @@ class VideoListFragment : BaseMvpFragment<VideoListContract.View, VideoListContr
         mPresenter?.requestData(mVideoId, 0)
     }
 
-    override fun loadData(data: List<VideoInfo>) {
+    override fun loadData(data: List<VideoInfoBean>) {
         mAdapter.run {
             if (isRefresh) {
                 replaceData(data)
