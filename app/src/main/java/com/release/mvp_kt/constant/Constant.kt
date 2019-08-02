@@ -9,12 +9,14 @@ package com.release.mvp_kt.constant
 object Constant {
 
     const val BUGLY_ID = "bd6527b403"
+    const val NEWS_TOP_TYPE_ID = "T1348647909107"
     const val PAGE = 20
     const val PAGE_TEN = 10
 
     const val LOGIN_KEY = "login"
     const val TOKEN_KEY = "token"
     const val HAS_NETWORK_KEY = "has_network"
+
 
     /**
      * url key

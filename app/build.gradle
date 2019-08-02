@@ -118,6 +118,7 @@ dependencies {
     implementation 'com.just.agentweb:agentweb:4.0.2'//webView
     implementation 'com.github.clans:fab:1.6.4' //FloatingActionButton
     implementation 'com.github.ybq:Android-SpinKit:1.2.0'//loading视图
+    implementation 'cn.bingoogolapple:bga-banner:2.2.6'//banner
 
 
     implementation 'cn.jzvd:jiaozivideoplayer:7.0_preview'
