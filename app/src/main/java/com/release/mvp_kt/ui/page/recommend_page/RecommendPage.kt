@@ -6,7 +6,7 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.release.mvp_kt.R
-import com.release.mvp_kt.api.BaseURL
+import com.release.mvp_kt.http.api.BaseURL
 import com.release.mvp_kt.base.BaseMvpFragment
 import com.release.mvp_kt.constant.Constant
 import com.release.mvp_kt.mvp.contract.RecommendPageContract

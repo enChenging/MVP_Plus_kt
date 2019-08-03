@@ -5,9 +5,9 @@ package com.release.mvp_kt.http
 import com.release.base.http.HttpConstant
 import com.release.mvp_kt.App
 import com.release.mvp_kt.BuildConfig
-import com.release.mvp_kt.api.BaseURL
-import com.release.mvp_kt.api.NewsServiceApi
-import com.release.mvp_kt.api.RecommendServiceApi
+import com.release.mvp_kt.http.api.BaseURL
+import com.release.mvp_kt.http.api.NewsServiceApi
+import com.release.mvp_kt.http.api.RecommendServiceApi
 import com.release.mvp_kt.http.interceptor.CacheInterceptor
 import com.release.mvp_kt.http.interceptor.HeaderInterceptor2
 import okhttp3.Cache

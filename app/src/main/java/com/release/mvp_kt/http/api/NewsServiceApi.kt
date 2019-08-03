@@ -1,4 +1,4 @@
-package com.release.mvp_kt.api
+package com.release.mvp_kt.http.api
 
 
 import com.release.mvp_kt.mvp.model.*
