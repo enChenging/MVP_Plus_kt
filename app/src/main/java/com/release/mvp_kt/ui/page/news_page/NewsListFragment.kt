@@ -108,7 +108,7 @@ class NewsListFragment : BaseMvpFragment<NewsListContract.View, NewsListContract
     }
 
     private val bannerAdapter =
-        BGABanner.Adapter<ImageView, String> { banner, itemView, model, position ->
+        BGABanner.Adapter<ImageView, String> { _, itemView, model, _ ->
             context?.let {
                 model?.let { it1 ->
                     ImageLoader.loadCenterCrop(
@@ -125,7 +125,7 @@ class NewsListFragment : BaseMvpFragment<NewsListContract.View, NewsListContract
      * BannerClickListener
      */
     private val bannerDelegate =
-        BGABanner.Delegate<ImageView, String> { banner, itemView, model, position ->
+        BGABanner.Delegate<ImageView, String> { _, _, _, position ->
             val item = mAdData[position]
             val itemNewsBean = item.newsBean
             when (item.itemType) {

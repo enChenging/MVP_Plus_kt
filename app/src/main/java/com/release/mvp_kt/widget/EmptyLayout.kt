@@ -10,9 +10,6 @@ import androidx.annotation.IntDef
 import com.github.ybq.android.spinkit.SpinKitView
 import com.github.ybq.android.spinkit.sprite.Sprite
 import com.release.mvp_kt.R
-import com.release.mvp_kt.base.BaseMvpActivity
-import java.lang.annotation.Retention
-import java.lang.annotation.RetentionPolicy
 
 /**
  * @author Mr.release
@@ -71,7 +68,7 @@ class EmptyLayout @JvmOverloads constructor(private val mContext: Context, attrs
         mEmptyLayout.setBackgroundColor(mBgColor)
         _switchEmptyView()
 
-        mTvEmptyMessage.setOnClickListener { v ->
+        mTvEmptyMessage.setOnClickListener {
             if (mOnRetryListener != null) {
                 mOnRetryListener!!.onRetry()
             }
@@ -139,7 +136,7 @@ class EmptyLayout @JvmOverloads constructor(private val mContext: Context, attrs
     }
 
 
-    @Retention(RetentionPolicy.SOURCE)
+    @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
     @IntDef(STATUS_LOADING, STATUS_NO_NET, STATUS_NO_DATA)
     annotation class EmptyStatus
 
