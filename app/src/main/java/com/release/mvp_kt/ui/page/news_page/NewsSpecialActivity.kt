@@ -131,16 +131,16 @@ class NewsSpecialActivity : BaseMvpActivity<NewsSpacialContract.View, NewsSpacia
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                if (dy < 0 && !change) {//向下滑动
+                if (dy < 0 && change) {//向下滑动
                     if (AnimateHelper.isRunning(mTopBarAnimator))
                         return
                     mTopBarAnimator = AnimateHelper.doMoveVertical(tool_bar, tool_bar!!.translationY.toInt(), 0, 300)
-                    change = true
-                } else if (dy > 0 && change) {//向上滑动
+                    change = false
+                } else if (dy > 0 && !change) {//向上滑动
                     if (AnimateHelper.isRunning(mTopBarAnimator))
                         return
                     mTopBarAnimator = AnimateHelper.doMoveVertical(tool_bar, tool_bar!!.translationY.toInt(), -topBarHeight, 300)
-                    change = false
+                    change = true
                 }
             }
         })
