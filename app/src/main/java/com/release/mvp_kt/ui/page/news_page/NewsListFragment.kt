@@ -80,14 +80,14 @@ class NewsListFragment : BaseMvpFragment<NewsListContract.View, NewsListContract
             setOnRefreshListener {
                 isRefresh = true
                 mAdapter.setEnableLoadMore(false)
-                mPresenter?.requestData(newsId, 0)
+                mPresenter?.requestData(newsId, 0, true)
                 finishRefresh(1000)
             }
 
             setOnLoadMoreListener {
                 isRefresh = false
                 val page = mAdapter.data.size / Constant.PAGE
-                mPresenter?.requestData(newsId, page)
+                mPresenter?.requestData(newsId, page, false)
                 finishLoadMore(1000)
             }
         }
@@ -143,7 +143,7 @@ class NewsListFragment : BaseMvpFragment<NewsListContract.View, NewsListContract
         }
 
     override fun startNet() {
-        mPresenter?.requestData(newsId, 0)
+        mPresenter?.requestData(newsId, 0, false)
     }
 
     override fun loadAdData(data: NewsInfoBean) {

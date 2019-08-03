@@ -22,6 +22,6 @@ interface NewsListContract {
 
     interface Presenter : IPresenter<View> {
 
-        fun requestData(newsId: String, page: Int)
+        fun requestData(newsId: String, page: Int,isRefresh :Boolean)
     }
 }

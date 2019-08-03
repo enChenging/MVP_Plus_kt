@@ -16,11 +16,11 @@ import io.reactivex.Observable
 class VideoListPresenter : BasePresenter<VideoListContract.View>(),
     VideoListContract.Presenter {
 
-    override fun requestData(videoId: String, page: Int) {
+    override fun requestData(videoId: String, page: Int, isRefresh: Boolean) {
 
         RetrofitHelper.newsService.getVideoList(videoId, page * Constant.PAGE_TEN, Constant.PAGE_TEN)
             .flatMap { stringListMap -> Observable.just<List<VideoInfoBean>>(stringListMap[videoId]) }
-            .ext(mView, scopeProvider!!, page == 0) {
+            .ext(mView, scopeProvider!!, page == 0 && !isRefresh) {
                 mView?.loadData(it)
             }
     }

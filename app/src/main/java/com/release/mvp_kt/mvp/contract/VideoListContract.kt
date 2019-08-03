@@ -19,6 +19,6 @@ interface VideoListContract {
 
     interface Presenter : IPresenter<View> {
 
-        fun requestData(videoId: String, page: Int)
+        fun requestData(videoId: String, page: Int,isRefresh :Boolean)
     }
 }

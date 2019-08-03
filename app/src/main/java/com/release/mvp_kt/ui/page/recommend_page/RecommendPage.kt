@@ -39,10 +39,11 @@ class RecommendPage : BaseMvpFragment<RecommendPageContract.View, RecommendPageC
 
 
         refresh_layout.run {
+            refresh_layout.setEnableLoadMore(false)
             setOnRefreshListener {
                 isRefresh = true
                 mAdapter.setEnableLoadMore(false)
-                mPresenter?.requestData(BaseURL.RECOMMEND_ID, Constant.PAGE)
+                mPresenter?.requestData(BaseURL.RECOMMEND_ID, Constant.PAGE, true)
                 finishRefresh(1000)
             }
         }
@@ -75,7 +76,7 @@ class RecommendPage : BaseMvpFragment<RecommendPageContract.View, RecommendPageC
     }
 
     override fun startNet() {
-        mPresenter?.requestData(BaseURL.RECOMMEND_ID, Constant.PAGE)
+        mPresenter?.requestData(BaseURL.RECOMMEND_ID, Constant.PAGE, false)
     }
 
     override fun loadData(data: List<NewslistBean>) {

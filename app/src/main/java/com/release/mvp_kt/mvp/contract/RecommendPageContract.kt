@@ -16,6 +16,6 @@ interface RecommendPageContract {
     }
 
     interface Presenter : IPresenter<View> {
-        fun requestData(recommendId: String, number: Int)
+        fun requestData(recommendId: String, number: Int,isRefresh :Boolean)
     }
 }

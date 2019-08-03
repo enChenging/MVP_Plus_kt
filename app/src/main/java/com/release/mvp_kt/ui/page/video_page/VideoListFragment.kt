@@ -56,14 +56,14 @@ class VideoListFragment : BaseMvpFragment<VideoListContract.View, VideoListContr
             setOnRefreshListener {
                 isRefresh = true
                 mAdapter.setEnableLoadMore(false)
-                mPresenter?.requestData(mVideoId,0)
+                mPresenter?.requestData(mVideoId,0,true)
                 finishRefresh(1000)
             }
 
             setOnLoadMoreListener {
                 isRefresh = false
                 val page = mAdapter.data.size / Constant.PAGE_TEN
-                mPresenter?.requestData(mVideoId,page)
+                mPresenter?.requestData(mVideoId,page,false)
                 finishLoadMore(1000)
             }
         }
@@ -92,7 +92,7 @@ class VideoListFragment : BaseMvpFragment<VideoListContract.View, VideoListContr
     }
 
     override fun startNet() {
-        mPresenter?.requestData(mVideoId, 0)
+        mPresenter?.requestData(mVideoId, 0,false)
     }
 
     override fun loadData(data: List<VideoInfoBean>) {

@@ -12,6 +12,11 @@ import com.release.mvp_kt.ext.showToast
 import com.release.mvp_kt.utils.CommonUtil
 import com.release.mvp_kt.utils.CrashHandler
 import com.release.mvp_kt.utils.DisplayManager
+import com.scwang.smartrefresh.header.TaurusHeader
+import com.scwang.smartrefresh.layout.SmartRefreshLayout
+import com.scwang.smartrefresh.layout.api.*
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter
 import com.tencent.bugly.Bugly
 import com.tencent.bugly.beta.Beta
 import com.tencent.bugly.beta.upgrade.UpgradeStateListener
@@ -30,6 +35,22 @@ class App : MultiDexApplication() {
     companion object {
         var context: Context by Delegates.notNull()
         lateinit var instance: Application
+
+        init {
+            //设置全局的Header构建器
+            SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, layout ->
+                layout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white)//全局设置主题颜色
+                //指定为经典Header，默认是 贝塞尔雷达Header
+                TaurusHeader(context)
+            }
+            //设置全局的Footer构建器
+            SmartRefreshLayout.setDefaultRefreshFooterCreator { context, layout ->
+                layout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white)
+                //指定为经典Footer，默认是 BallPulseFooter
+                //ClassicsFooter(context).setDrawableSize(20);
+                BallPulseFooter(context).setSpinnerStyle(SpinnerStyle.Scale)
+            }
+        }
     }
 
     override fun onCreate() {
