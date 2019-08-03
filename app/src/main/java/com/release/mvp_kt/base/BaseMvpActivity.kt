@@ -56,10 +56,6 @@ abstract class BaseMvpActivity<in V : IView, P : IPresenter<V>> : BaseActivity()
         showToast(errorMsg)
     }
 
-    override fun showDefaultMsg(msg: String) {
-        showToast(msg)
-    }
-
     override fun showMsg(msg: String) {
         showToast(msg)
     }

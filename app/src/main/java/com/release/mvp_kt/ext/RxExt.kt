@@ -37,7 +37,7 @@ fun <T> Observable<T>.ext(
                 if (isShowLoading) view?.showLoading()
 
                 if (!NetWorkUtil.isNetworkConnected(App.instance)) {
-                    view?.showDefaultMsg(App.instance.resources.getString(R.string.network_unavailable_tip))
+                    view?.showMsg(App.instance.resources.getString(R.string.network_unavailable_tip))
                     onComplete()
                 }
             }
@@ -77,7 +77,7 @@ fun <T : BaseBean> Observable<T>.ss(
                 if (isShowLoading) view?.showLoading()
 
                 if (!NetWorkUtil.isNetworkConnected(App.instance)) {
-                    view?.showDefaultMsg(App.instance.resources.getString(R.string.network_unavailable_tip))
+                    view?.showMsg(App.instance.resources.getString(R.string.network_unavailable_tip))
                     onComplete()
                 }
             }
@@ -86,9 +86,9 @@ fun <T : BaseBean> Observable<T>.ss(
                 when {
                     t.errorCode == ErrorStatus.SUCCESS -> onSuccess.invoke(t)
                     t.errorCode == ErrorStatus.TOKEN_INVALID -> {
-                        view?.showDefaultMsg("Token 过期，重新登录")
+                        view?.showMsg("Token 过期，重新登录")
                     }
-                    else -> view?.showDefaultMsg(t.errorMsg)
+                    else -> view?.showMsg(t.errorMsg)
                 }
             }
 
@@ -121,7 +121,7 @@ fun <T : BaseBean> Observable<T>.sss(
                 it.errorCode == ErrorStatus.TOKEN_INVALID -> {
                     // Token 过期，重新登录
                 }
-                else -> view?.showDefaultMsg(it.errorMsg)
+                else -> view?.showMsg(it.errorMsg)
             }
             view?.hideLoading()
         }, {

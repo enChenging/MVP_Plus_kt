@@ -189,10 +189,6 @@ class NewsDetailActivity : BaseMvpActivity<NewsDetailContract.View, NewsDetailCo
         }
     }
 
-    override fun onStop() {
-        super.onStop()
-        finish()
-    }
 
     override fun onDestroy() {
         super.onDestroy()

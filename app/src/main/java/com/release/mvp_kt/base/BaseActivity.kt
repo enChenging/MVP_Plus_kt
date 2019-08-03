@@ -143,18 +143,18 @@ abstract class BaseActivity : AppCompatActivity() {
 
         StatusBarUtil.setColor(this, mThemeColor, 0)
 
-//        //ActionBar颜色
-//        if (this.supportActionBar != null) {
-//            this.supportActionBar?.setBackgroundDrawable(ColorDrawable(mThemeColor))
-//        }
-//        //底部带返回键手机的导航栏颜色
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            if (SettingUtil.getNavBar()) {
-//                window.navigationBarColor = CircleView.shiftColorDown(mThemeColor)
-//            } else {
-//                window.navigationBarColor = Color.BLACK
-//            }
-//        }
+        //ActionBar颜色
+        if (this.supportActionBar != null) {
+            this.supportActionBar?.setBackgroundDrawable(ColorDrawable(mThemeColor))
+        }
+        //底部带返回键手机的导航栏颜色
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (SettingUtil.getNavBar()) {
+                window.navigationBarColor = CircleView.shiftColorDown(mThemeColor)
+            } else {
+                window.navigationBarColor = Color.BLACK
+            }
+        }
     }
 
 

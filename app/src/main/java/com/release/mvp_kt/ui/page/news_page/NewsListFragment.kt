@@ -19,7 +19,6 @@ import com.release.mvp_kt.ui.adpater.item.NewsMultiItem
 import com.release.mvp_kt.utils.ImageLoader
 import com.release.mvp_kt.utils.NewsUtils
 import kotlinx.android.synthetic.main.fragment_news_list.*
-import kotlinx.android.synthetic.main.item_newslist_banner.*
 
 
 /**
@@ -47,7 +46,6 @@ class NewsListFragment : BaseMvpFragment<NewsListContract.View, NewsListContract
 
     override fun initLayoutID(): Int = R.layout.fragment_news_list
 
-    private var mPage: Int = 0
     private lateinit var newsId: String
     private lateinit var newsTitle: String
     private var isRefresh = true
@@ -145,7 +143,7 @@ class NewsListFragment : BaseMvpFragment<NewsListContract.View, NewsListContract
         }
 
     override fun startNet() {
-        mPresenter?.requestData(newsId, mPage)
+        mPresenter?.requestData(newsId, 0)
     }
 
     override fun loadAdData(data: NewsInfoBean) {
