@@ -51,6 +51,7 @@ class SplashActivity : BaseActivity() {
     }
 
     private fun jump() {
+        finish()
         Intent(this, MainActivity::class.java).run {
             startActivity(this)
             overridePendingTransition(R.anim.slide_right_entry, R.anim.hold)
