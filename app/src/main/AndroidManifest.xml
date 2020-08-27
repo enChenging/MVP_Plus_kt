@@ -13,6 +13,7 @@
             android:networkSecurityConfig="@xml/network_security_config"
             tools:ignore="GoogleAppIndexingWarning">
         <activity android:name="com.release.mvp_kt.ui.activity.SplashActivity"
+            android:theme="@style/AppLauncher"
                   android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
