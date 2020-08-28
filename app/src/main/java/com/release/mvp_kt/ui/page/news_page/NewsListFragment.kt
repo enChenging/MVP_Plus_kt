@@ -28,7 +28,8 @@ import kotlinx.android.synthetic.main.fragment_news_list.*
  * @create 2019/3/22
  * @Describe
  */
-class NewsListFragment : BaseMvpFragment<NewsListContract.View, NewsListContract.Presenter>(), NewsListContract.View {
+class NewsListFragment : BaseMvpFragment<NewsListContract.View, NewsListContract.Presenter>(),
+    NewsListContract.View {
 
     companion object {
 
@@ -66,7 +67,7 @@ class NewsListFragment : BaseMvpFragment<NewsListContract.View, NewsListContract
     override fun initView(view: View) {
         super.initView(view)
         mAdapter.run {
-            openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT)
+            setAnimationWithDefault(BaseQuickAdapter.AnimationType.SlideInLeft)
         }
 
         rv_news_list.run {
@@ -79,7 +80,7 @@ class NewsListFragment : BaseMvpFragment<NewsListContract.View, NewsListContract
         refresh_layout.run {
             setOnRefreshListener {
                 isRefresh = true
-                mAdapter.setEnableLoadMore(false)
+                mAdapter.footerWithEmptyEnable = false
                 mPresenter?.requestData(newsId, 0, true)
                 finishRefresh(1000)
             }
@@ -98,7 +99,8 @@ class NewsListFragment : BaseMvpFragment<NewsListContract.View, NewsListContract
 
     private fun initBanner() {
         val bannerView = layoutInflater.inflate(R.layout.item_newslist_banner, null)
-        mAdapter.addHeaderView(bannerView)
+        if (!mAdapter.hasHeaderLayout())
+            mAdapter.addHeaderView(bannerView)
         banner = bannerView.findViewById<BGABanner>(R.id.banner)
         banner?.run {
             setDelegate(bannerDelegate)
@@ -130,9 +132,21 @@ class NewsListFragment : BaseMvpFragment<NewsListContract.View, NewsListContract
             val itemNewsBean = item.newsBean
             when (item.itemType) {
                 NewsMultiItem.ITEM_TYPE_NORMAL -> if (NewsUtils.isNewsSpecial(itemNewsBean.skipType))
-                    activity?.let { NewsSpecialActivity.start(it, itemNewsBean.specialID, itemNewsBean.title) }
+                    activity?.let {
+                        NewsSpecialActivity.start(
+                            it,
+                            itemNewsBean.specialID,
+                            itemNewsBean.title
+                        )
+                    }
                 else
-                    activity?.let { NewsDetailActivity.start(it, itemNewsBean.postid, itemNewsBean.title) }
+                    activity?.let {
+                        NewsDetailActivity.start(
+                            it,
+                            itemNewsBean.postid,
+                            itemNewsBean.title
+                        )
+                    }
                 NewsMultiItem.ITEM_TYPE_PHOTO_SET -> activity?.let {
                     PhotoAlbumActivity.start(
                         it,

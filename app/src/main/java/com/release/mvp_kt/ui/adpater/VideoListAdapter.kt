@@ -3,7 +3,7 @@ package com.release.mvp_kt.ui.adpater
 import cn.jzvd.Jzvd
 import cn.jzvd.JzvdStd
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
+import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.release.mvp_kt.R
 import com.release.mvp_kt.mvp.model.VideoInfoBean
 import com.release.mvp_kt.utils.DefIconFactory
@@ -14,7 +14,7 @@ import com.release.mvp_kt.utils.ImageLoader
  * @create 2019/4/16
  * @Describe
  */
-class VideoListAdapter(layoutResId: Int, data: List<VideoInfoBean>?) :
+class VideoListAdapter(layoutResId: Int, data: MutableList<VideoInfoBean>?) :
     BaseQuickAdapter<VideoInfoBean, BaseViewHolder>(layoutResId, data) {
 
     override fun convert(holder: BaseViewHolder, item: VideoInfoBean) {
@@ -25,6 +25,6 @@ class VideoListAdapter(layoutResId: Int, data: List<VideoInfoBean>?) :
 
         videoplayer.setUp(item.mp4_url, item.title, Jzvd.SCREEN_NORMAL)
 
-        ImageLoader.loadFitCenter(mContext, item.cover, videoplayer.thumbImageView, DefIconFactory.provideIcon())
+        ImageLoader.loadFitCenter(context, item.cover, videoplayer.thumbImageView, DefIconFactory.provideIcon())
     }
 }

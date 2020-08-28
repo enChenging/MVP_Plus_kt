@@ -3,7 +3,7 @@ package com.release.mvp_kt.mvp.model
 data class RecommendPageBean(
     val code: Int,
     val msg: String,
-    val newslist: List<NewslistBean>
+    val newslist: MutableList<NewslistBean>
 ) {
     override fun toString(): String {
         return "RecommendPageBean(code=$code, msg='$msg', newslist=$newslist)"

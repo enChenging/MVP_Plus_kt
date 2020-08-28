@@ -41,10 +41,9 @@ import kotlinx.android.synthetic.main.activity_special.*
  * @create 2019/4/15
  * @Describe
  */
-@Suppress("DEPRECATION", "PLUGIN_WARNING")
+
 class NewsSpecialActivity : BaseMvpActivity<NewsSpacialContract.View, NewsSpacialContract.Presenter>(),
     NewsSpacialContract.View {
-
 
     companion object {
         fun start(context: Context, newsId: String, title: String) {
@@ -85,7 +84,7 @@ class NewsSpecialActivity : BaseMvpActivity<NewsSpacialContract.View, NewsSpacia
         tool_bar.setTitleText(title)
 
         mAdapter.run {
-            openLoadAnimation(BaseQuickAdapter.SCALEIN)
+            setAnimationWithDefault(BaseQuickAdapter.AnimationType.SlideInLeft)
         }
 
         rv_news_list.run {
@@ -116,7 +115,7 @@ class NewsSpecialActivity : BaseMvpActivity<NewsSpacialContract.View, NewsSpacia
         mAdapter.addHeaderView(headView)
     }
 
-    override fun loadData(data: List<SpecialItem>) {
+    override fun loadData(data: MutableList<SpecialItem>) {
 
         mAdapter.setNewData(data)
         handleTagLayout(data)
@@ -166,7 +165,7 @@ class NewsSpecialActivity : BaseMvpActivity<NewsSpacialContract.View, NewsSpacia
             .compose(SchedulerUtils.ioToMain())
             .filter(object : Predicate<SpecialItem> {
                 var i = 0
-                var index = mAdapter.getHeaderViewsCount()  // 存在一个 HeadView 所以从1算起
+                var index = mAdapter.headerLayoutCount // 存在一个 HeadView 所以从1算起
 
                 @Throws(Exception::class)
                 override fun test(specialItem: SpecialItem): Boolean {
@@ -190,11 +189,11 @@ class NewsSpecialActivity : BaseMvpActivity<NewsSpacialContract.View, NewsSpacia
         }
     }
 
-    private fun clipHeadStr(headStr: String): String? {
+    private fun clipHeadStr(headStr: String?): String? {
         var head: String? = null
-        val index = headStr.indexOf(" ")
+        val index = headStr?.indexOf(" ")
         if (index != -1) {
-            head = headStr.substring(index, headStr.length)
+            head = headStr?.substring(index!!, headStr.length)
         }
         return head
     }

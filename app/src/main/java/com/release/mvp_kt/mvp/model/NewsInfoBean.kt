@@ -109,7 +109,7 @@ data class TopiclistNewsBean(
 )
 
 /************************************ 整合专题和详情的新闻列表 *******************************************/
-data class NewsItemInfoBean(
+ class NewsItemInfoBean(
     val id: String,
     val docID: String,
     val type: String,

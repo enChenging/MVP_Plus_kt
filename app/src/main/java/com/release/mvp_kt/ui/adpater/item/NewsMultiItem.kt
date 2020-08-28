@@ -13,11 +13,8 @@ class NewsMultiItem(@param:NewsItemType private val mItemType: Int, val newsBean
         const val ITEM_TYPE_PHOTO_SET = 2
     }
 
-
-
-    override fun getItemType(): Int {
-        return mItemType
-    }
+    override val itemType: Int
+        get() = mItemType
 
     override fun toString(): String {
         return "NewsMultiItem(mItemType=$mItemType, newsBean=$newsBean)"

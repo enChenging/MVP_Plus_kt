@@ -3,7 +3,7 @@ package com.release.mvp_kt.ui.adpater
 import android.view.View
 import android.widget.ImageView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
+import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.flyco.labelview.LabelView
 import com.release.mvp_kt.R
 import com.release.mvp_kt.mvp.model.NewsInfoBean
@@ -22,7 +22,7 @@ import kotlin.math.min
  * @create 2019/3/22
  * @Describe
  */
-class NewsListAdapter(data: List<NewsMultiItem>?, title: String) :
+class NewsListAdapter(data: MutableList<NewsMultiItem>?, title: String) :
     BaseMultiItemQuickAdapter<NewsMultiItem, BaseViewHolder>(data) {
 
 
@@ -49,7 +49,7 @@ class NewsListAdapter(data: List<NewsMultiItem>?, title: String) :
     private fun handleNewsNormal(holder: BaseViewHolder, item: NewsInfoBean) {
 
         val newsIcon = holder.getView<ImageView>(R.id.iv_icon)
-        ImageLoader.loadCenterCrop(mContext, item.imgsrc, newsIcon, DefIconFactory.provideIcon())
+        ImageLoader.loadCenterCrop(context, item.imgsrc, newsIcon, DefIconFactory.provideIcon())
         holder.setText(R.id.tv_title, item.title)
             .setText(R.id.tv_source, StringUtils.clipNewsSource(item.source))
             .setText(R.id.tv_time, item.ptime)
@@ -65,9 +65,9 @@ class NewsListAdapter(data: List<NewsMultiItem>?, title: String) :
         val rippleLayout = holder.getView<RippleView>(R.id.item_ripple)
         rippleLayout.setOnRippleCompleteListener {
             if (NewsUtils.isNewsSpecial(item.skipType))
-                NewsSpecialActivity.start(mContext, item.specialID,mTitle)
+                NewsSpecialActivity.start(context, item.specialID,mTitle)
             else
-                NewsDetailActivity.start(mContext, item.postid, mTitle)
+                NewsDetailActivity.start(context, item.postid, mTitle)
         }
     }
 
@@ -83,13 +83,13 @@ class NewsListAdapter(data: List<NewsMultiItem>?, title: String) :
         newsPhoto[1] = holder.getView<ImageView>(R.id.iv_icon_2)
         newsPhoto[2] = holder.getView<ImageView>(R.id.iv_icon_3)
         holder.setVisible(R.id.iv_icon_2, false).setVisible(R.id.iv_icon_3, false)
-        newsPhoto[0]?.let { ImageLoader.loadCenterCrop(mContext, item.imgsrc, it, DefIconFactory.provideIcon()) }
+        newsPhoto[0]?.let { ImageLoader.loadCenterCrop(context, item.imgsrc, it, DefIconFactory.provideIcon()) }
         if (!ListUtils.isEmpty(item.imgextra)) {
             for (i in 0 until min(2, item.imgextra.size)) {
                 newsPhoto[i + 1]?.visibility = View.VISIBLE
                 newsPhoto[i + 1]?.let {
                     ImageLoader.loadCenterCrop(
-                        mContext, item.imgextra[i].imgsrc,
+                        context, item.imgextra[i].imgsrc,
                         it, DefIconFactory.provideIcon()
                     )
                 }
@@ -100,6 +100,6 @@ class NewsListAdapter(data: List<NewsMultiItem>?, title: String) :
             .setText(R.id.tv_time, item.ptime)
         // 波纹效果
         val rippleLayout = holder.getView<RippleView>(R.id.item_ripple)
-        rippleLayout.setOnRippleCompleteListener { PhotoAlbumActivity.start(mContext, item.photosetID) }
+        rippleLayout.setOnRippleCompleteListener { PhotoAlbumActivity.start(context, item.photosetID) }
     }
 }

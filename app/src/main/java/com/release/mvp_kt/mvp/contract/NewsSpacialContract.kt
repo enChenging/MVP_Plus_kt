@@ -17,7 +17,7 @@ interface NewsSpacialContract {
 
         fun loadHead(data: SpecialInfoBean)
 
-        fun loadData(data: List<SpecialItem>)
+        fun loadData(data: MutableList<SpecialItem>)
     }
 
     interface Presenter : IPresenter<View> {

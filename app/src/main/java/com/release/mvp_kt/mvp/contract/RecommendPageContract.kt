@@ -12,7 +12,7 @@ import com.release.mvp_kt.mvp.model.NewslistBean
 interface RecommendPageContract {
 
     interface View : IView {
-        fun loadData(data: List<NewslistBean>)
+        fun loadData(data: MutableList<NewslistBean>)
     }
 
     interface Presenter : IPresenter<View> {

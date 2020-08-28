@@ -42,7 +42,7 @@ class RecommendPage : BaseMvpFragment<RecommendPageContract.View, RecommendPageC
             refresh_layout.setEnableLoadMore(false)
             setOnRefreshListener {
                 isRefresh = true
-                mAdapter.setEnableLoadMore(false)
+                mAdapter.footerWithEmptyEnable = false
                 mPresenter?.requestData(BaseURL.RECOMMEND_ID, Constant.PAGE, true)
                 finishRefresh(1000)
             }
@@ -55,7 +55,7 @@ class RecommendPage : BaseMvpFragment<RecommendPageContract.View, RecommendPageC
         }
 
         mAdapter.run {
-            onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
+            setOnItemClickListener{ adapter, _, position ->
                 val bean = adapter.data[position] as NewslistBean
 
                 val options: ActivityOptions = ActivityOptions.makeScaleUpAnimation(
@@ -79,9 +79,9 @@ class RecommendPage : BaseMvpFragment<RecommendPageContract.View, RecommendPageC
         mPresenter?.requestData(BaseURL.RECOMMEND_ID, Constant.PAGE, false)
     }
 
-    override fun loadData(data: List<NewslistBean>) {
+    override fun loadData(data: MutableList<NewslistBean>) {
 
-        mAdapter.setNewData(data)
+        mAdapter.setList(data)
     }
 
 }

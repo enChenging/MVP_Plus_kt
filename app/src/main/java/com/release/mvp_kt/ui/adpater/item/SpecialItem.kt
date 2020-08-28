@@ -3,9 +3,25 @@ package com.release.mvp_kt.ui.adpater.item
 import com.chad.library.adapter.base.entity.SectionEntity
 import com.release.mvp_kt.mvp.model.NewsItemInfoBean
 
-class SpecialItem : SectionEntity<NewsItemInfoBean> {
+class SpecialItem(override val isHeader: Boolean) : SectionEntity {
 
-    constructor(isHeader: Boolean, header: String) : super(isHeader, header)
+    var header: String = ""
+    lateinit var t: NewsItemInfoBean
 
-    constructor(newsItemBean: NewsItemInfoBean) : super(newsItemBean)
+    constructor(
+        isHeader: Boolean,
+        header: String
+    ) : this(isHeader){
+        this.header = header
+    }
+
+    constructor(
+        newsItemBean: NewsItemInfoBean
+    ) : this(false){
+        this.t = newsItemBean
+    }
+
 }
+
+
+
