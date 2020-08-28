@@ -55,7 +55,6 @@ class VideoListFragment : BaseMvpFragment<VideoListContract.View, VideoListContr
         refresh_layout.run {
             setOnRefreshListener {
                 isRefresh = true
-                mAdapter.loadMoreModule.isEnableLoadMore = false
                 mPresenter?.requestData(mVideoId,0,true)
                 finishRefresh(1000)
             }

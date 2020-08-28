@@ -4,11 +4,10 @@ import android.app.ActivityOptions
 import android.content.Intent
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.release.mvp_kt.R
-import com.release.mvp_kt.http.api.BaseURL
 import com.release.mvp_kt.base.BaseMvpFragment
 import com.release.mvp_kt.constant.Constant
+import com.release.mvp_kt.http.api.BaseURL
 import com.release.mvp_kt.mvp.contract.RecommendPageContract
 import com.release.mvp_kt.mvp.model.NewslistBean
 import com.release.mvp_kt.mvp.presenter.RecommendPagePresenter
@@ -21,7 +20,8 @@ import kotlinx.android.synthetic.main.page_recommend.*
  * @create 2019/3/22
  * @Describe
  */
-class RecommendPage : BaseMvpFragment<RecommendPageContract.View, RecommendPageContract.Presenter>(),
+class RecommendPage :
+    BaseMvpFragment<RecommendPageContract.View, RecommendPageContract.Presenter>(),
     RecommendPageContract.View {
 
     override fun createPresenter(): RecommendPageContract.Presenter = RecommendPagePresenter()
@@ -42,7 +42,6 @@ class RecommendPage : BaseMvpFragment<RecommendPageContract.View, RecommendPageC
             refresh_layout.setEnableLoadMore(false)
             setOnRefreshListener {
                 isRefresh = true
-                mAdapter.loadMoreModule.isEnableLoadMore = false
                 mPresenter?.requestData(BaseURL.RECOMMEND_ID, Constant.PAGE, true)
                 finishRefresh(1000)
             }
@@ -55,7 +54,7 @@ class RecommendPage : BaseMvpFragment<RecommendPageContract.View, RecommendPageC
         }
 
         mAdapter.run {
-            setOnItemClickListener{ adapter, _, position ->
+            setOnItemClickListener { adapter, _, position ->
                 val bean = adapter.data[position] as NewslistBean
 
                 val options: ActivityOptions = ActivityOptions.makeScaleUpAnimation(

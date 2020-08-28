@@ -16,6 +16,7 @@ import com.release.mvp_kt.base.BaseMvpActivity
 import com.release.mvp_kt.ext.showToast
 import com.release.mvp_kt.mvp.contract.MainContract
 import com.release.mvp_kt.mvp.presenter.MainPresenter
+import com.release.mvp_kt.utils.AppManager
 import com.release.mvp_kt.utils.StatusBarUtil
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -119,7 +120,7 @@ open class MainActivity : BaseMvpActivity<MainContract.View, MainContract.Presen
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (!closeDrawableLayout()) {
                 if (System.currentTimeMillis().minus(mExitTime) <= 2000) {
-                    finish()
+                    AppManager.appExit(this)
                 } else {
                     mExitTime = System.currentTimeMillis()
                     showToast(getString(R.string.exit_tip))
