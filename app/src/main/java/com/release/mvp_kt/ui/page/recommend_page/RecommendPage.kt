@@ -42,7 +42,7 @@ class RecommendPage : BaseMvpFragment<RecommendPageContract.View, RecommendPageC
             refresh_layout.setEnableLoadMore(false)
             setOnRefreshListener {
                 isRefresh = true
-                mAdapter.footerWithEmptyEnable = false
+                mAdapter.loadMoreModule.isEnableLoadMore = false
                 mPresenter?.requestData(BaseURL.RECOMMEND_ID, Constant.PAGE, true)
                 finishRefresh(1000)
             }
