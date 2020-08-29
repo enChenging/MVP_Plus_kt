@@ -43,7 +43,7 @@ class NewsListPresenter : BasePresenter<NewsListContract.View>(), NewsListContra
             }
             ?.compose(observableTransformer)
             ?.ext(mView, scopeProvider!!, page == 0 && isShowLoading) {
-                mView?.loadData(it,isRefresh)
+                mView?.loadData(it,isRefresh,isShowLoading)
             }
     }
 

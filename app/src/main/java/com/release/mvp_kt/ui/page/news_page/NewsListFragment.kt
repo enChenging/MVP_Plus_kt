@@ -6,7 +6,6 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import cn.bingoogolapple.bgabanner.BGABanner
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.orhanobut.logger.Logger
 import com.release.mvp_kt.R
 import com.release.mvp_kt.base.BaseMvpFragment
 import com.release.mvp_kt.constant.Constant
@@ -38,7 +37,6 @@ class NewsListFragment : BaseMvpFragment<NewsListContract.View, NewsListContract
     private var bannerImagedList: MutableList<String> = ArrayList()
     private var mAdData: MutableList<NewsMultiItem> = ArrayList()
     private var banner: BGABanner? = null
-    private var isFrist: Boolean = false
 
     private val mAdapter: NewsListAdapter by lazy {
         NewsListAdapter(null, newsTitle)
@@ -78,7 +76,8 @@ class NewsListFragment : BaseMvpFragment<NewsListContract.View, NewsListContract
             adapter = mAdapter
         }
 
-        refresh_layout.run { setOnRefreshListener {
+        refresh_layout.run {
+            setOnRefreshListener {
                 mPresenter?.requestData(newsId, 0, isRefresh = true, isShowLoading = false)
                 finishRefresh(1000)
             }
@@ -161,15 +160,12 @@ class NewsListFragment : BaseMvpFragment<NewsListContract.View, NewsListContract
 
     }
 
-    override fun loadData(data: List<NewsMultiItem>, isRefresh: Boolean) {
-        if (isRefresh || !isFrist)
-            initBannerData(data)
-        isFrist = true
-
+    override fun loadData(data: List<NewsMultiItem>, isRefresh: Boolean, isShowLoading: Boolean) {
         mAdapter.run {
-            if (isRefresh)
+            if (isRefresh || isShowLoading) {
+                initBannerData(data)
                 setList(data)
-            else
+            } else
                 addData(data)
         }
     }

@@ -17,7 +17,7 @@ interface NewsListContract {
 
         fun loadAdData(data: NewsInfoBean)
 
-        fun loadData(data: List<NewsMultiItem>,isRefresh :Boolean)
+        fun loadData(data: List<NewsMultiItem>,isRefresh :Boolean,isShowLoading: Boolean)
     }
 
     interface Presenter : IPresenter<View> {
