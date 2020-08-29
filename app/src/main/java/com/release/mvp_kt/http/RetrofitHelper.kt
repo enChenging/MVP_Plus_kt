@@ -49,10 +49,10 @@ object RetrofitHelper {
         builder.run {
             addInterceptor(httpLoggingInterceptor)
             addInterceptor(HeaderInterceptor2())
-            addNetworkInterceptor(CacheInterceptor())
+//            addNetworkInterceptor(CacheInterceptor())
             sslParams.sSLSocketFactory?.let {
                 sslParams.trustManager?.let { it1 -> sslSocketFactory(it, it1) } }
-            cache(cache)  //添加缓存
+//            cache(cache)  //添加缓存
             connectTimeout(HttpConstant.DEFAULT_TIMEOUT, TimeUnit.SECONDS)
             readTimeout(HttpConstant.DEFAULT_TIMEOUT, TimeUnit.SECONDS)
             writeTimeout(HttpConstant.DEFAULT_TIMEOUT, TimeUnit.SECONDS)

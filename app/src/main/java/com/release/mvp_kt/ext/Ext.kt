@@ -8,9 +8,9 @@ import android.content.Context
 import com.google.android.material.snackbar.Snackbar
 import androidx.core.content.ContextCompat
 import android.view.ViewGroup
-import android.webkit.WebChromeClient
+import com.just.agentweb.WebChromeClient
+import com.just.agentweb.WebViewClient
 import android.webkit.WebView
-import android.webkit.WebViewClient
 import android.widget.TextView
 import com.just.agentweb.AgentWeb
 import com.just.agentweb.DefaultWebClient

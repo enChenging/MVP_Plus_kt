@@ -17,11 +17,11 @@ interface NewsListContract {
 
         fun loadAdData(data: NewsInfoBean)
 
-        fun loadData(data: List<NewsMultiItem>)
+        fun loadData(data: List<NewsMultiItem>,isRefresh :Boolean)
     }
 
     interface Presenter : IPresenter<View> {
 
-        fun requestData(newsId: String, page: Int,isRefresh :Boolean)
+        fun requestData(newsId: String, page: Int,isRefresh :Boolean,isShowLoading: Boolean)
     }
 }

@@ -12,11 +12,11 @@ import com.release.mvp_kt.mvp.contract.RecommendPageContract
  */
 class RecommendPagePresenter : BasePresenter<RecommendPageContract.View>(),
     RecommendPageContract.Presenter {
-    override fun requestData(recommendId: String, number: Int,isRefresh :Boolean) {
+    override fun requestData(recommendId: String, number: Int, isRefresh: Boolean,isShowLoading: Boolean) {
         RetrofitHelper.recommendService
             .getRecommendData(recommendId, number)
-            .ext(mView, scopeProvider!!,!isRefresh) {
-                mView?.loadData(it.newslist)
+            .ext(mView, scopeProvider!!, isShowLoading) {
+                mView?.loadData(it.newslist, isRefresh)
             }
     }
 }

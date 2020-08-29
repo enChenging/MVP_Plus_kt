@@ -38,8 +38,6 @@ class VideoListFragment : BaseMvpFragment<VideoListContract.View, VideoListContr
 
     override fun initLayoutID(): Int = R.layout.fragment_video_list
 
-    private var isRefresh = true
-
     private lateinit var mVideoId: String
 
     private val mAdapter: VideoListAdapter by lazy {
@@ -54,16 +52,14 @@ class VideoListFragment : BaseMvpFragment<VideoListContract.View, VideoListContr
         super.initView(view)
         refresh_layout.run {
             setOnRefreshListener {
-                isRefresh = true
-                mPresenter?.requestData(mVideoId,0,true)
                 finishRefresh(1000)
+                mPresenter?.requestData(mVideoId,0,isRefresh = true, isShowLoading = false)
             }
 
             setOnLoadMoreListener {
-                isRefresh = false
-                val page = mAdapter.data.size / Constant.PAGE_TEN
-                mPresenter?.requestData(mVideoId,page,false)
                 finishLoadMore(1000)
+                val page = mAdapter.data.size / Constant.PAGE_TEN
+                mPresenter?.requestData(mVideoId,page, isRefresh = false, isShowLoading = false)
             }
         }
 
@@ -91,16 +87,15 @@ class VideoListFragment : BaseMvpFragment<VideoListContract.View, VideoListContr
     }
 
     override fun startNet() {
-        mPresenter?.requestData(mVideoId, 0,false)
+        mPresenter?.requestData(mVideoId, 0,isRefresh = false, isShowLoading = true)
     }
 
-    override fun loadData(data: List<VideoInfoBean>) {
+    override fun loadData(data: List<VideoInfoBean>,isRefresh :Boolean) {
         mAdapter.run {
-            if (isRefresh) {
-                replaceData(data)
-            } else {
+            if (isRefresh)
+                setList(data)
+             else
                 addData(data)
-            }
         }
     }
 

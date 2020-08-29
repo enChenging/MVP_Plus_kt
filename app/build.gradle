@@ -20,7 +20,7 @@ android {
 
         ndk {
             // 设置支持的SO库架构
-            abiFilters 'armeabi' , 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+            abiFilters 'armeabi', 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
         }
     }
     buildTypes {
@@ -66,22 +66,22 @@ project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.google.android.material:material:1.2.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.0.0'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.0.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.0'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     testImplementation 'junit:junit:4.12'
 
-    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
-    implementation 'com.squareup.retrofit2:converter-scalars:2.5.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.8.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.8.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.8.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.8.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
 
     implementation 'io.reactivex.rxjava2:rxkotlin:2.3.0'
@@ -93,17 +93,14 @@ dependencies {
     implementation 'com.uber.autodispose:autodispose-android-archcomponents:1.3.0'
 
 
-//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
-//    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
-//    debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
-
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.4'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.3'
-    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.1'
-    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.1'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0'
 
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
-    annotationProcessor 'com.github.bumptech.glide:okhttp3-integration:4.9.0'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:okhttp3-integration:4.11.0'
 
     implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'   //tablayout
     implementation 'com.flyco.labelview:FlycoLabelView_Lib:1.0.2@aar'   //标签
@@ -115,19 +112,17 @@ dependencies {
     implementation 'com.github.Rukey7:DragSlopLayout:1.0.5'
     implementation 'com.yanzhikai:TextPathView:0.2.1'
     implementation 'q.rorbin:VerticalTabLayout:1.2.5'
-    implementation 'com.just.agentweb:agentweb:4.0.2'//webView
+    implementation 'com.just.agentweb:agentweb:4.1.4'//webView
     implementation 'com.github.clans:fab:1.6.4' //FloatingActionButton
-    implementation 'com.github.ybq:Android-SpinKit:1.2.0'//loading视图
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'//loading视图
     implementation 'cn.bingoogolapple:bga-banner:2.2.6'//banner
-
-
     implementation 'cn.jzvd:jiaozivideoplayer:7.0_preview'
     implementation 'org.litepal.android:kotlin:3.0.0'
-    implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation 'org.greenrobot:eventbus:3.2.0'
     implementation 'com.cxz:swipeback:1.0.1'
     implementation 'com.orhanobut:logger:2.2.0'
-    implementation 'com.tencent.bugly:crashreport_upgrade:1.4.1'
-    implementation 'com.tencent.bugly:nativecrashreport:3.7.1'
+    implementation 'com.tencent.bugly:crashreport_upgrade:1.4.5'
+    implementation 'com.tencent.bugly:nativecrashreport:3.7.471'
 
 
 }

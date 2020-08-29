@@ -6,6 +6,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import cn.bingoogolapple.bgabanner.BGABanner
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.orhanobut.logger.Logger
 import com.release.mvp_kt.R
 import com.release.mvp_kt.base.BaseMvpFragment
 import com.release.mvp_kt.constant.Constant
@@ -31,6 +32,19 @@ import kotlinx.android.synthetic.main.fragment_news_list.*
 class NewsListFragment : BaseMvpFragment<NewsListContract.View, NewsListContract.Presenter>(),
     NewsListContract.View {
 
+    private lateinit var newsId: String
+    private lateinit var newsTitle: String
+    private var bannerTitleList: MutableList<String> = ArrayList()
+    private var bannerImagedList: MutableList<String> = ArrayList()
+    private var mAdData: MutableList<NewsMultiItem> = ArrayList()
+    private var banner: BGABanner? = null
+    private var isFrist: Boolean = false
+
+    private val mAdapter: NewsListAdapter by lazy {
+        NewsListAdapter(null, newsTitle)
+    }
+
+
     companion object {
 
         fun newInstance(newsId: String, title: String): NewsListFragment {
@@ -46,18 +60,6 @@ class NewsListFragment : BaseMvpFragment<NewsListContract.View, NewsListContract
     override fun createPresenter(): NewsListContract.Presenter = NewsListPresenter()
 
     override fun initLayoutID(): Int = R.layout.fragment_news_list
-
-    private lateinit var newsId: String
-    private lateinit var newsTitle: String
-    private var isRefresh = true
-    private var bannerTitleList: MutableList<String> = ArrayList()
-    private var bannerImagedList: MutableList<String> = ArrayList()
-    private var mAdData: MutableList<NewsMultiItem> = ArrayList()
-    private var banner: BGABanner? = null
-
-    private val mAdapter: NewsListAdapter by lazy {
-        NewsListAdapter(null, newsTitle)
-    }
 
     override fun initData() {
         newsId = arguments?.getString(NEWS_TYPE_KEY).toString()
@@ -76,18 +78,14 @@ class NewsListFragment : BaseMvpFragment<NewsListContract.View, NewsListContract
             adapter = mAdapter
         }
 
-
-        refresh_layout.run {
-            setOnRefreshListener {
-                isRefresh = true
-                mPresenter?.requestData(newsId, 0, true)
+        refresh_layout.run { setOnRefreshListener {
+                mPresenter?.requestData(newsId, 0, isRefresh = true, isShowLoading = false)
                 finishRefresh(1000)
             }
 
             setOnLoadMoreListener {
-                isRefresh = false
                 val page = mAdapter.data.size / Constant.PAGE
-                mPresenter?.requestData(newsId, page, false)
+                mPresenter?.requestData(newsId, page, isRefresh = false, isShowLoading = false)
                 finishLoadMore(1000)
             }
         }
@@ -156,32 +154,38 @@ class NewsListFragment : BaseMvpFragment<NewsListContract.View, NewsListContract
         }
 
     override fun startNet() {
-        mPresenter?.requestData(newsId, 0, false)
+        mPresenter?.requestData(newsId, 0, isRefresh = false, isShowLoading = true)
     }
 
     override fun loadAdData(data: NewsInfoBean) {
 
     }
 
-    override fun loadData(data: List<NewsMultiItem>) {
-        mAdapter.run {
-            if (isRefresh) {
-                replaceData(data)
+    override fun loadData(data: List<NewsMultiItem>, isRefresh: Boolean) {
+        if (isRefresh || !isFrist)
+            initBannerData(data)
+        isFrist = true
 
-                if (newsId == Constant.NEWS_TOP_TYPE_ID) {
-                    mAdData.clear()
-                    bannerTitleList.clear()
-                    bannerImagedList.clear()
-                    for (i in 10..14) {
-                        val newsBean = data[i].newsBean
-                        bannerTitleList.add(newsBean.title)
-                        mAdData.add(data[i])
-                        bannerImagedList.add(newsBean.imgsrc)
-                    }
-                    banner?.setData(bannerImagedList, bannerTitleList)
-                }
-            } else
+        mAdapter.run {
+            if (isRefresh)
+                setList(data)
+            else
                 addData(data)
+        }
+    }
+
+    private fun initBannerData(data: List<NewsMultiItem>) {
+        if (newsId == Constant.NEWS_TOP_TYPE_ID) {
+            mAdData.clear()
+            bannerTitleList.clear()
+            bannerImagedList.clear()
+            for (i in 10..14) {
+                val newsBean = data[i].newsBean
+                bannerTitleList.add(newsBean.title)
+                mAdData.add(data[i])
+                bannerImagedList.add(newsBean.imgsrc)
+            }
+            banner?.setData(bannerImagedList, bannerTitleList)
         }
     }
 

@@ -21,7 +21,7 @@ import io.reactivex.ObservableTransformer
  */
 class NewsListPresenter : BasePresenter<NewsListContract.View>(), NewsListContract.Presenter {
 
-    override fun requestData(newsId: String, page: Int, isRefresh: Boolean) {
+    override fun requestData(newsId: String, page: Int, isRefresh: Boolean,isShowLoading: Boolean) {
 
         Logger.i("NewsList---newsId:$newsId  page:$page")
         val type: String = if (newsId == BaseURL.HEAD_LINE_NEWS)
@@ -42,8 +42,8 @@ class NewsListPresenter : BasePresenter<NewsListContract.View>(), NewsListContra
                 !NewsUtils.isAbNews(it)//决定了是否将结果返回给订阅者
             }
             ?.compose(observableTransformer)
-            ?.ext(mView, scopeProvider!!, page == 0 && !isRefresh) {
-                mView?.loadData(it)
+            ?.ext(mView, scopeProvider!!, page == 0 && isShowLoading) {
+                mView?.loadData(it,isRefresh)
             }
     }
 

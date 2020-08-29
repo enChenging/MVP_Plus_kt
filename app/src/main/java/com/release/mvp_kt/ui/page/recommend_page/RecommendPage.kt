@@ -32,8 +32,6 @@ class RecommendPage :
         RecommendAdapter(R.layout.item_recommend, null)
     }
 
-    private var isRefresh = true
-
     override fun initView(view: View) {
         super.initView(view)
 
@@ -41,9 +39,10 @@ class RecommendPage :
         refresh_layout.run {
             refresh_layout.setEnableLoadMore(false)
             setOnRefreshListener {
-                isRefresh = true
-                mPresenter?.requestData(BaseURL.RECOMMEND_ID, Constant.PAGE, true)
                 finishRefresh(1000)
+                mPresenter?.requestData(BaseURL.RECOMMEND_ID, Constant.PAGE, true,
+                    isShowLoading = false
+                )
             }
         }
 
@@ -75,10 +74,10 @@ class RecommendPage :
     }
 
     override fun startNet() {
-        mPresenter?.requestData(BaseURL.RECOMMEND_ID, Constant.PAGE, false)
+        mPresenter?.requestData(BaseURL.RECOMMEND_ID, Constant.PAGE, false, isShowLoading = true)
     }
 
-    override fun loadData(data: MutableList<NewslistBean>) {
+    override fun loadData(data: MutableList<NewslistBean>,isRefresh :Boolean) {
 
         mAdapter.setList(data)
     }

@@ -3,7 +3,10 @@ package com.release.mvp_kt.ui.activity
 import android.net.http.SslError
 import android.os.Build
 import android.view.KeyEvent
-import android.webkit.*
+import android.webkit.SslErrorHandler
+import android.webkit.WebResourceRequest
+import android.webkit.WebSettings
+import android.webkit.WebView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.appbar.AppBarLayout
 import com.just.agentweb.AgentWeb
@@ -16,6 +19,8 @@ import com.release.mvp_kt.mvp.contract.WebContracnt
 import com.release.mvp_kt.mvp.presenter.WebPresenter
 import kotlinx.android.synthetic.main.activity_web.*
 import kotlinx.android.synthetic.main.toolbar.*
+import com.just.agentweb.WebChromeClient
+import com.just.agentweb.WebViewClient
 
 /**
  * @author Mr.release

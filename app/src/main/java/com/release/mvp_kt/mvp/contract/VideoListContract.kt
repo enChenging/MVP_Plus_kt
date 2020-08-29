@@ -14,11 +14,11 @@ interface VideoListContract {
 
     interface View : IView {
 
-        fun loadData(data: List<VideoInfoBean>)
+        fun loadData(data: List<VideoInfoBean>,isRefresh :Boolean)
     }
 
     interface Presenter : IPresenter<View> {
 
-        fun requestData(videoId: String, page: Int,isRefresh :Boolean)
+        fun requestData(videoId: String, page: Int,isRefresh :Boolean,isShowLoading: Boolean)
     }
 }

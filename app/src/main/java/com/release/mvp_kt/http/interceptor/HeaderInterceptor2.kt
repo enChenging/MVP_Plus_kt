@@ -1,14 +1,16 @@
 package com.release.mvp_kt.http.interceptor
 
+import android.webkit.WebSettings
 import com.orhanobut.logger.Logger
+import com.release.mvp_kt.App
 import okhttp3.Interceptor
 import okhttp3.RequestBody
 import okhttp3.Response
-import okhttp3.ResponseBody
 import okio.Buffer
 import okio.BufferedSink
 import java.io.UnsupportedEncodingException
 import java.net.URLDecoder
+
 
 /**
  * @author Mr.release
@@ -24,7 +26,6 @@ class HeaderInterceptor2 : Interceptor {
         val response = chain.proceed(chain.request())
         val endTime = System.currentTimeMillis()
         val duration = endTime - startTime
-        val mediaType = response.body()!!.contentType()
         val content = response.body()!!.string()
 
         val requestBuffer = Buffer()
@@ -32,25 +33,26 @@ class HeaderInterceptor2 : Interceptor {
 
         if (requestBody != null)
             (requestBuffer as BufferedSink).let { requestBody.writeTo(it) }
-        else
-            Logger.d("HeaderInterceptor2--request.body() == null")
 
         //打印url信息
-        Logger.d(
-            "HeaderInterceptor2---"+request.url().toString() +
-                    if (requestBody != null) "?" + parseParams(requestBody, requestBuffer) else ""
+        Logger.d(request.url().toString() +
+                if (requestBody != null) "?" + parseParams(requestBody, requestBuffer) else ""
         )
 
-        Logger.d(content)
+        Logger.d("$duration 毫秒 \n $content")
 
-        return response.newBuilder()
-            .body(ResponseBody.create(mediaType, content))
+        request.newBuilder()
+            .removeHeader("User-Agent") //移除旧的
+            .addHeader("User-Agent", WebSettings.getDefaultUserAgent(App.context)) //添加真正的头部
             .build()
+        return chain.proceed(request)
     }
 
     @Throws(UnsupportedEncodingException::class)
     private fun parseParams(body: RequestBody, requestBuffer: Buffer): String {
-        return if (body.contentType() != null && !body.contentType()!!.toString().contains("multipart")) {
+        return if (body.contentType() != null && !body.contentType()!!.toString()
+                .contains("multipart")
+        ) {
             URLDecoder.decode(requestBuffer.readUtf8(), "UTF-8")
         } else "null"
     }
